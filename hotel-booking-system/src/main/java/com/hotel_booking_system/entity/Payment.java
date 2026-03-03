@@ -18,8 +18,11 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String paymentId;
 
+    @Column(nullable = false)
     private String paymentMethod;
+    @Column(nullable = false)
     private BigDecimal amount;
+    @Column(nullable = false)
     private String paymentStatus;
     private LocalDateTime paidAt;
 

@@ -1,5 +1,6 @@
 package com.hotel_booking_system.entity;
 
+import com.hotel_booking_system.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,9 @@ public class BookingStatusHistory {
     private String bookingStatusHistoryId;
 
     private String oldStatus;
+    @Column(nullable = false)
     private String newStatus;
+    @Column(nullable = false)
     private LocalDateTime changedAt;
 
     @ManyToOne
@@ -28,4 +31,9 @@ public class BookingStatusHistory {
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
+
+    @PrePersist
+    protected void onCreate() {
+        changedAt = LocalDateTime.now();
+    }
 }

@@ -18,6 +18,7 @@ public class Amenity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String amenityId;
 
+    @Column(nullable = false, unique = true)
     private String amenityName;
     private String description;
     private LocalDateTime deletedAt;

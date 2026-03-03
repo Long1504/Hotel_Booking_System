@@ -18,6 +18,7 @@ public class View {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String viewId;
 
+    @Column(nullable = false, unique = true)
     private String viewName;
     private String description;
     private LocalDateTime deletedAt;

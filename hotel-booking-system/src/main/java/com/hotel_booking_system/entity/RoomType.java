@@ -18,6 +18,7 @@ public class RoomType {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String roomTypeId;
 
+    @Column(nullable = false, unique = true)
     private String roomTypeName;
     private String description;
     private LocalDateTime deletedAt;

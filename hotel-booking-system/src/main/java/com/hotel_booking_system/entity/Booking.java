@@ -1,5 +1,7 @@
 package com.hotel_booking_system.entity;
 
+import com.hotel_booking_system.enums.BookingStatus;
+import com.hotel_booking_system.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,17 +22,28 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String bookingId;
 
+    @Column(nullable = false, unique = true)
     private String bookingCode;
+    @Column(nullable = false)
     private LocalDate checkInDate;
+    @Column(nullable = false)
     private LocalDate checkOutDate;
+    @Column(nullable = false)
     private String guestName;
+    @Column(nullable = false)
     private String guestPhone;
+    @Column(nullable = false)
     private String guestEmail;
+    @Column(nullable = false)
     private Integer adults;
+    @Column(nullable = false)
     private Integer children;
     private String note;
+    @Column(nullable = false)
     private BigDecimal totalPrice;
+    @Column(nullable = false)
     private LocalDateTime createdAt;
+    @Column(nullable = false)
     private String bookingStatus;
 
     @ManyToOne
@@ -43,4 +56,10 @@ public class Booking {
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingStatusHistory> bookingStatusHistories;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        bookingStatus = BookingStatus.PENDING.name();
+    }
 }

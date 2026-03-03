@@ -19,14 +19,22 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String roomId;
 
+    @Column(nullable = false)
     private String roomName;
+    @Column(nullable = false, unique = true)
     private String roomNumber;
+    @Column(nullable = false)
     private Integer floor;
+    @Column(nullable = false)
     private BigDecimal basePrice;
+    @Column(nullable = false)
     private Integer maxAdults;
+    @Column(nullable = false)
     private Integer maxChildren;
+    @Column(nullable = false)
     private BigDecimal area;
     private String description;
+    @Column(nullable = false)
     private String roomStatus;
     private LocalDateTime deletedAt;
 

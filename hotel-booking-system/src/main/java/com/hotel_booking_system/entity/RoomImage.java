@@ -15,7 +15,9 @@ public class RoomImage {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String roomImageId;
 
+    @Column(nullable = false)
     private String imageUrl;
+    @Column(nullable = false)
     private Boolean isMain;
 
     @ManyToOne

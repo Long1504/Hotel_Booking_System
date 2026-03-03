@@ -17,8 +17,10 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String serviceId;
 
+    @Column(nullable = false, unique = true)
     private String serviceName;
     private String description;
+    @Column(nullable = false)
     private String imageUrl;
     private LocalDateTime deletedAt;
 }
