@@ -13,6 +13,8 @@ public enum ErrorCode {
     UNAUTHENTICATED(1000, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1001, "Unauthorized", HttpStatus.FORBIDDEN),
     INVALID_TOKEN(1002, "Invalid token", HttpStatus.UNAUTHORIZED),
+    ACCOUNT_LOCKED(1003, "Account is locked", HttpStatus.LOCKED),
+    INVALID_CREDENTIALS(1004, "Invalid username or password", HttpStatus.UNAUTHORIZED),
 
     // Role
     ROLE_NOT_FOUND(2001, "Role not found", HttpStatus.NOT_FOUND),

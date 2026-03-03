@@ -1,6 +1,7 @@
 package com.hotel_booking_system.exception;
 
 import com.hotel_booking_system.dto.response.ApiResponse;
+import com.nimbusds.jose.JOSEException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -25,6 +26,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AppException.class)
     public ResponseEntity<ApiResponse> handleAppException(AppException exception) {
         ErrorCode errorCode = exception.getErrorCode();
+
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setCode(errorCode.getCode());
+        apiResponse.setMessage(errorCode.getMessage());
+
+        return ResponseEntity.status(errorCode.getStatusCode()).body(apiResponse);
+    }
+
+    @ExceptionHandler(value = {JOSEException.class, ParseException.class})
+    ResponseEntity<ApiResponse> handleTokenExceptions(Exception exception) {
+        ErrorCode errorCode = ErrorCode.INVALID_TOKEN;
 
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(errorCode.getCode());
