@@ -1,6 +1,6 @@
-CREATE DATABASE hotel_booking;
+CREATE DATABASE hotel_booking_system;
 
-USE hotel_booking;
+USE hotel_booking_system;
 
 -- 1. Bảng ROLES
 CREATE TABLE roles (
@@ -152,7 +152,7 @@ CREATE TABLE payments (
     payment_method VARCHAR(50) NOT NULL,
     amount DECIMAL(12, 2) NOT NULL,
     payment_status VARCHAR(20) NOT NULL,
-    paid_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    paid_at TIMESTAMP,
     booking_id CHAR(36) NOT NULL UNIQUE,
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
     CHECK (amount >= 0)
@@ -163,6 +163,11 @@ CREATE TABLE services (
     service_id CHAR(36) PRIMARY KEY,
     service_name VARCHAR(100) NOT NULL UNIQUE,
     description VARCHAR(255),
-    image_url VARCHAR(255),
+    image_url VARCHAR(255) NOT NULL,
     deleted_at TIMESTAMP DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE invalidated_token (
+	id VARCHAR(36) PRIMARY KEY,
+    expiry_time DATE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
