@@ -7,8 +7,13 @@ spring:
   application:
     name: hotel-booking-system
 
+  security:
+    user:
+      name: admin
+      password: 12345678
+
   datasource:
-    url: "jdbc:mysql://localhost:3306/hotel_booking_db"
+    url: "jdbc:mysql://localhost:3306/hotel_booking_system"
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     username: root
     password:
