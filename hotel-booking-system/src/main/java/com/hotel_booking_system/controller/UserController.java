@@ -48,4 +48,12 @@ public class UserController {
                 .result(userService.getUserByUserId(userId))
                 .build();
     }
+
+    @GetMapping("/my-info")
+    public ApiResponse<UserResponse> getMyInfo() {
+        return ApiResponse.<UserResponse>builder()
+                .message("Lấy thông tin cá nhân thành công")
+                .result(userService.getMyInfo())
+                .build();
+    }
 }
