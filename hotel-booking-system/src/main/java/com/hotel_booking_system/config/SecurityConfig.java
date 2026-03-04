@@ -44,7 +44,7 @@ public class SecurityConfig {
     };
 
     private final String[] ADMIN_ENDPOINTS_PUT = {
-            "/api/v1/users/*"
+            "/api/v1/users"
     };
 
     private final String[] ADMIN_ENDPOINTS_DELETE = {
@@ -56,11 +56,11 @@ public class SecurityConfig {
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_GET = {
-            "/api/v1/users/my-info"
+            // "/api/v1/users/my-info"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_PUT = {
-
+            // "/api/v1/users/my-info"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_DELETE = {
@@ -72,11 +72,11 @@ public class SecurityConfig {
     };
 
     private final String[] CUSTOMER_ENDPOINTS_GET = {
-            "/api/v1/users/my-info"
+            // "/api/v1/users/my-info"
     };
 
     private final String[] CUSTOMER_ENDPOINTS_PUT = {
-
+            // "/api/v1/users/my-info"
     };
 
     private final String[] CUSTOMER_ENDPOINTS_DELETE = {
@@ -89,16 +89,20 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> request
+                        // PUBLIC
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST).permitAll()
                         .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET).permitAll()
+                        // ADMIN
                         .requestMatchers(HttpMethod.POST, ADMIN_ENDPOINTS_POST).hasRole(RoleName.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, ADMIN_ENDPOINTS_GET).hasRole(RoleName.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT, ADMIN_ENDPOINTS_PUT).hasRole(RoleName.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, ADMIN_ENDPOINTS_DELETE).hasRole(RoleName.ADMIN.name())
+                        // RECEPTIONIST
                         .requestMatchers(HttpMethod.POST, RECEPTIONIST_ENDPOINTS_POST).hasRole(RoleName.RECEPTIONIST.name())
                         .requestMatchers(HttpMethod.GET, RECEPTIONIST_ENDPOINTS_GET).hasRole(RoleName.RECEPTIONIST.name())
                         .requestMatchers(HttpMethod.PUT, RECEPTIONIST_ENDPOINTS_PUT).hasRole(RoleName.RECEPTIONIST.name())
                         .requestMatchers(HttpMethod.DELETE, RECEPTIONIST_ENDPOINTS_DELETE).hasRole(RoleName.RECEPTIONIST.name())
+                        // CUSTOMER
                         .requestMatchers(HttpMethod.POST, CUSTOMER_ENDPOINTS_POST).hasRole(RoleName.CUSTOMER.name())
                         .requestMatchers(HttpMethod.GET, CUSTOMER_ENDPOINTS_GET).hasRole(RoleName.CUSTOMER.name())
                         .requestMatchers(HttpMethod.PUT, CUSTOMER_ENDPOINTS_PUT).hasRole(RoleName.CUSTOMER.name())
