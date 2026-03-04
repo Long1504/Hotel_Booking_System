@@ -8,7 +8,7 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "invalidated_token")
+@Table(name = "invalidated_tokens")
 @Getter
 @Setter
 @Builder

@@ -6,6 +6,8 @@ import com.hotel_booking_system.dto.response.UserResponse;
 import com.hotel_booking_system.enums.RoleName;
 import com.hotel_booking_system.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,6 +22,14 @@ public class UserController {
         return ApiResponse.<UserResponse>builder()
                 .message("Tạo tài khoản thành công")
                 .result(userService.createUser(request, RoleName.CUSTOMER.name()))
+                .build();
+    }
+
+    @GetMapping
+    public ApiResponse<Page<UserResponse>> getAllUsersByRoleName(@RequestParam String roleName, Pageable pageable) {
+        return  ApiResponse.<Page<UserResponse>>builder()
+                .message("Lấy danh sách người dùng thành công")
+                .result(userService.getAllUsersByRoleName(roleName, pageable))
                 .build();
     }
 }

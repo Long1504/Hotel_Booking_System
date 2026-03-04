@@ -4,7 +4,6 @@ import com.hotel_booking_system.dto.request.CreateUserRequest;
 import com.hotel_booking_system.dto.response.UserResponse;
 import com.hotel_booking_system.entity.Role;
 import com.hotel_booking_system.entity.User;
-import com.hotel_booking_system.enums.RoleName;
 import com.hotel_booking_system.exception.AppException;
 import com.hotel_booking_system.exception.ErrorCode;
 import com.hotel_booking_system.mapper.UserMapper;
@@ -12,6 +11,8 @@ import com.hotel_booking_system.repository.RoleRepository;
 import com.hotel_booking_system.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,5 +54,10 @@ public class UserService {
         user = userRepository.save(user);
 
         return userMapper.toUserResponse(user);
+    }
+
+    public Page<UserResponse> getAllUsersByRoleName(String roleName, Pageable pageable) {
+        return userRepository.findAllByRolesRoleName(roleName, pageable)
+                .map(user -> userMapper.toUserResponse(user));
     }
 }

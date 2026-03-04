@@ -40,7 +40,7 @@ public class SecurityConfig {
     };
 
     private final String[] ADMIN_ENDPOINTS_GET = {
-
+            "/api/v1/users"
     };
 
     private final String[] ADMIN_ENDPOINTS_PUT = {
