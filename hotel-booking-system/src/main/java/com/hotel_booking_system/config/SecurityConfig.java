@@ -27,7 +27,8 @@ public class SecurityConfig {
     private final CustomJwtDecoder customJwtDecoder;
 
     private final String[] PUBLIC_ENDPOINTS_POST = {
-            "/api/v1/auth/login"
+            "/api/v1/auth/login",
+            "/api/v1/users/register"
     };
 
     private final String[] PUBLIC_ENDPOINTS_GET = {

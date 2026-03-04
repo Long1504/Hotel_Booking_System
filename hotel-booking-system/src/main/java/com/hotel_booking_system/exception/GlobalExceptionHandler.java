@@ -2,6 +2,7 @@ package com.hotel_booking_system.exception;
 
 import com.hotel_booking_system.dto.response.ApiResponse;
 import com.nimbusds.jose.JOSEException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.text.ParseException;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
@@ -47,6 +49,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleGeneralException(Exception exception) {
+        exception.printStackTrace();
+
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
 
         ApiResponse apiResponse = new ApiResponse();

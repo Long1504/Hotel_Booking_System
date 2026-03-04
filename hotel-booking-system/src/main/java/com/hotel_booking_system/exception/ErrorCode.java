@@ -22,7 +22,9 @@ public enum ErrorCode {
 
     // User
     USER_NOT_FOUND(3001, "User not found", HttpStatus.NOT_FOUND),
-    USER_ALREADY_EXISTS(3002, "User already exists", HttpStatus.CONFLICT)
+    USER_ALREADY_EXISTS(3002, "User already exists", HttpStatus.CONFLICT),
+    USERNAME_ALREADY_EXISTS(3003, "Username already exists", HttpStatus.CONFLICT),
+    EMAIL_ALREADY_EXISTS(3004, "Email already exists", HttpStatus.CONFLICT)
     ;
 
     private int code;
