@@ -1,6 +1,7 @@
 package com.hotel_booking_system.controller;
 
 import com.hotel_booking_system.dto.request.CreateUserRequest;
+import com.hotel_booking_system.dto.request.UpdatePasswordRequest;
 import com.hotel_booking_system.dto.request.UpdateUserRequest;
 import com.hotel_booking_system.dto.response.ApiResponse;
 import com.hotel_booking_system.dto.response.UserResponse;
@@ -72,6 +73,14 @@ public class UserController {
         return ApiResponse.<UserResponse>builder()
                 .message("Cập nhật thông tin cá nhân thành công")
                 .result(userService.updateMyInfo(request))
+                .build();
+    }
+
+    @PutMapping("/password")
+    public ApiResponse<UserResponse> updatePassword(@RequestBody UpdatePasswordRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .message("Cập nhật mật khẩu thành công")
+                .result(userService.updatePassword(request))
                 .build();
     }
 }

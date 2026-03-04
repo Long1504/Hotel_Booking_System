@@ -1,6 +1,7 @@
 package com.hotel_booking_system.service;
 
 import com.hotel_booking_system.dto.request.CreateUserRequest;
+import com.hotel_booking_system.dto.request.UpdatePasswordRequest;
 import com.hotel_booking_system.dto.request.UpdateUserRequest;
 import com.hotel_booking_system.dto.response.UserResponse;
 import com.hotel_booking_system.entity.Role;
@@ -138,6 +139,23 @@ public class UserService {
 
         user = userRepository.save(user);
 
+        return userMapper.toUserResponse(user);
+    }
+
+    @Transactional
+    public UserResponse updatePassword(UpdatePasswordRequest request) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        if(!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new AppException(ErrorCode.INVALID_PASSWORD);
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        userRepository.save(user);
         return userMapper.toUserResponse(user);
     }
 }
