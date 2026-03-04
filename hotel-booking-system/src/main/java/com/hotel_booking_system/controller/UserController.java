@@ -83,4 +83,12 @@ public class UserController {
                 .result(userService.updatePassword(request))
                 .build();
     }
+
+    @PutMapping("/{userId}/status")
+    public ApiResponse<UserResponse> changeUserStatus(@PathVariable String userId) {
+        return ApiResponse.<UserResponse>builder()
+                .message("Cập nhật trạng thái tài khoản thành công")
+                .result(userService.changeUserStatus(userId))
+                .build();
+    }
 }

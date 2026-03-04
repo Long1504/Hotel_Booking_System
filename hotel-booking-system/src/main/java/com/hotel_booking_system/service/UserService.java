@@ -6,6 +6,7 @@ import com.hotel_booking_system.dto.request.UpdateUserRequest;
 import com.hotel_booking_system.dto.response.UserResponse;
 import com.hotel_booking_system.entity.Role;
 import com.hotel_booking_system.entity.User;
+import com.hotel_booking_system.enums.UserStatus;
 import com.hotel_booking_system.exception.AppException;
 import com.hotel_booking_system.exception.ErrorCode;
 import com.hotel_booking_system.mapper.UserMapper;
@@ -149,13 +150,28 @@ public class UserService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
-        if(!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
             throw new AppException(ErrorCode.INVALID_PASSWORD);
         }
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
         userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
+    @Transactional
+    public UserResponse changeUserStatus(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        if (user.getUserStatus().equals(UserStatus.ACTIVE.name()))
+            user.setUserStatus(UserStatus.LOCKED.name());
+        else
+            user.setUserStatus(UserStatus.ACTIVE.name());
+
+        userRepository.save(user);
+
         return userMapper.toUserResponse(user);
     }
 }
