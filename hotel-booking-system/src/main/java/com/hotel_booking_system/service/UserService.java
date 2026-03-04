@@ -60,4 +60,10 @@ public class UserService {
         return userRepository.findAllByRolesRoleName(roleName, pageable)
                 .map(user -> userMapper.toUserResponse(user));
     }
+
+    public UserResponse getUserByUserId(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return userMapper.toUserResponse(user);
+    }
 }

@@ -32,4 +32,12 @@ public class UserController {
                 .result(userService.getAllUsersByRoleName(roleName, pageable))
                 .build();
     }
+
+    @GetMapping("/{userId}")
+    public ApiResponse<UserResponse> getUserByUserId(@PathVariable String userId) {
+        return ApiResponse.<UserResponse>builder()
+                .message("Lấy thông tin người dùng thành công")
+                .result(userService.getUserByUserId(userId))
+                .build();
+    }
 }
