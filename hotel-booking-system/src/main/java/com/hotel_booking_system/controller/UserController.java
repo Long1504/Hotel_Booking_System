@@ -25,6 +25,14 @@ public class UserController {
                 .build();
     }
 
+    @PostMapping
+    public ApiResponse<UserResponse> createReceptionist(@RequestBody CreateUserRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .message("Tạo tài khoản lễ tân thành công")
+                .result(userService.createUser(request, RoleName.RECEPTIONIST.name()))
+                .build();
+    }
+
     @GetMapping
     public ApiResponse<Page<UserResponse>> getAllUsersByRoleName(@RequestParam String roleName, Pageable pageable) {
         return  ApiResponse.<Page<UserResponse>>builder()
