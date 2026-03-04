@@ -1,6 +1,7 @@
 package com.hotel_booking_system.controller;
 
 import com.hotel_booking_system.dto.request.CreateUserRequest;
+import com.hotel_booking_system.dto.request.UpdateUserRequest;
 import com.hotel_booking_system.dto.response.ApiResponse;
 import com.hotel_booking_system.dto.response.UserResponse;
 import com.hotel_booking_system.enums.RoleName;
@@ -42,10 +43,10 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ApiResponse<UserResponse> getUserByUserId(@PathVariable String userId) {
+    public ApiResponse<UserResponse> getUser(@PathVariable String userId) {
         return ApiResponse.<UserResponse>builder()
                 .message("Lấy thông tin người dùng thành công")
-                .result(userService.getUserByUserId(userId))
+                .result(userService.getUser(userId))
                 .build();
     }
 
@@ -54,6 +55,15 @@ public class UserController {
         return ApiResponse.<UserResponse>builder()
                 .message("Lấy thông tin cá nhân thành công")
                 .result(userService.getMyInfo())
+                .build();
+    }
+
+    @PutMapping("/{userId}")
+    public ApiResponse<UserResponse> updateUser(@PathVariable String userId,
+                                                @RequestBody UpdateUserRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .message("Cập nhật thông tin thành công")
+                .result(userService.updateUser(userId, request))
                 .build();
     }
 }

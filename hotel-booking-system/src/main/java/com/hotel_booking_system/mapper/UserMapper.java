@@ -1,6 +1,7 @@
 package com.hotel_booking_system.mapper;
 
 import com.hotel_booking_system.dto.request.CreateUserRequest;
+import com.hotel_booking_system.dto.request.UpdateUserRequest;
 import com.hotel_booking_system.dto.response.UserResponse;
 import com.hotel_booking_system.entity.Role;
 import com.hotel_booking_system.entity.User;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 public interface UserMapper {
     @Mapping(target = "roles", ignore = true)
     User toUser(CreateUserRequest request);
+
+    @Mapping(target = "roles", ignore = true)
+    User toUser(UpdateUserRequest request);
 
     @Mapping(source = "roles", target = "roles", qualifiedByName = "mapRolesToStrings")
     UserResponse toUserResponse(User user);
