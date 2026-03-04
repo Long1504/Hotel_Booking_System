@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -38,8 +39,8 @@ import java.util.UUID;
 @Slf4j
 public class AuthenticationService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final InvalidatedTokenRepository invalidatedTokenRepository;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
     @NonFinal
     @Value("${jwt.signerKey}")
