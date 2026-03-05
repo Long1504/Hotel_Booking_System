@@ -9,9 +9,10 @@
 Tài liệu này được viết dựa theo chuẩn của Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS) được giải thích trong *"IEEE Recommended Practice for Software Requirements Specifications"* và *"IEEE Guide for Developing System Requirements Specifications"*.
 
 Cấu trúc tài liệu được chia làm ... phần:
-1. 
-2. 
-3. 
+1. Giới thiệu.
+2. Mô tả tổng quan.
+3. Các yêu cầu chức năng.
+4. Các yêu cầu phi chức năng.
 
 ## 1.2. Mục đích
 
