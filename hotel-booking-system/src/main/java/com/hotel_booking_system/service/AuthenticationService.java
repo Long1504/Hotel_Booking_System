@@ -76,6 +76,12 @@ public class AuthenticationService {
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
+        // Check có bị xóa không
+        if (user.getDeletedAt() != null) {
+            throw new AppException(ErrorCode.USER_DELETED);
+        }
+
+        // Check có bị khóa không
         if (user.getUserStatus().equals(UserStatus.LOCKED.name())) {
             throw new AppException(ErrorCode.ACCOUNT_LOCKED);
         }
