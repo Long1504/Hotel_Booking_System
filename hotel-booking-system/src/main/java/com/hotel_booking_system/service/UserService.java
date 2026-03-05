@@ -187,4 +187,16 @@ public class UserService {
 
         return userMapper.toUserResponse(user);
     }
+
+    @Transactional
+    public UserResponse restoreUser(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        user.setDeletedAt(null);
+
+        userRepository.save(user);
+
+        return userMapper.toUserResponse(user);
+    }
 }

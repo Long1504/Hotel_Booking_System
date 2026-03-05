@@ -45,7 +45,8 @@ public class SecurityConfig {
 
     private final String[] ADMIN_ENDPOINTS_PUT = {
             "/api/v1/users",
-            "/api/v1/users/*/status"
+            "/api/v1/users/*/status",
+            "/api/v1/users/*/restore"
     };
 
     private final String[] ADMIN_ENDPOINTS_DELETE = {

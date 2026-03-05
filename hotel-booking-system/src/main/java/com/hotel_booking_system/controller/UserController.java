@@ -92,6 +92,14 @@ public class UserController {
                 .build();
     }
 
+    @PutMapping("/{userId}/restore")
+    public ApiResponse<UserResponse> restoreUser(@PathVariable String userId) {
+        return ApiResponse.<UserResponse>builder()
+                .message("Khôi phục tài khoản thành công")
+                .result(userService.restoreUser(userId))
+                .build();
+    }
+
     @DeleteMapping("/{userId}")
     public ApiResponse<UserResponse> deleteUser(@PathVariable String userId) {
         return ApiResponse.<UserResponse>builder()
