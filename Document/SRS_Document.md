@@ -100,7 +100,8 @@ Use case này cho phép người dùng đăng ký tài khoản mới.
 ### 3. Luồng các sự kiện
 #### 3.1. Luồng cơ bản
 1. Use case này bắt đầu khi người dùng chọn chức năng “Đăng ký”. Hệ thống hiển thị form yêu cầu nhập các thông tin: username, password, last_name, first_name, gender, email, phone.
-2. Người dùng nhập đầy đủ các thông tin yêu cầu và nhấn nút “Đăng ký”. Hệ thống kiểm tra dữ liệu nhập vào, nếu thông tin hợp lệ, hệ thống sẽ lưu thông tin vào bảng USERS, đồng thời tự động gán vai trò tương ứng cho người dùng trong bảng ROLES_USERS. Use case kết thúc.
+2. Người dùng nhập đầy đủ các thông tin yêu cầu và nhấn nút “Đăng ký”. Hệ thống kiểm tra dữ liệu nhập vào, nếu thông tin hợp lệ, hệ thống sẽ lưu thông tin vào bảng USERS, đồng thời tự động gán vai trò tương ứng cho người dùng trong bảng ROLES_USERS.
+3. Use case kết thúc.
 #### 3.2. Các luồng rẽ nhánh
 1. Tại bước 2 trong luồng cơ bản, nếu người dùng bỏ trống thông tin đăng ký, hệ thống sẽ hiển thị thông báo “Vui lòng nhập đầy đủ thông tin” và yêu cầu nhập lại.
 2. Tại bước 2 trong luồng cơ bản, nếu email đã tồn tại, hệ thống sẽ hiển thị thông báo “Email đã tồn tại” và yêu cầu nhập lại.
@@ -125,19 +126,18 @@ Use case này cho phép người dùng đăng nhập vào hệ thống.
 ### 3. Luồng các sự kiện
 #### 3.1. Luồng cơ bản
 1. Use case này bắt đầu khi người dùng chọn chức năng “Đăng nhập”. Hệ thống hiển thị form yêu cầu người dùng nhập các thông tin bao gồm: tên đăng nhập (username) và mật khẩu (password).
-2. 2)	Người dùng nhập đầy đủ các thông tin yêu cầu và nhấn nút “Đăng nhập”. Hệ thống tiến hành kiểm tra thông tin trong bảng USERS, thực hiện đối soát tên đăng nhập và mật khẩu. Nếu thông tin chính xác và trạng thái tài khoản (user_status) đang hoạt động, hệ thống sẽ xác thực người dùng, truy vấn quyền hạn từ bảng ROLES thông qua bảng trung gian ROLES_USERS và chuyển người dùng đến giao diện trang chủ hoặc trang quản trị tương ứng.
+2. Người dùng nhập đầy đủ các thông tin yêu cầu và nhấn nút “Đăng nhập”. Hệ thống tiến hành kiểm tra thông tin trong bảng USERS, thực hiện đối soát tên đăng nhập và mật khẩu. Nếu thông tin chính xác và trạng thái tài khoản (user_status) đang hoạt động, hệ thống sẽ xác thực người dùng, truy vấn quyền hạn từ bảng ROLES thông qua bảng trung gian ROLES_USERS và chuyển người dùng đến giao diện trang chủ hoặc trang quản trị tương ứng.
+3. Use case kết thúc.
 #### 3.2. Các luồng rẽ nhánh
-1. Tại bước 2 trong luồng cơ bản, nếu người dùng bỏ trống thông tin đăng ký, hệ thống sẽ hiển thị thông báo “Vui lòng nhập đầy đủ thông tin” và yêu cầu nhập lại.
-2. Tại bước 2 trong luồng cơ bản, nếu email đã tồn tại, hệ thống sẽ hiển thị thông báo “Email đã tồn tại” và yêu cầu nhập lại.
-3. Tại bước 2 trong luồng cơ bản, nếu tên đăng nhập đã tồn tại, hệ thống sẽ hiển thị thông báo “Tên đăng nhập đã tồn tại” và yêu cầu nhập lại.
-4. Tại bước 2 trong luồng cơ bản, nếu mật khẩu không nằm trong khoảng 8 đến 50 ký tự, hệ thống sẽ hiển thị thông báo “Mật khẩu không hợp lệ” và yêu cầu nhập lại.
-5. Tại bất kỳ thời điểm nào trong quá trình thực hiện use case, nếu không kết nối được với cơ sở dữ liệu thì hệ thống sẽ hiển thị thông báo “Lỗi kết nối”. Use case kết thúc.
+1. Tại bước 2 trong luồng cơ bản, nếu người dùng bỏ trống thông tin đăng nhập, hệ thống sẽ hiển thị thông báo “Vui lòng nhập đầy đủ thông tin” và yêu cầu nhập lại.
+2. Tại bước 2 trong luồng cơ bản, nếu tên đăng nhập hoặc mật khẩu sai, hệ thống sẽ hiển thị thông báo “Sai tên đăng nhập hoặc mật khẩu” và yêu cầu nhập lại.
+3. Tại bất kỳ thời điểm nào trong quá trình thực hiện use case, nếu không kết nối được với cơ sở dữ liệu thì hệ thống sẽ hiển thị thông báo “Lỗi kết nối”. Use case kết thúc.thúc.
 ### 4. Các yêu cầu đặc biệt
 Không có.
 ### 5. Tiền điều kiện
 Không có.
 ### 6. Hậu điều kiện
-Nếu use case kết thúc thành công, dữ liệu sẽ được cập nhật trong cơ sở dữ liệu.
+Nếu đăng nhập thành công, người dùng sẽ được chuyển hướng đến giao diện tương ứng với quyền của mình.
 ### 7. Điểm mở rộng
 Không có.
 
