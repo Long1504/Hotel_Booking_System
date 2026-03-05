@@ -6,12 +6,9 @@
 
 ## 1.1. Tổng quan
 
-Tài liệu này được viết dựa theo chuẩn của **Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS)** được giải thích trong:
+Tài liệu này được viết dựa theo chuẩn của Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS) được giải thích trong "IEEE Recommended Practice for Software Requirements Specifications" và "IEEE Guide for Developing System Requirements Specifications".
 
-- *IEEE Recommended Practice for Software Requirements Specifications*
-- *IEEE Guide for Developing System Requirements Specifications*
-
-Cấu trúc tài liệu được chia làm các phần:
+Cấu trúc tài liệu được chia làm ... phần:
 
 - Phần 1
 - Phần 2
