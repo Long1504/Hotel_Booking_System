@@ -1,6 +1,9 @@
 # TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM
+
 # XÂY DỰNG HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN
+
 # 1. Giới thiệu
+
 ## 1.1. Tổng quan
 
 Tài liệu này được viết dựa theo chuẩn của Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS) được giải thích trong "IEEE Recommended Practice for Software Requirements Specifications" và "IEEE Guide for Developing System Requirements Specifications".
@@ -15,39 +18,28 @@ Cấu trúc tài liệu được chia làm ... phần:
 
 Mục đích của tài liệu đặc tả yêu cầu phần mềm này là cung cấp một cái nhìn tổng quan, dễ hiểu về các yêu cầu và thành phần của dự án.
 
-Tài liệu này được cung cấp như một tài liệu tham khảo cho người trực tiếp tham gia phát triển dự án. Ngoài ra, trong môi trường thực tế bên ngoài, tài liệu này còn phục vụ cho:
-
-- Nhà phát triển phần mềm
-- Kiểm thử viên
-- Nhà quản lý dự án
-- Các bên liên quan
+Tài liệu này được cung cấp như một tài liệu tham khảo cho người trực tiếp tham gia phát triển dự án. Ngoài ra, trong môi trường thực tế bên ngoài, tài liệu này còn phục vụ cho những nhà phát triển phần mềm, kiểm thử viên, nhà quản lý dự án cũng như các bên liên quan.
 
 ## 1.3. Phạm vi
 
-Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm phục vụ cho dự án:
-
-**Xây dựng Hệ thống đặt phòng khách sạn (Hotel Booking System).**
+Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm phục vụ cho dự án Xây dựng Hệ thống đặt phòng khách sạn.
 
 ## 1.4. Thuật ngữ
 
-**Bảng 1.1: Từ điển thuật ngữ**
-
 | Thuật ngữ | Ý nghĩa |
-|----------|--------|
-|          |        |
-|          |        |
-|          |        |
-|          |        |
+|-----------|---------|
+|           |         |
+|           |         |
+|           |         |
+|           |         |
 
 ## 1.5. Tài liệu tham khảo
 
-[1]  
-[2]  
-[3]  
-[4]  
-[5]
-
----
+[1]. 
+[2]. 
+[3]. 
+[4]. 
+[5]. 
 
 # 2. Mô tả tổng quan
 
