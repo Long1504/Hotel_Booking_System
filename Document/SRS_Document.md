@@ -8,7 +8,7 @@
 
 Tài liệu này được viết dựa theo chuẩn của Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS) được giải thích trong *"IEEE Recommended Practice for Software Requirements Specifications"* và *"IEEE Guide for Developing System Requirements Specifications"*.
 
-Cấu trúc tài liệu được chia làm ... phần:
+Cấu trúc tài liệu được chia làm bốn phần:
 1. Giới thiệu.
 2. Mô tả tổng quan.
 3. Các yêu cầu chức năng.
@@ -22,7 +22,7 @@ Tài liệu này được cung cấp như một tài liệu tham khảo cho ngư
 
 ## 1.3. Phạm vi
 
-Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm phục vụ cho dự án Xây dựng ***Hệ thống đặt phòng khách sạn***.
+Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm phục vụ cho dự án ***Xây dựng Hệ thống đặt phòng khách sạn***.
 
 ## 1.4. Thuật ngữ
 
