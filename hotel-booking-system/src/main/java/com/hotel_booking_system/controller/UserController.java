@@ -91,4 +91,12 @@ public class UserController {
                 .result(userService.changeUserStatus(userId))
                 .build();
     }
+
+    @DeleteMapping("/{userId}")
+    public ApiResponse<UserResponse> deleteUser(@PathVariable String userId) {
+        return ApiResponse.<UserResponse>builder()
+                .message("Xóa tài khoản thành công")
+                .result(userService.deleteUser(userId))
+                .build();
+    }
 }

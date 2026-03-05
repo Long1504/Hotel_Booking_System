@@ -49,7 +49,7 @@ public class SecurityConfig {
     };
 
     private final String[] ADMIN_ENDPOINTS_DELETE = {
-
+            "/api/v1/users/*"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_POST = {

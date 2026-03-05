@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,7 +62,7 @@ public class UserService {
     }
 
     public Page<UserResponse> getAllUsersByRoleName(String roleName, Pageable pageable) {
-        return userRepository.findAllByRolesRoleName(roleName, pageable)
+        return userRepository.findAllByRolesRoleNameAndDeletedAtIsNull(roleName, pageable)
                 .map(user -> userMapper.toUserResponse(user));
     }
 
@@ -169,6 +170,18 @@ public class UserService {
             user.setUserStatus(UserStatus.LOCKED.name());
         else
             user.setUserStatus(UserStatus.ACTIVE.name());
+
+        userRepository.save(user);
+
+        return userMapper.toUserResponse(user);
+    }
+
+    @Transactional
+    public UserResponse deleteUser(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        user.setDeletedAt(LocalDateTime.now());
 
         userRepository.save(user);
 
