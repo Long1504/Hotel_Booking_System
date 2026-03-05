@@ -9,10 +9,10 @@
 Tài liệu này được viết dựa theo chuẩn của Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS) được giải thích trong "IEEE Recommended Practice for Software Requirements Specifications" và "IEEE Guide for Developing System Requirements Specifications".
 
 Cấu trúc tài liệu được chia làm ... phần:
-- Phần 1
-- Phần 2
-- Phần 3
-- Phần 4
+- Phần 1:
+- Phần 2:
+- Phần 3:
+- Phần 4:
 
 ## 1.2. Mục đích
 
@@ -51,22 +51,21 @@ Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm
 - Lễ tân
 - Quản trị
 
+## 2.3. Các chức năng của sản phẩm
 
-
-Các chức năng của sản phẩm
-Khách hàng:
-Đăng ký.
-Đăng nhập.
-Quản lý thông tin cá nhân.
-Đổi mật khẩu.
-Tìm kiếm phòng.
-Lọc phòng (loại, view, giá).
-Xem danh sách phòng.
-Xem chi tiết phòng (bao gồm 360).
-Đặt phòng.
-Hủy đặt phòng (trong 24h kể từ lúc đặt).
-Xem lịch sử đặt phòng (mail).
-Đánh giá (xem xét).
+### Khách hàng:
+- Đăng ký.
+- Đăng nhập.
+- Quản lý thông tin cá nhân.
+- Đổi mật khẩu.
+- Tìm kiếm phòng.
+- Lọc phòng (loại, view, giá).
+- Xem danh sách phòng.
+- Xem chi tiết phòng (bao gồm 360).
+- Đặt phòng.
+- Hủy đặt phòng (trong 24h kể từ lúc đặt).
+- Xem lịch sử đặt phòng (mail).
+- Đánh giá (xem xét).
 Nhân viên lễ tân:
 Đăng nhập.
 Xem sách đặt phòng.
