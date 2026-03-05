@@ -1,43 +1,75 @@
-TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM - SRS DOCUMENT
+# TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM - SRS DOCUMENT
 
-XÂY DỰNG HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN - HOTEL BOOKING SYSTEM
+# XÂY DỰNG HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN - HOTEL BOOKING SYSTEM
 
-Giới thiệu
-Tổng quan
-Tài liệu này được viết dựa theo chuẩn của Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS) được giải thích trong “IEEE Recommended Practice for Software Requirements Specifications” và “IEEE Guide for Developing System Requirements Specifications”.
-Cấu trúc tài liệu được chi làm … phần:
-Phần 1:
-Phần 2:
-Phần 3:
-Phần 4:
-Mục đích
+# 1. Giới thiệu
+
+## 1.1. Tổng quan
+
+Tài liệu này được viết dựa theo chuẩn của **Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS)** được giải thích trong:
+
+- *IEEE Recommended Practice for Software Requirements Specifications*
+- *IEEE Guide for Developing System Requirements Specifications*
+
+Cấu trúc tài liệu được chia làm các phần:
+
+- Phần 1
+- Phần 2
+- Phần 3
+- Phần 4
+
+## 1.2. Mục đích
+
 Mục đích của tài liệu đặc tả yêu cầu phần mềm này là cung cấp một cái nhìn tổng quan, dễ hiểu về các yêu cầu và thành phần của dự án.
-Tài liệu này được cung cấp như một tài liệu tham khảo cho người trực tiếp tham gia phát triển dự án. Ngoài ra, trong môi trường thực tế bên ngoài, tài liệu này còn phục vụ cho những nhà phát triển phần mềm, kiểm thử viên, nhà quản lý dự án cũng như các bên liên quan.
-Phạm vi
-Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm phục vụ cho dự án Xây dựng Hệ thống đặt phòng khách sạn (Hotel Booking System).
-Thuật ngữ
-Bảng 1.1: Từ điển thuật ngữ
+
+Tài liệu này được cung cấp như một tài liệu tham khảo cho người trực tiếp tham gia phát triển dự án. Ngoài ra, trong môi trường thực tế bên ngoài, tài liệu này còn phục vụ cho:
+
+- Nhà phát triển phần mềm
+- Kiểm thử viên
+- Nhà quản lý dự án
+- Các bên liên quan
+
+## 1.3. Phạm vi
+
+Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm phục vụ cho dự án:
+
+**Xây dựng Hệ thống đặt phòng khách sạn (Hotel Booking System).**
+
+## 1.4. Thuật ngữ
+
+**Bảng 1.1: Từ điển thuật ngữ**
+
 | Thuật ngữ | Ý nghĩa |
-| --- | --- |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
+|----------|--------|
+|          |        |
+|          |        |
+|          |        |
+|          |        |
+
+## 1.5. Tài liệu tham khảo
+
+[1]  
+[2]  
+[3]  
+[4]  
+[5]
+
+---
+
+# 2. Mô tả tổng quan
+
+## 2.1. Tổng quan sản phẩm
+
+...
+
+## 2.2. Các tác nhân
+
+- Khách hàng
+- Lễ tân
+- Quản trị
 
 
-Tài liệu tham khảo
-[1].
-[2].
-[3].
-[4].
-[5].
-Mô tả tổng quan
-Tổng quan sản phẩm
-…
-Các tác nhân
-Khách hàng.
-Lễ tân.
-Quản trị.
+
 Các chức năng của sản phẩm
 Khách hàng:
 Đăng ký.
