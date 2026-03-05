@@ -64,27 +64,29 @@ Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm
 - Xem chi tiết phòng (bao gồm 360).
 - Đặt phòng.
 - Hủy đặt phòng (trong 24h kể từ lúc đặt).
-- Xem lịch sử đặt phòng (mail).
-- Đánh giá (xem xét).
-Nhân viên lễ tân:
-Đăng nhập.
-Xem sách đặt phòng.
-Xem danh sách phòng.
-Đặt phòng.
-Cập nhật trạng thái đặt phòng (xác nhận, check-in, check-out, hủy).
-Xuất hóa đơn (bill).
-Quản trị viên:
-Đăng nhập.
-Quản lý khách hàng (xem, khóa/mở). xxx
-Quản lý nhân viên (xem, thêm, sửa, xóa, khóa/mở).
-Quản lý loại phòng (xem, thêm, sửa, xóa).
-Quản lý phòng (xem, thêm, sửa, xóa).
-Quản lý tiện nghi.
-Quản lý mã giảm giá (cân nhắc).
-Xem báo cáo thống kê (cân nhắc).
-Hệ thống:
-Tăng giá phòng tự động.
-Biểu đồ use case tổng quan
+- Xem lịch sử đặt phòng.
+
+### Nhân viên lễ tân:
+- Đăng nhập.
+- Xem sách đặt phòng.
+- Xem danh sách phòng.
+- Đặt phòng.
+- Cập nhật trạng thái đặt phòng (xác nhận, check-in, check-out, hủy).
+- Xuất hóa đơn (bill).
+
+### Quản trị viên:
+- Đăng nhập.
+- Quản lý khách hàng (xem, khóa/mở).
+- Quản lý nhân viên (xem, thêm, sửa, xóa, khóa/mở).
+- Quản lý loại phòng (xem, thêm, sửa, xóa).
+- Quản lý phòng (xem, thêm, sửa, xóa).
+- Quản lý tiện nghi.
+- Xem báo cáo thống kê.
+
+### Hệ thống:
+- Tăng giá phòng tự động.
+
+## 2.4. Biểu đồ use case tổng quan
 
 Biểu đồ use case phân rã
 
