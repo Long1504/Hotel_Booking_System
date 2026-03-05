@@ -1,6 +1,6 @@
-# TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM - SRS DOCUMENT
+# TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM
 
-# XÂY DỰNG HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN - HOTEL BOOKING SYSTEM
+# XÂY DỰNG HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN
 
 # 1. Giới thiệu
 
