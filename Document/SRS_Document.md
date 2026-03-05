@@ -1,9 +1,6 @@
 # TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM
-
 # XÂY DỰNG HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN
-
 # 1. Giới thiệu
-
 ## 1.1. Tổng quan
 
 Tài liệu này được viết dựa theo chuẩn của Tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specifications - SRS) được giải thích trong "IEEE Recommended Practice for Software Requirements Specifications" và "IEEE Guide for Developing System Requirements Specifications".
