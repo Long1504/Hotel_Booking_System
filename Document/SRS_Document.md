@@ -98,7 +98,9 @@ Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm
 ### 2. Mô tả vắn tắt
 Use case này cho phép người dùng đăng ký tài khoản mới.
 ### 3. Luồng các sự kiện
-#### 3.1. Luồng cơ bản Use case này bắt đầu khi người dùng chọn chức năng “Đăng ký”. Hệ thống hiển thị form yêu cầu nhập các thông tin: username, password, last_name, first_name, gender, email, phone. Người dùng nhập đầy đủ các thông tin yêu cầu và nhấn nút “Đăng ký”. Hệ thống kiểm tra dữ liệu nhập vào, nếu thông tin hợp lệ, hệ thống sẽ lưu thông tin vào bảng USERS, đồng thời tự động gán vai trò tương ứng cho người dùng trong bảng ROLES_USERS. Use case kết thúc.
+#### 3.1. Luồng cơ bản
+1. Use case này bắt đầu khi người dùng chọn chức năng “Đăng ký”. Hệ thống hiển thị form yêu cầu nhập các thông tin: username, password, last_name, first_name, gender, email, phone.
+2. Người dùng nhập đầy đủ các thông tin yêu cầu và nhấn nút “Đăng ký”. Hệ thống kiểm tra dữ liệu nhập vào, nếu thông tin hợp lệ, hệ thống sẽ lưu thông tin vào bảng USERS, đồng thời tự động gán vai trò tương ứng cho người dùng trong bảng ROLES_USERS. Use case kết thúc.
 #### 3.2. Các luồng rẽ nhánh Tại bước 2 trong luồng cơ bản, nếu người dùng bỏ trống thông tin đăng ký, hệ thống sẽ hiển thị thông báo “Vui lòng nhập đầy đủ thông tin” và yêu cầu nhập lại. Tại bước 2 trong luồng cơ bản, nếu email đã tồn tại, hệ thống sẽ hiển thị thông báo “Email đã tồn tại” và yêu cầu nhập lại. Tại bước 2 trong luồng cơ bản, nếu tên đăng nhập đã tồn tại, hệ thống sẽ hiển thị thông báo “Tên đăng nhập đã tồn tại” và yêu cầu nhập lại. Tại bước 2 trong luồng cơ bản, nếu mật khẩu không nằm trong khoảng 8 đến 50 ký tự, hệ thống sẽ hiển thị thông báo “Mật khẩu không hợp lệ” và yêu cầu nhập lại. Tại bất kỳ thời điểm nào trong quá trình thực hiện use case, nếu không kết nối được với cơ sở dữ liệu thì hệ thống sẽ hiển thị thông báo “Lỗi kết nối”. Use case kết thúc. 4. Các yêu cầu đặc biệt Không có. 5. Tiền điều kiện Không có. 6. Hậu điều kiện Nếu use case kết thúc thành công, dữ liệu sẽ được cập nhật trong cơ sở dữ liệu. 7. Điểm mở rộng Không có.
 
 
