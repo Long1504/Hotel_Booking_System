@@ -35,11 +35,9 @@ Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm
 
 ## 1.5. Tài liệu tham khảo
 
-[1]. 
-[2]. 
-[3]. 
-[4]. 
-[5]. 
+1. 
+2. 
+3. 
 
 # 2. Mô tả tổng quan
 
