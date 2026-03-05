@@ -100,7 +100,7 @@ Use case này cho phép người dùng đăng ký tài khoản mới.
 ### 3. Luồng các sự kiện
 #### 3.1. Luồng cơ bản
 1. Use case này bắt đầu khi người dùng chọn chức năng “Đăng ký”. Hệ thống hiển thị form yêu cầu nhập các thông tin: username, password, last_name, first_name, gender, email, phone.
-- fdsfds
+  - fdsfds
 2. Người dùng nhập đầy đủ các thông tin yêu cầu và nhấn nút “Đăng ký”. Hệ thống kiểm tra dữ liệu nhập vào, nếu thông tin hợp lệ, hệ thống sẽ lưu thông tin vào bảng USERS, đồng thời tự động gán vai trò tương ứng cho người dùng trong bảng ROLES_USERS. Use case kết thúc.
 #### 3.2. Các luồng rẽ nhánh
 1. Tại bước 2 trong luồng cơ bản, nếu người dùng bỏ trống thông tin đăng ký, hệ thống sẽ hiển thị thông báo “Vui lòng nhập đầy đủ thông tin” và yêu cầu nhập lại.
