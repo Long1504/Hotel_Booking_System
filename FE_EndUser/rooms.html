@@ -136,7 +136,23 @@
 
         <div class="room-filters" data-aos="fade-up" data-aos-delay="200">
           <div class="row g-3 align-items-center">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-2 col-md-6">
+              <label class="form-label">Nhận phòng</label>
+              <input class="form-control" type="date">
+            </div>
+            <div class="col-lg-2 col-md-6">
+              <label class="form-label">Trả phòng</label>
+              <input class="form-control" type="date">
+            </div>
+            <div class="col-lg-1 col-md-6">
+              <label class="form-label">Người lớn</label>
+              <input class="form-control" type="number" min="0" value="0">
+            </div>
+            <div class="col-lg-1 col-md-6">
+              <label class="form-label">Trẻ em</label>
+              <input class="form-control" type="number" min="0" value="0">
+            </div>
+            <div class="col-lg-2 col-md-6">
               <label class="form-label">Mức giá</label>
               <select class="form-select">
                 <option>Tất cả</option>
@@ -145,17 +161,8 @@
                 <option>Trên 5.000.000đ</option>
               </select>
             </div>
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">Sức chứa</label>
-              <select class="form-select">
-                <option>Tất cả</option>
-                <option>1 - 2 khách</option>
-                <option>3 - 4 khách</option>
-                <option>Trên 5 khách</option>
-              </select>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">Tầm nhìn</label>
+            <div class="col-lg-2 col-md-6">
+              <label class="form-label">View</label>
               <select class="form-select">
                 <option>Tất cả</option>
                 <option>Hướng biển</option>
@@ -163,8 +170,8 @@
                 <option>Hướng vườn</option>
               </select>
             </div>
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">Sắp xếp theo</label>
+            <div class="col-lg-2 col-md-6">
+              <label class="form-label">Sắp xếp</label>
               <select class="form-select">
                 <option>Độ phổ biến</option>
                 <option>Giá: Thấp đến Cao</option>
@@ -183,26 +190,17 @@
                 <div class="room-image">
                   <img src="assets/img/hotel/room-1.webp" alt="Deluxe Ocean Suite" class="img-fluid">
                   <div class="room-features">
-                    <span class="feature-badge ocean">Hướng biển</span>
-                    <span class="feature-badge popular">Phổ biến</span>
+                    <span class="feature-badge city">Hướng biển</span>
                   </div>
                 </div>
                 <div class="room-content">
                   <div class="room-header">
                     <h3>Deluxe Ocean Suite</h3>
-                    <div class="room-rating">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
                   </div>
                   <p class="room-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                   <div class="room-amenities">
-                    <span><i class="bi bi-people"></i> Up to 4 guests</span>
-                    <span><i class="bi bi-wifi"></i> Free WiFi</span>
-                    <span><i class="bi bi-tv"></i> Smart TV</span>
+                    <span><i class="bi bi-people"></i>Số người lớn: 2</span>
+                    <span><i class="bi bi-people"></i>Số trẻ em: 1</span>
                   </div>
                   <div class="room-footer">
                     <div class="room-price">
@@ -221,25 +219,17 @@
                 <div class="room-image">
                   <img src="assets/img/hotel/room-3.webp" alt="Executive Business Suite" class="img-fluid">
                   <div class="room-features">
-                    <span class="feature-badge business">Kinh doanh</span>
+                    <span class="feature-badge city">Hướng thành phố</span>
                   </div>
                 </div>
                 <div class="room-content">
                   <div class="room-header">
                     <h3>Executive Business Suite</h3>
-                    <div class="room-rating">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-half"></i>
-                    </div>
                   </div>
                   <p class="room-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                   <div class="room-amenities">
-                    <span><i class="bi bi-people"></i> Up to 2 guests</span>
-                    <span><i class="bi bi-laptop"></i> Work Desk</span>
-                    <span><i class="bi bi-telephone"></i> Business Phone</span>
+                    <span><i class="bi bi-people"></i>Số người lớn: 2</span>
+                    <span><i class="bi bi-people"></i>Số trẻ em: 1</span>
                   </div>
                   <div class="room-footer">
                     <div class="room-price">
@@ -258,26 +248,17 @@
                 <div class="room-image">
                   <img src="assets/img/hotel/room-7.webp" alt="Family Garden Room" class="img-fluid">
                   <div class="room-features">
-                    <span class="feature-badge family">Không gian gia đình</span>
-                    <span class="feature-badge garden">Hướng vườn</span>
+                    <span class="feature-badge city">Hướng vườn</span>
                   </div>
                 </div>
                 <div class="room-content">
                   <div class="room-header">
                     <h3>Family Garden Room</h3>
-                    <div class="room-rating">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star"></i>
-                    </div>
                   </div>
                   <p class="room-description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                   <div class="room-amenities">
-                    <span><i class="bi bi-people"></i> Up to 5 guests</span>
-                    <span><i class="bi bi-cup-hot"></i> Mini Kitchen</span>
-                    <span><i class="bi bi-controller"></i> Game Console</span>
+                    <span><i class="bi bi-people"></i>Số người lớn: 2</span>
+                    <span><i class="bi bi-people"></i>Số trẻ em: 1</span>
                   </div>
                   <div class="room-footer">
                     <div class="room-price">
@@ -296,26 +277,17 @@
                 <div class="room-image">
                   <img src="assets/img/hotel/room-12.webp" alt="Romantic Honeymoon Suite" class="img-fluid">
                   <div class="room-features">
-                    <span class="feature-badge romantic">Lãng mạn</span>
-                    <span class="feature-badge premium">Cao cấp</span>
+                    <span class="feature-badge city">Hướng biển</span>
                   </div>
                 </div>
                 <div class="room-content">
                   <div class="room-header">
                     <h3>Romantic Honeymoon Suite</h3>
-                    <div class="room-rating">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
                   </div>
                   <p class="room-description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p>
                   <div class="room-amenities">
-                    <span><i class="bi bi-people"></i> Up to 2 guests</span>
-                    <span><i class="bi bi-heart"></i> King Bed</span>
-                    <span><i class="bi bi-water"></i> Jacuzzi</span>
+                    <span><i class="bi bi-people"></i>Số người lớn: 2</span>
+                    <span><i class="bi bi-people"></i>Số trẻ em: 1</span>
                   </div>
                   <div class="room-footer">
                     <div class="room-price">
@@ -340,19 +312,11 @@
                 <div class="room-content">
                   <div class="room-header">
                     <h3>Standard City Room</h3>
-                    <div class="room-rating">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-half"></i>
-                      <i class="bi bi-star"></i>
-                    </div>
                   </div>
                   <p class="room-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
                   <div class="room-amenities">
-                    <span><i class="bi bi-people"></i> Up to 2 guests</span>
-                    <span><i class="bi bi-wifi"></i> Free WiFi</span>
-                    <span><i class="bi bi-car-front"></i> Parking</span>
+                    <span><i class="bi bi-people"></i>Số người lớn: 2</span>
+                    <span><i class="bi bi-people"></i>Số trẻ em: 1</span>
                   </div>
                   <div class="room-footer">
                     <div class="room-price">
@@ -371,26 +335,17 @@
                 <div class="room-image">
                   <img src="assets/img/hotel/room-18.webp" alt="Premium Ocean View" class="img-fluid">
                   <div class="room-features">
-                    <span class="feature-badge ocean">Hướng biển</span>
-                    <span class="feature-badge luxury">Cao cấp</span>
+                    <span class="feature-badge city">Hướng vườn</span>
                   </div>
                 </div>
                 <div class="room-content">
                   <div class="room-header">
                     <h3>Premium Ocean View</h3>
-                    <div class="room-rating">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
                   </div>
                   <p class="room-description">Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.</p>
                   <div class="room-amenities">
-                    <span><i class="bi bi-people"></i> Up to 3 guests</span>
-                    <span><i class="bi bi-cup-hot"></i> Coffee Machine</span>
-                    <span><i class="bi bi-safe"></i> Safe</span>
+                    <span><i class="bi bi-people"></i>Số người lớn: 2</span>
+                    <span><i class="bi bi-people"></i>Số trẻ em: 1</span>
                   </div>
                   <div class="room-footer">
                     <div class="room-price">
