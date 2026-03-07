@@ -32,7 +32,8 @@ public class SecurityConfig {
     };
 
     private final String[] PUBLIC_ENDPOINTS_GET = {
-
+            "/api/v1/rooms/available",
+            "/api/v1/rooms/available/*",
     };
 
     private final String[] ADMIN_ENDPOINTS_POST = {
@@ -41,7 +42,8 @@ public class SecurityConfig {
 
     private final String[] ADMIN_ENDPOINTS_GET = {
             "/api/v1/users",
-            "/api/v1/rooms"
+            "/api/v1/rooms",
+            "/api/v1/rooms/*"
     };
 
     private final String[] ADMIN_ENDPOINTS_PUT = {

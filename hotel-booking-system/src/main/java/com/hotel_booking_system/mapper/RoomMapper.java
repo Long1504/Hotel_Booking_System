@@ -1,7 +1,9 @@
 package com.hotel_booking_system.mapper;
 
-import com.hotel_booking_system.dto.response.RoomImageResponse;
+import com.hotel_booking_system.dto.response.RoomAvailableResponse;
 import com.hotel_booking_system.dto.response.RoomResponse;
+import com.hotel_booking_system.dto.response.RoomSummaryAvailableResponse;
+import com.hotel_booking_system.dto.response.RoomSummaryResponse;
 import com.hotel_booking_system.entity.Amenity;
 import com.hotel_booking_system.entity.Room;
 import com.hotel_booking_system.entity.RoomImage;
@@ -27,4 +29,29 @@ public interface RoomMapper {
                 .map(amenity -> amenity.getAmenityName())
                 .collect(Collectors.toSet());
     }
+
+    @Mapping(source = "roomType.roomTypeName", target = "roomTypeName")
+    @Mapping(source = "view.viewName", target = "viewName")
+    @Mapping(source = "roomImages", target = "mainImageUrl", qualifiedByName = "mapMainImage")
+    RoomSummaryResponse toRoomSummaryResponse(Room room);
+    @Named("mapMainImage")
+    default String mapMainImage(List<RoomImage> images) {
+        if (images == null)
+            return null;
+        return images.stream()
+                .filter(roomImage -> roomImage.getIsMain())
+                .map(roomImage ->  roomImage.getImageUrl())
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Mapping(source = "roomType.roomTypeName", target = "roomTypeName")
+    @Mapping(source = "view.viewName", target = "viewName")
+    @Mapping(source = "amenities", target = "amenities", qualifiedByName = "mapAmenities")
+    RoomAvailableResponse toRoomAvailableResponse(Room room);
+
+    @Mapping(source = "roomType.roomTypeName", target = "roomTypeName")
+    @Mapping(source = "view.viewName", target = "viewName")
+    @Mapping(source = "roomImages", target = "mainImageUrl", qualifiedByName = "mapMainImage")
+    RoomSummaryAvailableResponse toRoomSummaryDisplayResponse(Room room);
 }

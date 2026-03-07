@@ -26,7 +26,23 @@ public enum ErrorCode {
     USERNAME_ALREADY_EXISTS(3003, "Username already exists", HttpStatus.CONFLICT),
     EMAIL_ALREADY_EXISTS(3004, "Email already exists", HttpStatus.CONFLICT),
     INVALID_PASSWORD(3005, "Invalid password", HttpStatus.BAD_REQUEST),
-    USER_DELETED(3006, "User account has been deleted", HttpStatus.GONE)
+    USER_DELETED(3006, "User account has been deleted", HttpStatus.GONE),
+
+    // RoomType
+    ROOM_TYPE_NOT_FOUND(4001, "Room type not found", HttpStatus.NOT_FOUND),
+    ROOM_TYPE_ALREADY_EXISTS(4002, "Room type already exists", HttpStatus.CONFLICT),
+
+    // View
+    VIEW_NOT_FOUND(5001, "View not found", HttpStatus.NOT_FOUND),
+    VIEW_ALREADY_EXISTS(5002, "View already exists", HttpStatus.CONFLICT),
+
+    // Amenity
+    AMENITY_NOT_FOUND(6001, "Amenity not found", HttpStatus.NOT_FOUND),
+    AMENITY_ALREADY_EXISTS(6002, "Amenity already exists", HttpStatus.CONFLICT),
+
+    // Room
+    ROOM_NOT_FOUND(7001, "Room not found", HttpStatus.NOT_FOUND),
+    ROOM_ALREADY_EXISTS(7002, "Room already exists", HttpStatus.CONFLICT)
     ;
 
     private int code;
