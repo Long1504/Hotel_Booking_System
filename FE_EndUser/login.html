@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Đăng ký tài khoản</title>
+  <title>Đăng nhập</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -28,7 +28,8 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-  <link href="assets/css/register.css" rel="stylesheet">
+  <!-- Page CSS -->
+  <link href="assets/css/login.css" rel="stylesheet">
 </head>
 
 <body class="starter-page-page">
@@ -38,8 +39,9 @@
     <div class="topbar d-flex align-items-center dark-background">
       <div class="container d-flex justify-content-center justify-content-md-between">
         <div class="contact-info d-flex align-items-center">
-          <i class="bi bi-envelope d-flex align-items-center"><a
-              href="mailto:contact@example.com">pvl15042004@gmail.com</a></i>
+          <i class="bi bi-envelope d-flex align-items-center">
+            <a href="mailto:contact@example.com">pvl15042004@gmail.com</a>
+          </i>
           <i class="bi bi-phone d-flex align-items-center ms-4"><span>0376 960 369</span></i>
         </div>
         <div class="social-links d-none d-md-flex align-items-center">
@@ -58,17 +60,14 @@
     </div><!-- End Top Bar -->
 
     <div class="branding d-flex align-items-cente">
-
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.webp" alt=""> -->
           <h1 class="sitename">Grandoria</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html" class="active">Trang chủ</a></li>
+            <li><a href="index.html">Trang chủ</a></li>
             <li><a href="about.html">Giới thiệu</a></li>
             <li><a href="rooms.html">Phòng</a></li>
             <li><a href="amenities.html">Tiện nghi</a></li>
@@ -106,24 +105,11 @@
                 <li><a href="#spanish">Spanish</a></li>
               </ul>
             </li>
-
-            <!-- <li class="dropdown">
-              <img src="assets/img/avt-profile.jpg" alt="Avatar" class="avatar-img">
-              <ul>
-                <li><a href="#">Tài khoản</a></li>
-                <li><a href="#">Đăng ký</a></li>
-                <li><a href="#">Đăng nhập</a></li>
-              </ul>
-            </li> -->
-
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-
       </div>
-
     </div>
-
   </header>
 
   <main class="main">
@@ -131,145 +117,79 @@
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Đăng ký tài khoản</h1>
+        <h1 class="mb-2 mb-lg-0">Đăng nhập</h1>
         <nav class="breadcrumbs">
           <ol>
             <li><a href="index.html">Trang chủ</a></li>
-            <li class="current">Đăng ký tài khoản</li>
+            <li class="current">Đăng nhập</li>
           </ol>
         </nav>
       </div>
     </div><!-- End Page Title -->
 
-    <!-- Register Section Section -->
-    <section id="register-section" class="register-section section">
-
-      <!-- Section Title -->
+    <!-- Login Section -->
+    <section id="login-section" class="login-section section">
       <div class="container section-title" data-aos="fade-up">
-        <span class="description-title">Đăng ký tài khoản</span>
-        <h2>Đăng ký tài khoản</h2>
+        <span class="description-title">Đăng nhập</span>
+        <h2>Đăng nhập</h2>
       </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row justify-content-center">
-          <div class="col-lg-8">
-
-            <div class="card register-card shadow-sm border-0">
+          <div class="col-lg-6 col-md-8">
+            <div class="card login-card shadow-sm border-0">
               <div class="card-body p-5">
 
-                <form id="registerForm" novalidate>
+                <div class="text-center mb-4">
+                  <h3 class="fw-bold mb-1">Chào mừng trở lại</h3>
+                  <p class="text-muted mb-0">Đăng nhập vào tài khoản của bạn</p>
+                </div>
 
-                  <!-- Dòng 1: Tên đăng nhập -->
-                  <div class="row mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-bold">Tên đăng nhập</label>
-                      <input type="text" class="form-control" id="username" required>
-                      <div class="invalid-feedback">
-                        Vui lòng nhập tên đăng nhập (tối thiểu 4 ký tự).
-                      </div>
-                    </div>
+                <form id="loginForm" novalidate>
 
-                    <div class="col-md-6">
-                      <label class="form-label fw-bold">Giới tính</label>
-                      <select class="form-select" id="gender" required>
-                        <option value="">-- Chọn giới tính --</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="other">Không tiết lộ</option>
-                      </select>
-                      <div class="invalid-feedback">
-                        Vui lòng chọn giới tính.
-                      </div>
-                    </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-bold">Tên đăng nhập</label>
+                    <input type="text" class="form-control" id="loginUsername" required>
+                    <div class="invalid-feedback">Vui lòng nhập tên đăng nhập (tối thiểu 4 ký tự, không khoảng trắng).</div>
                   </div>
 
-                  <!-- Dòng 2: Họ, Tên, Giới tính -->
-                  <div class="row mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-bold">Họ</label>
-                      <input type="text" class="form-control" id="lastName" required>
-                      <div class="invalid-feedback">
-                        Vui lòng nhập họ.
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <label class="form-label fw-bold">Tên</label>
-                      <input type="text" class="form-control" id="firstName" required>
-                      <div class="invalid-feedback">
-                        Vui lòng nhập tên.
-                      </div>
-                    </div>
-
-                  
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Mật khẩu</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                    <div class="invalid-feedback">Vui lòng nhập mật khẩu (tối thiểu 6 ký tự).</div>
                   </div>
 
-                  <!-- Dòng 3: Email, Số điện thoại -->
-                  <div class="row mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-bold">Email</label>
-                      <input type="email" class="form-control" id="email" required>
-                      <div class="invalid-feedback">
-                        Email không hợp lệ.
-                      </div>
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rememberMe">
+                      <label class="form-check-label" for="rememberMe">Ghi nhớ tôi</label>
                     </div>
-
-                    <div class="col-md-6">
-                      <label class="form-label fw-bold">Số điện thoại</label>
-                      <input type="number" class="form-control" id="phone" required>
-                      <div class="invalid-feedback">
-                        Số điện thoại phải gồm 10 chữ số.
-                      </div>
-                    </div>
+                    <a href="#" class="small text-decoration-none">Quên mật khẩu?</a>
                   </div>
 
-                  <!-- Dòng 4: Mật khẩu, Nhập lại mật khẩu -->
-                  <div class="row mb-5">
-                    <div class="col-md-6">
-                      <label class="form-label fw-bold">Mật khẩu</label>
-                      <input type="password" class="form-control" id="password" required>
-                      <div class="invalid-feedback">
-                        Mật khẩu tối thiểu 6 ký tự.
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <label class="form-label fw-bold">Nhập lại mật khẩu</label>
-                      <input type="password" class="form-control" id="confirmPassword" required>
-                      <div class="invalid-feedback">
-                        Mật khẩu nhập lại không khớp.
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Button -->
                   <div class="d-grid">
-                    <button type="submit" class="btn btn-success register-btn">
-                      Tạo tài khoản
+                    <button type="submit" class="btn btn-success login-btn">
+                      Đăng nhập
                     </button>
+                  </div>
+
+                  <div class="text-center mt-4">
+                    <span class="text-muted">Bạn chưa có tài khoản?</span>
+                    <a href="register.html" class="fw-bold text-decoration-none ms-1">Đăng ký</a>
                   </div>
 
                 </form>
 
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
-    </section>
-
-    <!-- Link file CSS -->
-    <link rel="stylesheet" href="assets/css/register.css">
-
-    <!-- Link file JS -->
-    <script src="assets/js/register.js"></script><!-- /Register Section Section -->
+    </section><!-- /Login Section -->
 
   </main>
 
   <footer id="footer" class="footer position-relative dark-background">
-
     <div class="footer-top">
       <div class="container">
         <div class="row gy-4">
@@ -332,12 +252,12 @@
         </div>
       </div>
     </div>
-
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
@@ -354,9 +274,8 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-
-  <!-- Custom JS File -->
-  <script src="assets/js/register.js"></script>
+  <!-- Page JS -->
+  <script src="assets/js/login.js"></script>
 
 </body>
 
