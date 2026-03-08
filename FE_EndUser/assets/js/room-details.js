@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const room = response.result;
 
     renderRoomDetails(room);
+    setupBookingButtons(roomId, checkInDate, checkOutDate);
   } catch (error) {
     console.error("Lỗi khi tải chi tiết phòng:", error);
   }
@@ -118,11 +119,15 @@ function renderRoomDetails(room) {
         </div>
 
         <div class="gallery-thumbnails">
-          ${thumbnails.map((img) => `
+          ${thumbnails
+            .map(
+              (img) => `
             <a href="${img.imageUrl}" class="glightbox">
               <img src="${img.imageUrl}" alt="${room.roomName}" class="img-fluid">
             </a>
-          `,).join("")}
+          `,
+            )
+            .join("")}
         </div>
       `;
 
@@ -133,4 +138,22 @@ function renderRoomDetails(room) {
       }
     }
   }
+}
+
+// Xử lý sự kiện đặt phòng
+function setupBookingButtons(roomId, checkInDate, checkOutDate) {
+  const bookingButtons = document.querySelectorAll(".btn-book-now");
+
+  bookingButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      if (!roomId || !checkInDate || !checkOutDate) {
+        console.error("Thiếu tham số URL");
+        return;
+      }
+
+      window.location.href = `booking.html?roomId=${roomId}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`;
+    });
+  });
 }

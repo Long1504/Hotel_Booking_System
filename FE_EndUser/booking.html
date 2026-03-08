@@ -151,53 +151,25 @@
                     <h4>Chi tiết đặt phòng</h4>
                     <div class="form-grid">
                       <div class="form-group">
-                        <label for="arrival-date" class="form-label">Ngày nhận phòng</label>
-                        <input type="date" class="form-control" id="arrival-date" name="arrival_date" required="">
+                        <label for="check-in-date" class="form-label">Ngày nhận phòng</label>
+                        <input type="date" class="form-control" id="check-in-date" name="check-in-date" required="">
                       </div>
                       <div class="form-group">
-                        <label for="departure-date" class="form-label">Ngày trả phòng</label>
-                        <input type="date" class="form-control" id="departure-date" name="departure_date" required="">
+                        <label for="check-out-date" class="form-label">Ngày trả phòng</label>
+                        <input type="date" class="form-control" id="check-out-date" name="check-out-date" required="">
                       </div>
                       <div class="form-group">
-                        <label for="guest-count" class="form-label">Số khách</label>
-                        <select class="form-select" id="guest-count" name="guest_count" required="">
-                          <option value="">Choose guests</option>
-                          <option value="1">1 Guest</option>
-                          <option value="2">2 Guests</option>
-                          <option value="3">3 Guests</option>
-                          <option value="4">4 Guests</option>
-                          <option value="5">5+ Guests</option>
-                        </select>
+                        <label for="adults" class="form-label">Số người lớn</label>
+                        <input type="number" class="form-control" id="adults" name="adults" min="0" value="0" required="">
                       </div>
                       <div class="form-group">
-                        <label for="room-count" class="form-label">Số phòng</label>
-                        <select class="form-select" id="room-count" name="room_count" required="">
-                          <option value="">Choose rooms</option>
-                          <option value="1">1 Room</option>
-                          <option value="2">2 Rooms</option>
-                          <option value="3">3 Rooms</option>
-                          <option value="4">4+ Rooms</option>
-                        </select>
+                        <label for="children" class="form-label">Số trẻ em</label>
+                        <input type="number" class="form-control" id="children" name="children" min="0" value="0" required="">
                       </div>
+                      <div class="form-group full-width">
+                      <label for="note" class="form-label">Ghi chú thêm</label>
+                      <textarea class="form-control" id="note" name="note" rows="3" placeholder="Vui lòng ghi rõ các yêu cầu hoặc sở thích đặc biệt..."></textarea>
                     </div>
-                  </div>
-
-                  <div class="form-section">
-                    <h4>Tùy chọn phòng</h4>
-                    <div class="form-group">
-                      <label for="accommodation-type" class="form-label">Loại phòng</label>
-                      <select class="form-select" id="accommodation-type" name="accommodation_type">
-                        <option value="">No preference</option>
-                        <option value="classic">Classic Room</option>
-                        <option value="premium">Premium Room</option>
-                        <option value="junior-suite">Junior Suite</option>
-                        <option value="luxury-suite">Luxury Suite</option>
-                        <option value="penthouse">Penthouse Suite</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="additional-notes" class="form-label">Ghi chú thêm</label>
-                      <textarea class="form-control" id="additional-notes" name="additional_notes" rows="3" placeholder="Vui lòng ghi rõ các yêu cầu hoặc sở thích đặc biệt..."></textarea>
                     </div>
                   </div>
 
@@ -205,16 +177,16 @@
                     <h4>Thông tin khách hàng</h4>
                     <div class="form-grid">
                       <div class="form-group full-width">
-                        <label for="primary-guest" class="form-label">Tên người đại diện</label>
-                        <input type="text" class="form-control" id="primary-guest" name="primary_guest" required="">
+                        <label for="guest-name" class="form-label">Tên người đại diện</label>
+                        <input type="text" class="form-control" id="guest-name" name="guest-name" required="">
                       </div>
                       <div class="form-group">
-                        <label for="contact-email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="contact-email" name="contact_email" required="">
+                        <label for="guest-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="guest-email" name="guest-email" required="">
                       </div>
                       <div class="form-group">
-                        <label for="contact-phone" class="form-label">Số điện thoại</label>
-                        <input type="tel" class="form-control" id="contact-phone" name="contact_phone" required="">
+                        <label for="guest-phone" class="form-label">Số điện thoại</label>
+                        <input type="tel" class="form-control" id="guest-phone" name="guest-phone" required="">
                       </div>
                     </div>
                   </div>
@@ -222,7 +194,7 @@
                   <div class="form-actions">
                     <button type="submit" class="btn btn-primary">
                       <i class="bi bi-calendar-plus me-2"></i>
-                      Gửi yêu cầu đặt phòng
+                      Đặt phòng (1.200.000đ / 1 đêm)
                     </button>
                   </div>
 
@@ -232,7 +204,67 @@
 
             <div class="hotel-showcase" data-aos="fade-left" data-aos-delay="400">
               <div class="showcase-image">
-                <img src="assets/img/hotel/showcase-1.webp" alt="Hotel luxury showcase" class="img-fluid">
+                <img src="assets/img/hotel/showcase-1.webp" alt="Hotel luxury showcase" class="img-fluid main-image">
+              </div>
+
+              <div class="hotel-highlights">
+                <h3 class="room-name">Phòng tiêu chuẩn gia đình</h3>
+                <div class="highlights-grid">
+                  <div class="highlight-item">
+                    <div class="highlight-icon">
+                      <i class="bi bi-house-door"></i>
+                    </div>
+                    <div class="highlight-content">
+                      <h5>Loại phòng</h5>
+                      <p class="room-type-name">Phòng gia đình</p>
+                    </div>
+                  </div>
+                  <div class="highlight-item">
+                    <div class="highlight-icon">
+                      <i class="bi bi-eye"></i>
+                    </div>
+                    <div class="highlight-content">
+                      <h5>View</h5>
+                      <p class="view-name">Thành phố</p>
+                    </div>
+                  </div>
+                  <div class="highlight-item">
+                    <div class="highlight-icon">
+                      <i class="bi bi-layers"></i>
+                    </div>
+                    <div class="highlight-content">
+                      <h5>Tầng</h5>
+                      <p class="floor">2</p>
+                    </div>
+                  </div>
+                  <div class="highlight-item">
+                    <div class="highlight-icon">
+                      <i class="bi bi-door-open"></i>
+                    </div>
+                    <div class="highlight-content">
+                      <h5>Số phòng</h5>
+                      <p class="room-number">202</p>
+                    </div>
+                  </div>
+                  <div class="highlight-item">
+                    <div class="highlight-icon">
+                      <i class="bi bi-aspect-ratio"></i>
+                    </div>
+                    <div class="highlight-content">
+                      <h5>Diện tích</h5>
+                      <p class="area">45m²</p>
+                    </div>
+                  </div>
+                  <div class="highlight-item">
+                    <div class="highlight-icon">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="highlight-content">
+                      <h5>Sức chứa tối đa</h5>
+                      <p class="adults-children">3 người lớn - 2 trẻ em</p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="hotel-highlights">
@@ -244,7 +276,7 @@
                     </div>
                     <div class="highlight-content">
                       <h5>Internet tốc độ cao</h5>
-                      <p>Truy cập internet tốc độ cao trong toàn bộ khu vực</p>
+                      <p>Truy cập internet tốc độ cao</p>
                     </div>
                   </div>
                   <div class="highlight-item">
@@ -262,7 +294,7 @@
                     </div>
                     <div class="highlight-content">
                       <h5>Hỗ trợ đỗ xe</h5>
-                      <p>Dịch vụ đỗ xe miễn phí với dịch vụ valet</p>
+                      <p>Dịch vụ đỗ xe miễn phí</p>
                     </div>
                   </div>
                   <div class="highlight-item">
@@ -270,8 +302,8 @@
                       <i class="bi bi-heart-pulse"></i>
                     </div>
                     <div class="highlight-content">
-                      <h5>Trung tâm chăm sóc sức khỏe</h5>
-                      <p>Trung tâm chăm sóc sức khỏe và phòng tập đầy đủ dịch vụ</p>
+                      <h5>Chăm sóc sức khỏe</h5>
+                      <p>Trung tâm chăm sóc sức khỏe</p>
                     </div>
                   </div>
                 </div>
@@ -388,6 +420,10 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Custom JS -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/booking.js"></script>
 
 </body>
 

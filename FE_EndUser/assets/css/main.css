@@ -5049,6 +5049,7 @@ section,
 }
 
 .booking .reservation-form input[type=date],
+.booking .reservation-form input[type=number],
 .booking .reservation-form input[type=text],
 .booking .reservation-form input[type=email],
 .booking .reservation-form input[type=tel],
@@ -5149,6 +5150,7 @@ section,
 
 .booking .hotel-showcase .hotel-highlights .highlights-grid {
   display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 highlight-item mỗi dòng */
   gap: 1.5rem;
 }
 
