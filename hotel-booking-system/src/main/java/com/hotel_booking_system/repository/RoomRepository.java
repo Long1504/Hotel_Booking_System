@@ -15,20 +15,52 @@ import java.util.Optional;
 public interface RoomRepository extends JpaRepository<Room, String> {
     Page<Room> findAllByDeletedAtIsNull(Pageable pageable);
 
+//    @Query("""
+//        SELECT DISTINCT r
+//        FROM Room r
+//        LEFT JOIN FETCH r.roomImages
+//        WHERE r.deletedAt IS NULL
+//        AND r.roomStatus = 'AVAILABLE'
+//        AND r.roomId NOT IN (
+//            SELECT b.room.roomId
+//            FROM Booking b
+//            WHERE b.checkInDate < :checkOutDate
+//            AND b.checkOutDate > :checkInDate
+//        )
+//    """)
+//    List<Room> findAllAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate);
+
     @Query("""
-        SELECT DISTINCT r
+        SELECT r
         FROM Room r
-        LEFT JOIN FETCH r.roomImages
+        LEFT JOIN FETCH r.roomImages ri
         WHERE r.deletedAt IS NULL
         AND r.roomStatus = 'AVAILABLE'
-        AND r.roomId NOT IN (
-            SELECT b.room.roomId
+        AND (ri IS NULL OR ri.isMain = true)
+            
+        AND (:adults IS NULL OR r.maxAdults >= :adults)
+        AND (:children IS NULL OR r.maxChildren >= :children)
+    
+        AND (:roomTypeId IS NULL OR r.roomType.roomTypeId = :roomTypeId)
+        AND (:viewId IS NULL OR r.view.viewId = :viewId)
+    
+        AND NOT EXISTS (
+            SELECT 1
             FROM Booking b
-            WHERE b.checkInDate < :checkOutDate
+            WHERE b.room = r
+            AND b.checkInDate < :checkOutDate
             AND b.checkOutDate > :checkInDate
         )
     """)
-    List<Room> findAllAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate);
+    Page<Room> findAllAvailableRooms(
+            LocalDate checkInDate,
+            LocalDate checkOutDate,
+            Integer adults,
+            Integer children,
+            String roomTypeId,
+            String viewId,
+            Pageable pageable
+    );
 
     @Query("""
         SELECT r

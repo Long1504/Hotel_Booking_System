@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/rooms")
@@ -33,14 +32,37 @@ public class RoomController {
                 .build();
     }
 
+//    @GetMapping("/available")
+//    public ApiResponse<List<RoomSummaryAvailableResponse>> getAllAvailableRooms(@RequestParam LocalDate checkInDate,
+//                                                                                @RequestParam LocalDate checkOutDate) {
+//        return ApiResponse.<List<RoomSummaryAvailableResponse>>builder()
+//                .message("Lấy danh sách phòng trống thành công")
+//                .result(roomService.getAllAvailableRooms(checkInDate, checkOutDate))
+//                .build();
+//    }
+
     @GetMapping("/available")
-    public ApiResponse<List<RoomSummaryAvailableResponse>> getAllAvailableRooms(
+    public ApiResponse<Page<RoomSummaryAvailableResponse>> getAllAvailableRooms(
             @RequestParam LocalDate checkInDate,
-            @RequestParam LocalDate checkOutDate
+            @RequestParam LocalDate checkOutDate,
+            @RequestParam(required = false) Integer adults,
+            @RequestParam(required = false) Integer children,
+            @RequestParam(required = false) String roomTypeId,
+            @RequestParam(required = false) String viewId,
+            Pageable pageable
     ) {
-        return ApiResponse.<List<RoomSummaryAvailableResponse>>builder()
+
+        return ApiResponse.<Page<RoomSummaryAvailableResponse>>builder()
                 .message("Lấy danh sách phòng trống thành công")
-                .result(roomService.getAllAvailableRooms(checkInDate, checkOutDate))
+                .result(roomService.getAllAvailableRooms(
+                        checkInDate,
+                        checkOutDate,
+                        adults,
+                        children,
+                        roomTypeId,
+                        viewId,
+                        pageable
+                ))
                 .build();
     }
 

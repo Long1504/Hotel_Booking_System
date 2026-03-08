@@ -58,9 +58,9 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html" class="active">Trang chủ</a></li>
+            <li><a href="index.html">Trang chủ</a></li>
             <li><a href="about.html">Giới thiệu</a></li>
-            <li><a href="rooms.html">Phòng</a></li>
+            <li><a href="rooms.html" class="active">Phòng</a></li>
             <li><a href="amenities.html">Tiện nghi</a></li>
             <li><a href="location.html">Vị trí</a></li>
             <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -138,44 +138,33 @@
         <div class="row align-items-center mb-5">
           <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
             <div class="room-header-image">
-              <img src="assets/img/hotel/room-15.webp" alt="Deluxe Ocean View Suite" class="img-fluid rounded">
+              <img src="assets/img/hotel/room-15.webp" alt="Deluxe Ocean View Suite" class="img-fluid rounded main-image">
               <div class="room-badge">
-                <span class="text-white">Premium Suite</span>
+                <span class="text-white view-name">Hướng biển</span>
               </div>
             </div>
           </div>
           <div class="col-lg-5" data-aos="fade-left" data-aos-delay="300">
             <div class="room-header-content">
-              <div class="room-rating mb-3">
-                <span class="rating-score">4.8</span>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                </div>
-                <span class="reviews-count">(127 đánh giá)</span>
-              </div>
-              <h1 class="room-title">Suite Deluxe Hướng Biển</h1>
-              <p class="room-tagline">Trải nghiệm không gian nghỉ dưỡng sang trọng với tầm nhìn biển ngoạn mục cùng tiện nghi cao cấp.</p>
+              <h1 class="room-title room-name">Suite Deluxe Hướng Biển</h1>
+              <p class="room-tagline"><span class="room-type-name">Phòng cao cấp</span> - Trải nghiệm không gian nghỉ dưỡng sang trọng với tiện nghi cao cấp.</p>
               <div class="room-capacity mb-4">
                 <div class="capacity-item">
                   <i class="bi bi-people"></i>
-                  <span>Tối đa 4 khách</span>
+                  <span class="adults-children">Tối đa 4 người lớn và 2 trẻ em</span>
+                </div>
+                <div class="capacity-item">
+                  <i class="bi bi-layers"></i>
+                  <span class="floor">Tầng 2</span>
                 </div>
                 <div class="capacity-item">
                   <i class="bi bi-grid"></i>
-                  <span>Diện tích 80m²</span>
-                </div>
-                <div class="capacity-item">
-                  <i class="bi bi-moon-stars"></i>
-                  <span>Giường King + Sofa giường</span>
+                  <span class="area">Diện tích 80m²</span>
                 </div>
               </div>
               <div class="room-price">
-                <span class="price-amount">1.200.000đ</span>
-                <span class="price-period">/đêm</span>
+                <span class="price-amount final-price">1.200.000đ</span>
+                <span class="price-period nights">/ 1 đêm</span>
               </div>
               <a href="booking.html" class="btn btn-book-now">Đặt phòng ngay</a>
             </div>
@@ -213,8 +202,7 @@
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <div class="room-description">
               <h3 class="section-subtitle">Tổng quan phòng</h3>
-              <p>Tận hưởng trải nghiệm nghỉ dưỡng đẳng cấp với Suite Deluxe Hướng Biển, nơi không gian rộng rãi kết hợp cùng hệ cửa kính chạm trần mở ra tầm nhìn toàn cảnh đại dương, tạo nên bầu không khí thư thái, lý tưởng cho các kỳ nghỉ lãng mạn hoặc chuyến đi gia đình.</p>
-              <p>Phòng được thiết kế tinh tế với khu vực sinh hoạt riêng biệt, trang bị ghế ngồi êm ái, bàn làm việc dành cho khách công tác và ban công riêng - nơi bạn có thể nhâm nhi tách cà phê buổi sáng và ngắm bình minh trên biển. Phòng ngủ sở hữu giường King cao cấp với bộ chăn ga sang trọng, mang đến giấc ngủ trọn vẹn, trong khi sofa giường tại phòng khách đáp ứng thêm chỗ nghỉ cho tối đa hai khách.</p>
+              <p class="description">Tận hưởng trải nghiệm nghỉ dưỡng đẳng cấp với Suite Deluxe Hướng Biển, nơi không gian rộng rãi kết hợp cùng hệ cửa kính chạm trần mở ra tầm nhìn toàn cảnh đại dương, tạo nên bầu không khí thư thái, lý tưởng cho các kỳ nghỉ lãng mạn hoặc chuyến đi gia đình.</p>
             </div>
           </div>
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
@@ -234,52 +222,12 @@
         <!-- Amenities and Features -->
         <div class="room-amenities mb-5" data-aos="fade-up" data-aos-delay="200">
           <h3 class="section-subtitle mb-4">Tiện nghi phòng</h3>
-          <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-              <div class="amenity-category">
-                <h5>Khu vực nghỉ ngơi</h5>
-                <ul>
-                  <li><i class="bi bi-check2"></i>Giường King cỡ lớn</li>
-                  <li><i class="bi bi-check2"></i>Chăn ga cao cấp</li>
-                  <li><i class="bi bi-check2"></i>Gối mút hoạt tính</li>
-                  <li><i class="bi bi-check2"></i>Rèm chắn sáng</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-              <div class="amenity-category">
-                <h5>Công nghệ</h5>
-                <ul>
-                  <li><i class="bi bi-check2"></i>Wi-Fi tốc độ cao</li>
-                  <li><i class="bi bi-check2"></i>TV thông minh 55 inch</li>
-                  <li><i class="bi bi-check2"></i>Loa Bluetooth</li>
-                  <li><i class="bi bi-check2"></i>Cổng sạc USB</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-              <div class="amenity-category">
-                <h5>Tiện nghi</h5>
-                <ul>
-                  <li><i class="bi bi-check2"></i>Hệ thống điều hòa nhiệt độ</li>
-                  <li><i class="bi bi-check2"></i>Tủ lạnh mini</li>
-                  <li><i class="bi bi-check2"></i>Máy pha cà phê</li>
-                  <li><i class="bi bi-check2"></i>Két an toàn</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-              <div class="amenity-category">
-                <h5>Phòng tắm</h5>
-                <ul>
-                  <li><i class="bi bi-check2"></i>Phòng tắm ốp đá cẩm thạch</li>
-                  <li><i class="bi bi-check2"></i>Vòi sen mưa</li>
-                  <li><i class="bi bi-check2"></i>Đồ dùng vệ sinh cao cấp</li>
-                  <li><i class="bi bi-check2"></i>Sàn sưởi ấm</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <ul class="row list-unstyled">
+            <li class="col-md-2"><i class="bi bi-check2 me-1"></i>Giường King cỡ lớn</li>
+            <li class="col-md-2"><i class="bi bi-check2 me-1"></i>Chăn ga cao cấp</li>
+            <li class="col-md-2"><i class="bi bi-check2 me-1"></i>Gối mút hoạt tính</li>
+            <li class="col-md-2"><i class="bi bi-check2 me-1"></i>Rèm chắn sáng</li>
+          </ul>
         </div>
 
         <!-- Tabbed Information -->
@@ -305,11 +253,11 @@
                   </div>
                   <div class="col-md-4">
                     <h6>Hủy phòng</h6>
-                    <p>Miễn phí hủy phòng trước 24 giờ so với thời điểm nhận phòng</p>
+                    <p>Miễn phí hủy phòng trong 24 giờ từ thời điểm đặt phòng</p>
                   </div>
                   <div class="col-md-4">
                     <h6>Thú cưng</h6>
-                    <p>Cho phép mang theo thú cưng (có phụ phí)</p>
+                    <p>Cho phép mang theo thú cưng</p>
                   </div>
                 </div>
               </div>
@@ -402,14 +350,14 @@
             <div class="row align-items-center">
               <div class="col-lg-8">
                 <h4>Bạn đã sẵn sàng đặt phòng?</h4>
-                <p>Trải nghiệm sự sang trọng và thoải mái tại Suite Deluxe Hướng Biển. Đặt phòng ngay để tạo nên những kỷ niệm khó quên.</p>
+                <p>Trải nghiệm sự sang trọng và thoải mái tại <span class="room-name">Suite Deluxe Hướng Biển</span>. Đặt phòng ngay để tạo nên những kỷ niệm khó quên.</p>
               </div>
               <div class="col-lg-4 text-center text-lg-end">
                 <div class="price-display">
-                  <span class="price">1.200.000đ</span>
-                  <span class="period">/đêm</span>
+                  <span class="price final-price">1.200.000đ</span>
+                  <span class="period nights">/ 1 đêm</span>
                 </div>
-                <a href="booking.html" class="btn btn-primary btn-lg">Kiểm tra phòng trống</a>
+                <a href="booking.html" class="btn btn-primary btn-lg">Tiến hành đặt phòng</a>
               </div>
             </div>
           </div>
@@ -506,6 +454,10 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Custom Js -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/room-details.js"></script>
 
 </body>
 
