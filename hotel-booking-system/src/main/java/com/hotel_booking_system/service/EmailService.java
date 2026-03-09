@@ -35,6 +35,8 @@ public class EmailService {
                           BigDecimal totalPrice,
                           LocalDateTime createdAt,
                           String bookingStatus,
+                          String paymentMethod,
+                          String paymentStatus,
                           String roomName,
                           Integer floor,
                           String roomNumber,
@@ -103,8 +105,18 @@ public class EmailService {
                             "</tr>" +
 
                             "<tr>" +
-                            "<td width='180' style='padding:8px;border-bottom:1px solid #eee;font-weight:500'>Trạng thái</td>" +
+                            "<td width='180' style='padding:8px;border-bottom:1px solid #eee;font-weight:500'>Trạng thái đặt phòng</td>" +
                             "<td style='padding:8px;border-bottom:1px solid #eee'>" + bookingStatus + "</td>" +
+                            "</tr>" +
+
+                            "<tr>" +
+                            "<td width='180' style='padding:8px;border-bottom:1px solid #eee;font-weight:500'>Phương thức thanh toán</td>" +
+                            "<td style='padding:8px;border-bottom:1px solid #eee'>" + paymentMethod + "</td>" +
+                            "</tr>" +
+
+                            "<tr>" +
+                            "<td width='180' style='padding:8px;border-bottom:1px solid #eee;font-weight:500'>Trạng thái thanh toán</td>" +
+                            "<td style='padding:8px;border-bottom:1px solid #eee'>" + paymentStatus + "</td>" +
                             "</tr>" +
 
                             "</table>" +

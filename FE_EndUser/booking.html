@@ -148,7 +148,7 @@
                 <form class="reservation-form" action="" method="POST">
 
                   <div class="form-section">
-                    <h4>Chi tiết đặt phòng</h4>
+                    <h4>Thông tin đặt phòng</h4>
                     <div class="form-grid">
                       <div class="form-group">
                         <label for="check-in-date" class="form-label">Ngày nhận phòng</label>
@@ -160,7 +160,7 @@
                       </div>
                       <div class="form-group">
                         <label for="adults" class="form-label">Số người lớn</label>
-                        <input type="number" class="form-control" id="adults" name="adults" min="0" value="0" required="">
+                        <input type="number" class="form-control" id="adults" name="adults" min="1" value="1" required="">
                       </div>
                       <div class="form-group">
                         <label for="children" class="form-label">Số trẻ em</label>
@@ -187,6 +187,19 @@
                       <div class="form-group">
                         <label for="guest-phone" class="form-label">Số điện thoại</label>
                         <input type="tel" class="form-control" id="guest-phone" name="guest-phone" required="">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-section">
+                    <h4>Phương thức thanh toán</h4>
+                    <div class="form-grid">
+                      <div class="form-group full-width">
+                        <label for="payment-method" class="form-label">Vui lòng chọn phương thức thanh toán</label>
+                        <select class="form-select" id="payment-method" name="payment-method" required="">
+                          <option value="CASH">Thanh toán trực tiếp</option>
+                          <option value="BANK">Chuyển khoản ngân hàng</option>
+                        </select>
                       </div>
                     </div>
                   </div>

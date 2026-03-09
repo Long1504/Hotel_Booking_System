@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setupCheckInInput() {
     const today = getTodayString();
-    checkInInput.setAttribute("min", today);
+    checkInInput.min = today;
 
-    if (checkInDate) {
+    if (checkInDate && checkInDate >= today) {
       checkInInput.value = checkInDate;
     }
 
@@ -27,19 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
       nextDay.setDate(nextDay.getDate() + 1);
 
       const minCheckOut = nextDay.toISOString().split("T")[0];
-      checkOutInput.setAttribute("min", minCheckOut);
 
-      if (!checkOutInput.value || checkOutInput.value <= selectedCheckIn) {
+      // Không cho chọn ngày trả <= ngày nhận
+      checkOutInput.min = minCheckOut;
+
+      if (!checkOutInput.value || checkOutInput.value < minCheckOut) {
         checkOutInput.value = minCheckOut;
       }
-
-      const maxCheckOutDate = new Date(selectedCheckIn);
-      maxCheckOutDate.setDate(maxCheckOutDate.getDate() + 30);
-
-      checkOutInput.setAttribute(
-        "max",
-        maxCheckOutDate.toISOString().split("T")[0]
-      );
 
       if (roomId && checkOutInput.value) {
         loadRoom();
@@ -65,15 +59,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!roomId || !checkIn || !checkOut) return;
 
+    const submitButton = document.querySelector(
+      ".reservation-form button[type='submit']",
+    );
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.innerHTML = "Đang kiểm tra...";
+    }
+
     try {
       const endpoint = `/rooms/available/${roomId}?checkInDate=${checkIn}&checkOutDate=${checkOut}`;
       const response = await callAPI(endpoint);
 
       if (response && response.result) {
         renderRoom(response.result);
+      } else {
+        // Phòng không khả dụng
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.innerHTML = "Phòng không khả dụng";
+        }
+        alert("Phòng không khả dụng trong khoảng thời gian này");
       }
     } catch (error) {
       console.error("Lỗi khi tải thông tin phòng:", error);
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.innerHTML = "Phòng không khả dụng";
+      }
     }
   }
 
@@ -92,10 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (floorElement) floorElement.textContent = room.floor || "";
 
     const roomNumberElement = document.querySelector(".room-number");
-    if (roomNumberElement) roomNumberElement.textContent = room.roomNumber || "";
+    if (roomNumberElement)
+      roomNumberElement.textContent = room.roomNumber || "";
 
     const areaElement = document.querySelector(".area");
-    if (areaElement) areaElement.textContent = room.area ? room.area + "m²" : "";
+    if (areaElement)
+      areaElement.textContent = room.area ? room.area + "m²" : "";
 
     const capacityElement = document.querySelector(".adults-children");
     if (capacityElement) {
@@ -137,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const submitButton = document.querySelector(
-      ".reservation-form button[type='submit']"
+      ".reservation-form button[type='submit']",
     );
 
     if (submitButton && room.finalPrice != null && room.nights != null) {
@@ -145,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Number(room.finalPrice).toLocaleString("vi-VN") + "đ";
 
       submitButton.innerHTML = `<i class="bi bi-calendar-plus me-2"></i>Đặt phòng (${formattedPrice} / ${room.nights} đêm)`;
+      submitButton.disabled = false;
     }
   }
 
@@ -158,10 +174,59 @@ document.addEventListener("DOMContentLoaded", () => {
   const reservationForm = document.querySelector(".reservation-form");
 
   if (reservationForm) {
-    reservationForm.addEventListener("submit", (event) => {
+    reservationForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
       if (!checkInInput.value || !checkOutInput.value) {
-        event.preventDefault();
         alert("Vui lòng chọn đầy đủ ngày nhận và trả phòng");
+        return;
+      }
+
+      const guestName = document.getElementById("guest-name").value.trim();
+      const guestPhone = document.getElementById("guest-phone").value.trim();
+      const guestEmail = document.getElementById("guest-email").value.trim();
+      const adults = parseInt(document.getElementById("adults").value) || 0;
+      const children = parseInt(document.getElementById("children").value) || 0;
+      const note = document.getElementById("note").value.trim();
+      const paymentMethod = document.getElementById("payment-method").value;
+
+      if (!guestName || !guestPhone || !guestEmail) {
+        alert("Vui lòng nhập đầy đủ thông tin khách hàng");
+        return;
+      }
+
+      const data = {
+        checkInDate: checkInInput.value,
+        checkOutDate: checkOutInput.value,
+        guestName,
+        guestPhone,
+        guestEmail,
+        adults,
+        children,
+        note,
+        paymentMethod,
+        roomId,
+      };
+
+      try {
+        const token = localStorage.getItem("tokenHotelBooking");
+        let response;
+        if (token) {
+          response = await callAPIWithAuth("/bookings", "POST", data);
+        } else {
+          response = await callAPI("/bookings", "POST", data);
+        }
+
+        if (response.code === 1000) {
+          alert("Đặt phòng thành công");
+          // Có thể redirect đến trang xác nhận
+          // window.location.href = `confirmation.html?bookingId=${response.result.bookingId}`;
+        } else {
+          alert("Lỗi: " + response.message);
+        }
+      } catch (error) {
+        console.error("Lỗi khi đặt phòng:", error);
+        alert("Có lỗi xảy ra khi đặt phòng");
       }
     });
   }

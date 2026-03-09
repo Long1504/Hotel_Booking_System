@@ -4,6 +4,8 @@ import com.hotel_booking_system.dto.request.CreateBookingRequest;
 import com.hotel_booking_system.dto.response.BookingResponse;
 import com.hotel_booking_system.entity.*;
 import com.hotel_booking_system.enums.BookingStatus;
+import com.hotel_booking_system.enums.PaymentMethod;
+import com.hotel_booking_system.enums.PaymentStatus;
 import com.hotel_booking_system.exception.AppException;
 import com.hotel_booking_system.exception.ErrorCode;
 import com.hotel_booking_system.mapper.BookingMapper;
@@ -84,6 +86,12 @@ public class BookingService {
                 .room(room)
                 .build();
 
+        if (request.getPaymentMethod().equals(PaymentMethod.CASH.name())) {
+            booking.setPaymentMethod(PaymentMethod.CASH.name());
+            booking.setPaymentStatus(PaymentStatus.UNPAID.name());
+            booking.setPaidAt(null);
+        }
+
         BookingStatusHistory history = BookingStatusHistory.builder()
                 .booking(booking)
                 .status(BookingStatus.PENDING.name())
@@ -107,6 +115,8 @@ public class BookingService {
                 booking.getTotalPrice(),
                 booking.getCreatedAt(),
                 booking.getBookingStatus(),
+                booking.getPaymentMethod(),
+                booking.getPaymentStatus(),
                 booking.getRoom().getRoomName(),
                 booking.getRoom().getFloor(),
                 booking.getRoom().getRoomNumber(),

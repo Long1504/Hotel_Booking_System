@@ -26,7 +26,9 @@ public class BookingResponse {
     private BigDecimal totalPrice;
     private LocalDateTime createdAt;
     private String bookingStatus;
+    private String paymentMethod;
+    private String paymentStatus;
+    private LocalDateTime paidAt;
     private RoomBookingResponse room;
-
     private List<BookingStatusHistoryResponse> bookingStatusHistories;
 }

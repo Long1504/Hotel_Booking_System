@@ -124,6 +124,9 @@ CREATE TABLE bookings (
     total_price DECIMAL(12, 2) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     booking_status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+    payment_method VARCHAR(20) NOT NULL,
+    payment_status VARCHAR(20) NOT NULL,
+    paid_at TIMESTAMP,
     user_id CHAR(36),
     room_id CHAR(36) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
@@ -145,19 +148,7 @@ CREATE TABLE booking_status_histories (
     FOREIGN KEY (changed_by) REFERENCES users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 13. Bảng PAYMENTS
-CREATE TABLE payments (
-    payment_id CHAR(36) PRIMARY KEY,
-    payment_method VARCHAR(50) NOT NULL,
-    amount DECIMAL(12, 2) NOT NULL,
-    payment_status VARCHAR(20) NOT NULL,
-    paid_at TIMESTAMP,
-    booking_id CHAR(36) NOT NULL UNIQUE,
-    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
-    CHECK (amount >= 0)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- 14. Bảng SERVICES
+-- 13. Bảng SERVICES
 CREATE TABLE services (
     service_id CHAR(36) PRIMARY KEY,
     service_name VARCHAR(100) NOT NULL UNIQUE,

@@ -1,15 +1,8 @@
 package com.hotel_booking_system.dto.request;
 
-import com.hotel_booking_system.entity.BookingStatusHistory;
-import com.hotel_booking_system.entity.Room;
-import com.hotel_booking_system.entity.User;
-import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -25,9 +18,7 @@ public class CreateBookingRequest {
     private Integer adults;
     private Integer children;
     private String note;
-    private BigDecimal totalPrice;
-
-    private String userId;
-
+    private String paymentMethod;
+//    private String userId;
     private String roomId;
 }
