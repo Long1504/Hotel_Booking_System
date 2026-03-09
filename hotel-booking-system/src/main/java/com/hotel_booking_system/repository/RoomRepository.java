@@ -77,4 +77,17 @@ public interface RoomRepository extends JpaRepository<Room, String> {
         )
     """)
     Optional<Room> findAvailableRoomById(String roomId, LocalDate checkInDate, LocalDate checkOutDate);
+
+    @Query("""
+        SELECT CASE WHEN COUNT(b) = 0 THEN true ELSE false END
+        FROM Room r
+        LEFT JOIN Booking b 
+            ON b.room = r
+            AND b.checkInDate < :checkOutDate
+            AND b.checkOutDate > :checkInDate
+        WHERE r.roomId = :roomId
+        AND r.deletedAt IS NULL
+        AND r.roomStatus = 'AVAILABLE'
+    """)
+    boolean isRoomAvailable(String roomId, LocalDate checkInDate, LocalDate checkOutDate);
 }

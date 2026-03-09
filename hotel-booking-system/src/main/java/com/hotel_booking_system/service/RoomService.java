@@ -47,74 +47,15 @@ public class RoomService {
     }
 
     // Customer
-//    public List<RoomSummaryAvailableResponse> getAllAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate) {
-//        if (!checkOutDate.isAfter(checkInDate)) {
-//            throw new IllegalArgumentException("Check-out must be after check-in");
-//        }
-//
-//        List<Room> rooms = roomRepository.findAllAvailableRooms(checkInDate, checkOutDate);
-//
-//        List<PriceRule> rules = priceRuleRepository.findRulesInRange(checkInDate, checkOutDate);
-//
-//        long nights = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
-//
-//        Map<LocalDate, BigDecimal> priceMap = new HashMap<>();
-//
-//        for (PriceRule rule : rules) {
-//            LocalDate date = rule.getStartDate().isBefore(checkInDate)
-//                    ? checkInDate
-//                    : rule.getStartDate();
-//
-//            LocalDate end = rule.getEndDate().isAfter(checkOutDate)
-//                    ? checkOutDate.minusDays(1)
-//                    : rule.getEndDate();
-//
-//            while (!date.isAfter(end)) {
-//                priceMap.put(date, rule.getPriceMultiplier());
-//                date = date.plusDays(1);
-//            }
-//        }
-//
-//        List<RoomSummaryAvailableResponse> results = new ArrayList<>();
-//
-//        for (Room room : rooms) {
-//            BigDecimal basePrice = room.getBasePrice();
-//            BigDecimal totalPrice = BigDecimal.ZERO;
-//
-//            LocalDate date = checkInDate;
-//
-//            while (date.isBefore(checkOutDate)) {
-//                BigDecimal multiplier = priceMap.getOrDefault(date, BigDecimal.ONE);
-//
-//                BigDecimal dailyPrice = basePrice.multiply(multiplier);
-//                totalPrice = totalPrice.add(dailyPrice);
-//
-//                date = date.plusDays(1);
-//            }
-//
-//            RoomSummaryAvailableResponse response = roomMapper.toRoomSummaryDisplayResponse(room);
-//
-//            response.setNights(nights);
-//            response.setFinalPrice(totalPrice);
-//
-//            results.add(response);
-//        }
-//
-//        return results;
-//    }
-
-    public Page<RoomSummaryAvailableResponse> getAllAvailableRooms(
-            LocalDate checkInDate,
-            LocalDate checkOutDate,
-            Integer adults,
-            Integer children,
-            String roomTypeId,
-            String viewId,
-            Pageable pageable
-    ) {
-
+    public Page<RoomSummaryAvailableResponse> getAllAvailableRooms(LocalDate checkInDate,
+                                                                   LocalDate checkOutDate,
+                                                                   Integer adults,
+                                                                   Integer children,
+                                                                   String roomTypeId,
+                                                                   String viewId,
+                                                                   Pageable pageable) {
         if (!checkOutDate.isAfter(checkInDate)) {
-            throw new IllegalArgumentException("Check-out must be after check-in");
+            throw new AppException(ErrorCode.INVALID_DATE_RANGE);
         }
 
         Page<Room> roomPage = roomRepository.findAllAvailableRooms(
@@ -127,39 +68,12 @@ public class RoomService {
                 pageable
         );
 
-        List<PriceRule> rules = priceRuleRepository.findRulesInRange(checkInDate, checkOutDate);
-
         long nights = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
 
-        Map<LocalDate, BigDecimal> priceMap = new HashMap<>();
-
-        for (PriceRule rule : rules) {
-            LocalDate date = rule.getStartDate().isBefore(checkInDate)
-                    ? checkInDate
-                    : rule.getStartDate();
-
-            LocalDate end = rule.getEndDate().isAfter(checkOutDate)
-                    ? checkOutDate.minusDays(1)
-                    : rule.getEndDate();
-
-            while (!date.isAfter(end)) {
-                priceMap.put(date, rule.getPriceMultiplier());
-                date = date.plusDays(1);
-            }
-        }
+        Map<LocalDate, BigDecimal> priceMap = buildPriceMap(checkInDate, checkOutDate);
 
         return roomPage.map(room -> {
-
-            BigDecimal basePrice = room.getBasePrice();
-            BigDecimal totalPrice = BigDecimal.ZERO;
-
-            LocalDate date = checkInDate;
-
-            while (date.isBefore(checkOutDate)) {
-                BigDecimal multiplier = priceMap.getOrDefault(date, BigDecimal.ONE);
-                totalPrice = totalPrice.add(basePrice.multiply(multiplier));
-                date = date.plusDays(1);
-            }
+            BigDecimal totalPrice = calculateTotalPrice(room.getBasePrice(), checkInDate, checkOutDate, priceMap);
 
             RoomSummaryAvailableResponse response = roomMapper.toRoomSummaryDisplayResponse(room);
 
@@ -170,36 +84,64 @@ public class RoomService {
         });
     }
 
-    public RoomAvailableResponse getRoomAvailable(String roomId, LocalDate checkInDate, LocalDate checkOutDate) {
+    public RoomAvailableResponse getRoomAvailable(String roomId,
+                                                  LocalDate checkInDate,
+                                                  LocalDate checkOutDate) {
         if (!checkOutDate.isAfter(checkInDate)) {
-            throw new IllegalArgumentException("Check-out must be after check-in");
+            throw new AppException(ErrorCode.INVALID_DATE_RANGE);
         }
 
         Room room = roomRepository.findAvailableRoomById(roomId, checkInDate, checkOutDate)
-                .orElseThrow(() -> new RuntimeException("Room not available"));
-
-        List<PriceRule> rules = priceRuleRepository.findRulesInRange(checkInDate, checkOutDate);
+                .orElseThrow(() -> new AppException(ErrorCode.ROOM_NOT_AVAILABLE));
 
         long nights = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
+
+        Map<LocalDate, BigDecimal> priceMap = buildPriceMap(checkInDate, checkOutDate);
+
+        BigDecimal totalPrice = calculateTotalPrice(
+                room.getBasePrice(),
+                checkInDate,
+                checkOutDate,
+                priceMap
+        );
+
+        RoomAvailableResponse response = roomMapper.toRoomAvailableResponse(room);
+
+        response.setNights(nights);
+        response.setFinalPrice(totalPrice);
+
+        return response;
+    }
+
+    private Map<LocalDate, BigDecimal> buildPriceMap(LocalDate checkInDate, LocalDate checkOutDate) {
+        List<PriceRule> rules = priceRuleRepository.findRulesInRange(checkInDate, checkOutDate);
 
         Map<LocalDate, BigDecimal> priceMap = new HashMap<>();
 
         for (PriceRule rule : rules) {
-            LocalDate date = rule.getStartDate().isBefore(checkInDate)
+            LocalDate startDate = rule.getStartDate().isBefore(checkInDate)
                     ? checkInDate
                     : rule.getStartDate();
 
-            LocalDate end = rule.getEndDate().isAfter(checkOutDate)
+            LocalDate endDate = rule.getEndDate().isAfter(checkOutDate)
                     ? checkOutDate.minusDays(1)
                     : rule.getEndDate();
 
-            while (!date.isAfter(end)) {
+            LocalDate date = startDate;
+
+            while (!date.isAfter(endDate)) {
                 priceMap.put(date, rule.getPriceMultiplier());
                 date = date.plusDays(1);
             }
         }
 
-        BigDecimal basePrice = room.getBasePrice();
+        return priceMap;
+    }
+
+    private BigDecimal calculateTotalPrice(BigDecimal basePrice,
+                                           LocalDate checkInDate,
+                                           LocalDate checkOutDate,
+                                           Map<LocalDate, BigDecimal> priceMap) {
         BigDecimal totalPrice = BigDecimal.ZERO;
 
         LocalDate date = checkInDate;
@@ -212,11 +154,6 @@ public class RoomService {
             date = date.plusDays(1);
         }
 
-        RoomAvailableResponse response = roomMapper.toRoomAvailableResponse(room);
-
-        response.setNights(nights);
-        response.setFinalPrice(totalPrice);
-
-        return response;
+        return totalPrice;
     }
 }

@@ -18,14 +18,13 @@ public class BookingStatusHistory {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String bookingStatusHistoryId;
 
-    private String oldStatus;
     @Column(nullable = false)
-    private String newStatus;
+    private String status;
     @Column(nullable = false)
     private LocalDateTime changedAt;
 
     @ManyToOne
-    @JoinColumn(name = "changed_by", nullable = false)
+    @JoinColumn(name = "changed_by")
     private User changedBy;
 
     @ManyToOne

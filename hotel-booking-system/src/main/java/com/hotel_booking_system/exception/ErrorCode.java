@@ -42,7 +42,12 @@ public enum ErrorCode {
 
     // Room
     ROOM_NOT_FOUND(7001, "Room not found", HttpStatus.NOT_FOUND),
-    ROOM_ALREADY_EXISTS(7002, "Room already exists", HttpStatus.CONFLICT)
+    ROOM_ALREADY_EXISTS(7002, "Room already exists", HttpStatus.CONFLICT),
+    ROOM_NOT_AVAILABLE(7003, "Room is not available for the selected dates", HttpStatus.BAD_REQUEST),
+    INVALID_DATE_RANGE(7004, "Invalid date range", HttpStatus.BAD_REQUEST),
+
+    // Booking
+    BOOKING_NOT_FOUND(8001, "Booking not found", HttpStatus.NOT_FOUND)
     ;
 
     private int code;

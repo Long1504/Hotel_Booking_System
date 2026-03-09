@@ -1,15 +1,17 @@
 package com.hotel_booking_system.dto.response;
 
-import com.hotel_booking_system.entity.Booking;
-import com.hotel_booking_system.entity.User;
-import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BookingStatusHistoryResponse {
     private String bookingStatusHistoryId;
-    private String oldStatus;
-    private String newStatus;
+    private String status;
     private LocalDateTime changedAt;
-    private User changedBy;
+    private String changedBy;
 }

@@ -1,9 +1,6 @@
 package com.hotel_booking_system.mapper;
 
-import com.hotel_booking_system.dto.response.RoomAvailableResponse;
-import com.hotel_booking_system.dto.response.RoomResponse;
-import com.hotel_booking_system.dto.response.RoomSummaryAvailableResponse;
-import com.hotel_booking_system.dto.response.RoomSummaryResponse;
+import com.hotel_booking_system.dto.response.*;
 import com.hotel_booking_system.entity.Amenity;
 import com.hotel_booking_system.entity.Room;
 import com.hotel_booking_system.entity.RoomImage;
@@ -54,4 +51,9 @@ public interface RoomMapper {
     @Mapping(source = "view.viewName", target = "viewName")
     @Mapping(source = "roomImages", target = "mainImageUrl", qualifiedByName = "mapMainImage")
     RoomSummaryAvailableResponse toRoomSummaryDisplayResponse(Room room);
+
+    @Mapping(source = "roomType.roomTypeName", target = "roomTypeName")
+    @Mapping(source = "view.viewName", target = "viewName")
+    @Mapping(source = "roomImages", target = "mainImageUrl", qualifiedByName = "mapMainImage")
+    RoomBookingResponse toRoomBookingResponse(Room room);
 }

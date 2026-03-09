@@ -137,9 +137,8 @@ CREATE TABLE bookings (
 -- 12. Bảng BOOKING_STATUS_HISTORIES
 CREATE TABLE booking_status_histories (
     booking_status_history_id CHAR(36) PRIMARY KEY,
-    old_status VARCHAR(20),
-    new_status VARCHAR(20) NOT NULL,
-    changed_by CHAR(36) NOT NULL, -- user_id của Lễ tân
+    status VARCHAR(20) NOT NULL,
+    changed_by CHAR(36), -- user_id của Lễ tân
     changed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     booking_id CHAR(36) NOT NULL,
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,

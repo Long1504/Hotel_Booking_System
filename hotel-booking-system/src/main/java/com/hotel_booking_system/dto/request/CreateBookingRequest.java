@@ -1,5 +1,9 @@
-package com.hotel_booking_system.dto.response;
+package com.hotel_booking_system.dto.request;
 
+import com.hotel_booking_system.entity.BookingStatusHistory;
+import com.hotel_booking_system.entity.Room;
+import com.hotel_booking_system.entity.User;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -12,9 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BookingResponse {
-    private String bookingId;
-    private String bookingCode;
+public class CreateBookingRequest {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private String guestName;
@@ -24,9 +26,8 @@ public class BookingResponse {
     private Integer children;
     private String note;
     private BigDecimal totalPrice;
-    private LocalDateTime createdAt;
-    private String bookingStatus;
-    private RoomBookingResponse room;
 
-    private List<BookingStatusHistoryResponse> bookingStatusHistories;
+    private String userId;
+
+    private String roomId;
 }

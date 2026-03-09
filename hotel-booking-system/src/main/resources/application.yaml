@@ -20,6 +20,18 @@ spring:
   jpa:
     show-sql: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pvlong1504@gmail.com
+    password: fmof tmqw vhpf wqob
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 jwt:
   signerKey: "a193e5f9c15cd8ce16e881b591e21f1a91bda4ea6a41313d4b24d07e5c466821"
   valid-duration: 3600 # Thời hạn token (giây)
