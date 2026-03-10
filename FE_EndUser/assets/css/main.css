@@ -7081,3 +7081,7 @@ section,
   margin-right: 8px;
   vertical-align: middle;
 }
+
+.topbar #userGreeting {
+  color: #fff ;
+}

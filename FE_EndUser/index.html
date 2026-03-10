@@ -41,9 +41,13 @@
         
         <div class="social-links d-none d-md-flex align-items-center">
           <!-- Auth links -->
-          <a href="login.html" class="auth-link me-2">Đăng nhập</a>
-          <span class="auth-sep me-2">|</span>
-          <a href="register.html" class="auth-link me-3">Đăng ký</a>
+          <span id="userGreeting" class="auth-link me-2" style="display: none;"></span>
+
+          <a id="loginLink" href="login.html" class="auth-link me-2">Đăng nhập</a>
+          <span id="authSep" class="auth-sep me-2">|</span>
+          <a id="registerLink" href="register.html" class="auth-link me-3">Đăng ký</a>
+
+          <a id="logoutLink" href="#" class="auth-link me-3" style="display: none;">Đăng xuất</a>
 
           <!-- Social icons -->
           <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
@@ -1450,6 +1454,51 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/api.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const username =
+        localStorage.getItem("username") ||
+        sessionStorage.getItem("username");
+
+      const userGreeting = document.getElementById("userGreeting");
+      const loginLink = document.getElementById("loginLink");
+      const registerLink = document.getElementById("registerLink");
+      const logoutLink = document.getElementById("logoutLink");
+      const authSep = document.getElementById("authSep");
+
+      if (username) {
+        if (userGreeting) {
+          userGreeting.style.display = "inline";
+          userGreeting.innerHTML = "Xin chào, <b>" + username + "</b>";
+        }
+
+        if (loginLink) loginLink.style.display = "none";
+        if (registerLink) registerLink.style.display = "none";
+        if (authSep) authSep.style.display = "none";
+        if (logoutLink) logoutLink.style.display = "inline";
+      }
+
+      if (logoutLink) {
+        logoutLink.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.removeItem("userRoles");
+          localStorage.removeItem("rememberMe");
+
+          sessionStorage.removeItem("token");
+          sessionStorage.removeItem("username");
+          sessionStorage.removeItem("userRoles");
+          sessionStorage.removeItem("rememberMe");
+
+          window.location.href = "index.html";
+        });
+      }
+    });
+  </script>
 
 </body>
 
