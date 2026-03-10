@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -53,4 +54,7 @@ public class Room {
             inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )
     private Set<Amenity> amenities;
+
+    @OneToMany(mappedBy = "room")
+    private List<RoomImage> roomImages;
 }

@@ -28,5 +28,5 @@ public class Payment {
 
     @OneToOne
     @JoinColumn(name = "booking_id", nullable = false, unique = true)
-    private  Booking booking;
+    private Booking booking;
 }

@@ -45,6 +45,11 @@ public class Booking {
     private LocalDateTime createdAt;
     @Column(nullable = false)
     private String bookingStatus;
+    @Column(nullable = false)
+    private String paymentMethod;
+    @Column(nullable = false)
+    private String paymentStatus;
+    private LocalDateTime paidAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -1,4 +1,6 @@
 package com.hotel_booking_system.enums;
 
 public enum RoomStatus {
+    AVAILABLE,
+    MAINTENANCE
 }
