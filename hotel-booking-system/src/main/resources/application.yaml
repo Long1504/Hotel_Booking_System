@@ -17,10 +17,16 @@ spring:
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     username: root
     password:
+
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
 
 jwt:
   signerKey: "a193e5f9c15cd8ce16e881b591e21f1a91bda4ea6a41313d4b24d07e5c466821"
-  valid-duration: 3600 # Thời hạn token (giây)
-  refreshable-duration: 36000 # Khoảng thời gian có thể refresh token (giây)
+  valid-duration: 3600
+  refreshable-duration: 36000
