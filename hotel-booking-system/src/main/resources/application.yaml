@@ -32,6 +32,12 @@ spring:
           starttls:
             enable: true
 
+vnpay:
+  tmnCode: 9MASX4HI
+  hashSecret: MITKX7R7KYM02X2K5G154TQ5GA29AEEC
+  payUrl: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+  returnUrl: http://localhost:8080/hotel-booking/api/v1/payment/vnpay-return
+
 jwt:
   signerKey: "a193e5f9c15cd8ce16e881b591e21f1a91bda4ea6a41313d4b24d07e5c466821"
   valid-duration: 3600 # Thời hạn token (giây)

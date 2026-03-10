@@ -47,7 +47,13 @@ public enum ErrorCode {
     INVALID_DATE_RANGE(7004, "Invalid date range", HttpStatus.BAD_REQUEST),
 
     // Booking
-    BOOKING_NOT_FOUND(8001, "Booking not found", HttpStatus.NOT_FOUND)
+    BOOKING_NOT_FOUND(8001, "Booking not found", HttpStatus.NOT_FOUND),
+    INVALID_PAYMENT_METHOD(8002, "Invalid payment method", HttpStatus.BAD_REQUEST),
+
+    // VNPay
+    INVALID_VNPAY_SIGNATURE(9001, "Invalid VNPay signature", HttpStatus.BAD_REQUEST),
+    PAYMENT_FAILED(9002, "Payment failed", HttpStatus.BAD_REQUEST),
+    INVALID_PAYMENT_AMOUNT(9003, "Invalid payment amount", HttpStatus.BAD_REQUEST)
     ;
 
     private int code;

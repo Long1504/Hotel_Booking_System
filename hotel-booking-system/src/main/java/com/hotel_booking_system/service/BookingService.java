@@ -30,6 +30,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 @Slf4j
 public class BookingService {
+    private final VNPayService VNPayService;
     private final BookingRepository bookingRepository;
     private final PriceRuleRepository priceRuleRepository;
     private final RoomRepository roomRepository;
@@ -63,8 +64,6 @@ public class BookingService {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        log.info(authentication.getName());
-
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
             String username = authentication.getName();
             user = userRepository.findByUsername(username)
@@ -90,6 +89,12 @@ public class BookingService {
             booking.setPaymentMethod(PaymentMethod.CASH.name());
             booking.setPaymentStatus(PaymentStatus.UNPAID.name());
             booking.setPaidAt(null);
+        } else if (request.getPaymentMethod().equals(PaymentMethod.VNPAY.name())) {
+            booking.setPaymentMethod(PaymentMethod.VNPAY.name());
+            booking.setPaymentStatus(PaymentStatus.UNPAID.name());
+            booking.setPaidAt(null);
+        } else {
+            throw new AppException(ErrorCode.INVALID_PAYMENT_METHOD);
         }
 
         BookingStatusHistory history = BookingStatusHistory.builder()
@@ -102,33 +107,17 @@ public class BookingService {
 
         booking = bookingRepository.save(booking);
 
-        emailService.sendEmail(
-                booking.getGuestEmail(),
-                booking.getBookingCode(),
-                booking.getCheckInDate(),
-                booking.getCheckOutDate(),
-                booking.getGuestName(),
-                booking.getGuestPhone(),
-                booking.getGuestEmail(),
-                booking.getAdults(),
-                booking.getChildren(),
-                booking.getTotalPrice(),
-                booking.getCreatedAt(),
-                booking.getBookingStatus(),
-                booking.getPaymentMethod(),
-                booking.getPaymentStatus(),
-                booking.getRoom().getRoomName(),
-                booking.getRoom().getFloor(),
-                booking.getRoom().getRoomNumber(),
-                booking.getRoom().getArea(),
-                booking.getRoom().getRoomType().getRoomTypeName(),
-                booking.getRoom().getView().getViewName(),
-                booking.getRoom().getRoomImages().stream()
-                        .filter(roomImage -> roomImage.getIsMain())
-                        .findFirst()
-                        .map(roomImage -> roomImage.getImageUrl())
-                        .orElse(null)
-        );
+        if (request.getPaymentMethod().equals(PaymentMethod.VNPAY.name())) {
+            String paymentUrl = VNPayService.createPaymentUrl(booking.getBookingCode(), booking.getTotalPrice());
+
+            BookingResponse response = bookingMapper.toBookingResponse(booking);
+
+            response.setPaymentUrl(paymentUrl);
+
+            return response;
+        }
+
+        emailService.sendEmail(bookingMapper.toSendBookingEmailRequest(booking));
 
         return bookingMapper.toBookingResponse(booking);
     }

@@ -1,4 +1,5 @@
 const API_BASE = "http://localhost:8080/hotel-booking/api/v1";
+// const API_BASE = "https://nadia-nonstudied-lilianna.ngrok-free.dev/hotel-booking/api/v1";
 
 // API không cần token
 async function callAPI(endpoint, method = "GET", data = null) {
@@ -6,6 +7,7 @@ async function callAPI(endpoint, method = "GET", data = null) {
     method: method,
     headers: {
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true"
     },
   };
 
@@ -31,6 +33,7 @@ async function callAPIWithAuth(endpoint, method = "GET", data = null) {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
+      "ngrok-skip-browser-warning": "true"
     },
   };
 

@@ -1,19 +1,18 @@
-package com.hotel_booking_system.dto.response;
+package com.hotel_booking_system.dto.request;
 
+import com.hotel_booking_system.dto.response.RoomBookingResponse;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BookingResponse {
-    private String bookingId;
+public class SendBookingEmailRequest {
     private String bookingCode;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
@@ -28,8 +27,5 @@ public class BookingResponse {
     private String bookingStatus;
     private String paymentMethod;
     private String paymentStatus;
-    private LocalDateTime paidAt;
-    private String paymentUrl;
     private RoomBookingResponse room;
-    private List<BookingStatusHistoryResponse> bookingStatusHistories;
 }
