@@ -1,0 +1,56 @@
+/* Custom cho trang Tài khoản - Grandoria Style */
+
+.account-sidebar, .account-card {
+    border-radius: 0 !important; /* Phù hợp style vuông vắn của Grandoria */
+    background-color: #fff;
+}
+
+.sidebar-menu .list-group-item {
+    transition: all 0.3s ease;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #444;
+}
+
+.sidebar-menu .list-group-item i {
+    font-size: 1.1rem;
+}
+
+.sidebar-menu .list-group-item.active {
+    background-color: #1a1a1a !important; /* Màu tối của template */
+    color: #fff !important;
+}
+
+.sidebar-menu .list-group-item:hover:not(.active) {
+    background-color: #f8f9fa;
+    padding-left: 1.5rem;
+}
+
+.custom-input {
+    border-radius: 0;
+    border: 1px solid #eee;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.custom-input:focus {
+    box-shadow: none;
+    border-color: #1a1a1a;
+}
+
+.avatar-wrapper img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.status-badge {
+    padding: 5px;
+    border: 2px solid #fff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 991px) {
+    .account-sidebar {
+        margin-bottom: 2rem;
+    }
+}

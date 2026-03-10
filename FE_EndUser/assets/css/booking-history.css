@@ -1,0 +1,186 @@
+/* Sidebar Styles */
+.account-sidebar {
+    border-radius: 0 !important;
+    background-color: #fff;
+}
+
+.avatar-wrapper img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.sidebar-menu .list-group-item {
+    font-family: 'Josefin Sans', sans-serif;
+    transition: all 0.3s ease;
+    border: none;
+    color: #555;
+}
+
+.sidebar-menu .list-group-item.active {
+    background-color: #1a1a1a !important; 
+    color: #fff !important;
+}
+
+.sidebar-menu .list-group-item:hover:not(.active) {
+    background-color: #f8f9fa;
+    padding-left: 1.5rem;
+}
+
+/* Booking Card Styles */
+.booking-card {
+    border-radius: 0 !important;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+}
+
+.room-img-container img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.card-footer {
+    border-top: 1px solid #f1f1f1 !important;
+    transition: background 0.3s;
+}
+
+.card-footer:hover {
+    background-color: #f1f1f1 !important;
+}
+
+/* Hiệu ứng xoay icon khi mở/đóng */
+[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+    transition: 0.3s;
+}
+
+.toggle-icon {
+    transition: 0.3s;
+}
+
+/* Style cho các label thông tin chi tiết */
+.detail-label {
+    color: #1a1a1a;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    border-left: 3px solid #1a1a1a;
+    padding-left: 10px;
+}
+
+.collapse .card-body {
+    background-color: #fdfdfd;
+}
+
+/* Điều chỉnh border và padding dựa trên màn hình */
+@media (min-width: 768px) {
+    .border-end {
+        border-right: 1px solid #dee2e6 !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .room-img-container {
+        display: none; 
+    }
+    .border-end {
+        border-right: none !important;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+    .ps-md-4 {
+        padding-left: 0 !important;
+    }
+}
+
+/* Sidebar & General Styles */
+.account-sidebar {
+    border-radius: 0 !important;
+    background-color: #fff;
+}
+
+.avatar-wrapper img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.sidebar-menu .list-group-item {
+    font-family: 'Josefin Sans', sans-serif;
+    transition: all 0.3s ease;
+    border: none;
+    color: #555;
+}
+
+.sidebar-menu .list-group-item.active {
+    background-color: #1a1a1a !important; 
+    color: #fff !important;
+}
+
+/* Booking Card Styles */
+.booking-card {
+    border-radius: 0 !important;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Fix Khoảng cách giữa nhãn và badge */
+.gap-2 {
+    gap: 0.5rem !important;
+}
+
+/* Hiệu ứng xoay icon */
+[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Detail Labels */
+.detail-label {
+    color: #1a1a1a;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    border-left: 3px solid #1a1a1a;
+    padding-left: 10px;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .border-end {
+        border-right: 1px solid #dee2e6 !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .room-img-container {
+        display: none; 
+    }
+    .border-end {
+        border-right: none !important;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+}
