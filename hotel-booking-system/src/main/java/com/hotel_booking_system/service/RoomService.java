@@ -46,7 +46,7 @@ public class RoomService {
         return roomMapper.toRoomResponse(room);
     }
 
-    // Customer
+    // Customer, Receptionist
     public Page<RoomSummaryAvailableResponse> getAllAvailableRooms(LocalDate checkInDate,
                                                                    LocalDate checkOutDate,
                                                                    Integer adults,

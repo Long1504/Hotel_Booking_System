@@ -12,6 +12,8 @@ import com.hotel_booking_system.mapper.BookingMapper;
 import com.hotel_booking_system.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -21,10 +23,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +37,91 @@ public class BookingService {
     private final BookingMapper bookingMapper;
 
     private final EmailService emailService;
+
+    public Page<BookingResponse> findAllBookings(String bookingStatus,
+                                                 String paymentStatus,
+                                                 Pageable pageable) {
+        return bookingRepository.findAll(bookingStatus, paymentStatus, pageable)
+                .map(booking -> bookingMapper.toBookingResponse(booking));
+    }
+
+    @Transactional
+    public BookingResponse updateBookingStatus(String bookingId, String newBookingStatus) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        BookingStatus currentBookingStatusEnum = BookingStatus.valueOf(booking.getBookingStatus());
+
+        BookingStatus newBookingStatusEnum;
+        try {
+            newBookingStatusEnum = BookingStatus.valueOf(newBookingStatus);
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.INVALID_BOOKING_STATUS);
+        }
+
+        if (!isValidBookingStatusTransition(currentBookingStatusEnum, newBookingStatusEnum)) {
+            throw new AppException(ErrorCode.INVALID_BOOKING_STATUS_TRANSITION);
+        }
+
+        booking.setBookingStatus(newBookingStatus);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        BookingStatusHistory bookingStatusHistory = BookingStatusHistory.builder()
+                .booking(booking)
+                .status(newBookingStatus)
+                .changedBy(user)
+                .build();
+
+        booking.getBookingStatusHistories().add(bookingStatusHistory);
+
+        booking =  bookingRepository.save(booking);
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
+    @Transactional
+    public BookingResponse updatePaymentStatus(String bookingId, String newPaymentStatus) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        PaymentStatus currentPaymentStatusEnum = PaymentStatus.valueOf(booking.getPaymentStatus());
+
+        PaymentStatus newPaymentStatusEnum;
+        try {
+            newPaymentStatusEnum = PaymentStatus.valueOf(newPaymentStatus);
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.INVALID_PAYMENT_STATUS);
+        }
+
+        if (currentPaymentStatusEnum == PaymentStatus.PAID && newPaymentStatusEnum == PaymentStatus.UNPAID) {
+            throw new AppException(ErrorCode.INVALID_BOOKING_STATUS_TRANSITION);
+        }
+
+        booking.setPaymentStatus(newPaymentStatus);
+
+        booking.setPaidAt(LocalDateTime.now());
+
+        booking =  bookingRepository.save(booking);
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
+    private boolean isValidBookingStatusTransition(BookingStatus currentBookingStatus, BookingStatus newBookingStatus) {
+        return switch (currentBookingStatus) {
+            case PENDING -> newBookingStatus == BookingStatus.CONFIRMED || newBookingStatus == BookingStatus.CANCELLED;
+
+            case CONFIRMED -> newBookingStatus == BookingStatus.CHECKED_IN || newBookingStatus == BookingStatus.CANCELLED;
+
+            case CHECKED_IN -> newBookingStatus == BookingStatus.CHECKED_OUT;
+
+            default -> false;
+        };
+    }
 
     @Transactional
     public BookingResponse createBooking(CreateBookingRequest request) {
@@ -103,7 +187,8 @@ public class BookingService {
                 .changedBy(user)
                 .build();
 
-        booking.setBookingStatusHistories(List.of(history));
+        booking.setBookingStatusHistories(new ArrayList<>());
+        booking.getBookingStatusHistories().add(history);
 
         booking = bookingRepository.save(booking);
 

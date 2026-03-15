@@ -7,53 +7,56 @@ import org.springframework.http.HttpStatusCode;
 @Getter
 public enum ErrorCode {
     // System
-    INTERNAL_SERVER_ERROR(9999, "Internal server error", HttpStatus.INTERNAL_SERVER_ERROR),
+    INTERNAL_SERVER_ERROR(9999, "Lỗi hệ thống", HttpStatus.INTERNAL_SERVER_ERROR),
 
     // Auth
-    UNAUTHENTICATED(1000, "Unauthenticated", HttpStatus.UNAUTHORIZED),
-    UNAUTHORIZED(1001, "Unauthorized", HttpStatus.FORBIDDEN),
-    INVALID_TOKEN(1002, "Invalid token", HttpStatus.UNAUTHORIZED),
-    ACCOUNT_LOCKED(1003, "Account is locked", HttpStatus.LOCKED),
-    INVALID_CREDENTIALS(1004, "Invalid username or password", HttpStatus.UNAUTHORIZED),
+    UNAUTHENTICATED(1000, "Chưa xác thực", HttpStatus.UNAUTHORIZED),
+    UNAUTHORIZED(1001, "Không có quyền truy cập", HttpStatus.FORBIDDEN),
+    INVALID_TOKEN(1002, "Token không hợp lệ", HttpStatus.UNAUTHORIZED),
+    ACCOUNT_LOCKED(1003, "Tài khoản đã bị khóa", HttpStatus.FORBIDDEN),
+    INVALID_CREDENTIALS(1004, "Tên đăng nhập hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED),
 
     // Role
-    ROLE_NOT_FOUND(2001, "Role not found", HttpStatus.NOT_FOUND),
-    ROLE_ALREADY_EXISTS(2002, "Role already exists", HttpStatus.CONFLICT),
+    ROLE_NOT_FOUND(2001, "Không tìm thấy vai trò", HttpStatus.NOT_FOUND),
+    ROLE_ALREADY_EXISTS(2002, "Vai trò đã tồn tại", HttpStatus.CONFLICT),
 
     // User
-    USER_NOT_FOUND(3001, "User not found", HttpStatus.NOT_FOUND),
-    USER_ALREADY_EXISTS(3002, "User already exists", HttpStatus.CONFLICT),
-    USERNAME_ALREADY_EXISTS(3003, "Username already exists", HttpStatus.CONFLICT),
-    EMAIL_ALREADY_EXISTS(3004, "Email already exists", HttpStatus.CONFLICT),
-    INVALID_PASSWORD(3005, "Invalid password", HttpStatus.BAD_REQUEST),
-    USER_DELETED(3006, "User account has been deleted", HttpStatus.GONE),
+    USER_NOT_FOUND(3001, "Không tìm thấy người dùng", HttpStatus.NOT_FOUND),
+    USER_ALREADY_EXISTS(3002, "Người dùng đã tồn tại", HttpStatus.CONFLICT),
+    USERNAME_ALREADY_EXISTS(3003, "Tên đăng nhập đã tồn tại", HttpStatus.CONFLICT),
+    EMAIL_ALREADY_EXISTS(3004, "Email đã tồn tại", HttpStatus.CONFLICT),
+    INVALID_PASSWORD(3005, "Mật khẩu không hợp lệ", HttpStatus.BAD_REQUEST),
+    USER_DELETED(3006, "Tài khoản đã bị xóa", HttpStatus.GONE),
 
     // RoomType
-    ROOM_TYPE_NOT_FOUND(4001, "Room type not found", HttpStatus.NOT_FOUND),
-    ROOM_TYPE_ALREADY_EXISTS(4002, "Room type already exists", HttpStatus.CONFLICT),
+    ROOM_TYPE_NOT_FOUND(4001, "Không tìm thấy loại phòng", HttpStatus.NOT_FOUND),
+    ROOM_TYPE_ALREADY_EXISTS(4002, "Loại phòng đã tồn tại", HttpStatus.CONFLICT),
 
     // View
-    VIEW_NOT_FOUND(5001, "View not found", HttpStatus.NOT_FOUND),
-    VIEW_ALREADY_EXISTS(5002, "View already exists", HttpStatus.CONFLICT),
+    VIEW_NOT_FOUND(5001, "Không tìm thấy view", HttpStatus.NOT_FOUND),
+    VIEW_ALREADY_EXISTS(5002, "View đã tồn tại", HttpStatus.CONFLICT),
 
     // Amenity
-    AMENITY_NOT_FOUND(6001, "Amenity not found", HttpStatus.NOT_FOUND),
-    AMENITY_ALREADY_EXISTS(6002, "Amenity already exists", HttpStatus.CONFLICT),
+    AMENITY_NOT_FOUND(6001, "Không tìm thấy tiện nghi", HttpStatus.NOT_FOUND),
+    AMENITY_ALREADY_EXISTS(6002, "Tiện nghi đã tồn tại", HttpStatus.CONFLICT),
 
     // Room
-    ROOM_NOT_FOUND(7001, "Room not found", HttpStatus.NOT_FOUND),
-    ROOM_ALREADY_EXISTS(7002, "Room already exists", HttpStatus.CONFLICT),
-    ROOM_NOT_AVAILABLE(7003, "Room is not available for the selected dates", HttpStatus.BAD_REQUEST),
-    INVALID_DATE_RANGE(7004, "Invalid date range", HttpStatus.BAD_REQUEST),
+    ROOM_NOT_FOUND(7001, "Không tìm thấy phòng", HttpStatus.NOT_FOUND),
+    ROOM_ALREADY_EXISTS(7002, "Phòng đã tồn tại", HttpStatus.CONFLICT),
+    ROOM_NOT_AVAILABLE(7003, "Phòng không khả dụng trong khoảng thời gian đã chọn", HttpStatus.BAD_REQUEST),
+    INVALID_DATE_RANGE(7004, "Khoảng thời gian không hợp lệ", HttpStatus.BAD_REQUEST),
 
     // Booking
-    BOOKING_NOT_FOUND(8001, "Booking not found", HttpStatus.NOT_FOUND),
-    INVALID_PAYMENT_METHOD(8002, "Invalid payment method", HttpStatus.BAD_REQUEST),
+    BOOKING_NOT_FOUND(8001, "Không tìm thấy đặt phòng", HttpStatus.NOT_FOUND),
+    INVALID_PAYMENT_METHOD(8002, "Phương thức thanh toán không hợp lệ", HttpStatus.BAD_REQUEST),
+    INVALID_BOOKING_STATUS_TRANSITION(8003, "Chuyển đổi trạng thái đặt phòng không hợp lệ", HttpStatus.BAD_REQUEST),
+    INVALID_BOOKING_STATUS(8004, "Trạng thái đặt phòng không hợp lệ", HttpStatus.BAD_REQUEST),
+    INVALID_PAYMENT_STATUS(8005, "Trạng thái thanh toán không hợp lệ", HttpStatus.BAD_REQUEST),
 
     // VNPay
-    INVALID_VNPAY_SIGNATURE(9001, "Invalid VNPay signature", HttpStatus.BAD_REQUEST),
-    PAYMENT_FAILED(9002, "Payment failed", HttpStatus.BAD_REQUEST),
-    INVALID_PAYMENT_AMOUNT(9003, "Invalid payment amount", HttpStatus.BAD_REQUEST)
+    INVALID_VNPAY_SIGNATURE(9001, "Chữ ký VNPay không hợp lệ", HttpStatus.BAD_REQUEST),
+    PAYMENT_FAILED(9002, "Thanh toán thất bại", HttpStatus.BAD_REQUEST),
+    INVALID_PAYMENT_AMOUNT(9003, "Số tiền thanh toán không hợp lệ", HttpStatus.BAD_REQUEST)
     ;
 
     private int code;

@@ -93,9 +93,15 @@ public class AuthenticationService {
 
         String token = generateToken(user);
 
+        String roleName = user.getRoles().stream()
+                .findFirst()
+                .map(role -> role.getRoleName())
+                .orElse(null);
+
         return AuthenticationResponse.builder()
                 .token(token)
                 .authenticated(authenticated)
+                .role(roleName)
                 .build();
     }
 

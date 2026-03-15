@@ -32,15 +32,6 @@ public class RoomController {
                 .build();
     }
 
-//    @GetMapping("/available")
-//    public ApiResponse<List<RoomSummaryAvailableResponse>> getAllAvailableRooms(@RequestParam LocalDate checkInDate,
-//                                                                                @RequestParam LocalDate checkOutDate) {
-//        return ApiResponse.<List<RoomSummaryAvailableResponse>>builder()
-//                .message("Lấy danh sách phòng trống thành công")
-//                .result(roomService.getAllAvailableRooms(checkInDate, checkOutDate))
-//                .build();
-//    }
-
     @GetMapping("/available")
     public ApiResponse<Page<RoomSummaryAvailableResponse>> getAllAvailableRooms(
             @RequestParam LocalDate checkInDate,
