@@ -66,10 +66,13 @@ public class SecurityConfig {
 
     private final String[] RECEPTIONIST_ENDPOINTS_GET = {
             // "/api/v1/users/my-info"
+            "/api/v1/bookings"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_PUT = {
             // "/api/v1/users/my-info"
+            "/api/v1/bookings/*/booking-status",
+            "/api/v1/bookings/*/payment-status"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_DELETE = {
