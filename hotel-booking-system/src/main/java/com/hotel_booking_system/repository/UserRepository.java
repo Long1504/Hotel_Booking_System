@@ -18,4 +18,14 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByUsername(String username);
 
     Page<User> findAllByRolesRoleNameAndDeletedAtIsNull(String roleName, Pageable pageable);
+
+    @Query("""
+        SELECT u FROM User u
+        JOIN u.roles r    
+        WHERE r.roleName = :roleName
+        AND u.deletedAt IS NULL    
+        AND (:userStatus IS NULL OR u.userStatus = :userStatus)
+        AND (:username IS NULL OR u.username LIKE %:username%)
+    """)
+    Page<User> findAll(String roleName, String userStatus, String username, Pageable pageable);
 }

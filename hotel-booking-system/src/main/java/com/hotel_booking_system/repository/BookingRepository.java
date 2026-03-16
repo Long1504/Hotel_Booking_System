@@ -17,6 +17,7 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
         SELECT b FROM Booking b
         WHERE (:bookingStatus IS NULL OR b.bookingStatus = :bookingStatus)
         AND (:paymentStatus IS NULL OR b.paymentStatus = :paymentStatus)
+        AND (:bookingCode IS NULL OR b.bookingCode LIKE %:bookingCode%)
     """)
-    Page<Booking> findAll(String bookingStatus, String paymentStatus, Pageable pageable);
+    Page<Booking> findAll(String bookingStatus, String paymentStatus, String bookingCode, Pageable pageable);
 }

@@ -1,3 +1,7 @@
+if (!localStorage.getItem("tokenHotelBooking")) {
+  window.location.href = "login.html";
+}
+
 // Load danh sách loại phòng và điền vào select filter
 async function loadRoomTypes() {
   try {
@@ -45,7 +49,8 @@ async function loadRooms(page = 0) {
     let checkInDate = document.getElementById("check-in-date-filter").value;
     let checkOutDate = document.getElementById("check-out-date-filter").value;
     let adults = parseInt(document.getElementById("adults-filter").value) || 1;
-    let children = parseInt(document.getElementById("children-filter").value) || 0;
+    let children =
+      parseInt(document.getElementById("children-filter").value) || 0;
     const roomTypeId = document.getElementById("room-type-filter").value;
     const viewId = document.getElementById("view-filter").value;
     const sortBy = document.getElementById("sort-by").value;
@@ -321,58 +326,59 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
-
 // Đặt phòng
-document.getElementById("booking-form").addEventListener("submit", async function (e) {
-  e.preventDefault();
+document
+  .getElementById("booking-form")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-  try {
-    const data = {
-      checkInDate: document.getElementById("check-in-date").value,
-      checkOutDate: document.getElementById("check-out-date").value,
-      guestName: document.getElementById("guest-name").value,
-      guestPhone: document.getElementById("phone").value,
-      guestEmail: document.getElementById("email").value,
-      adults: parseInt(document.getElementById("adults").value),
-      children: parseInt(document.getElementById("children").value),
-      note: document.getElementById("note").value,
-      paymentMethod: "CASH",
-      roomId: document.getElementById("room-id").value
-    };
+    try {
+      const data = {
+        checkInDate: document.getElementById("check-in-date").value,
+        checkOutDate: document.getElementById("check-out-date").value,
+        guestName: document.getElementById("guest-name").value,
+        guestPhone: document.getElementById("phone").value,
+        guestEmail: document.getElementById("email").value,
+        adults: parseInt(document.getElementById("adults").value),
+        children: parseInt(document.getElementById("children").value),
+        note: document.getElementById("note").value,
+        paymentMethod: "CASH",
+        roomId: document.getElementById("room-id").value,
+      };
 
-    const response = await callAPI("/bookings", "POST", data);
+      const response = await callAPI("/bookings", "POST", data);
 
-    if (response.code === 1000) {
+      if (response.code === 1000) {
+        const result = response.result;
 
-      const result = response.result;
+        // Đóng modal booking
+        const bookingModal = bootstrap.Modal.getInstance(
+          document.getElementById("booking"),
+        );
+        bookingModal.hide();
 
-      // Đóng modal booking
-      const bookingModal = bootstrap.Modal.getInstance(document.getElementById("booking"));
-      bookingModal.hide();
+        document.getElementById("booking-form").reset();
 
-      document.getElementById("booking-form").reset();
+        loadRooms();
 
-      loadRooms()
+        // Điền dữ liệu vào modal booking-info
+        fillBookingInfo(result);
 
-      // Điền dữ liệu vào modal booking-info
-      fillBookingInfo(result);
-
-      // Mở modal thông tin
-      const infoModal = new bootstrap.Modal(document.getElementById("booking-info"));
-      infoModal.show();
-
-    } else {
-      alert(response.message || "Đặt phòng thất bại");
+        // Mở modal thông tin
+        const infoModal = new bootstrap.Modal(
+          document.getElementById("booking-info"),
+        );
+        infoModal.show();
+      } else {
+        alert(response.message || "Đặt phòng thất bại");
+      }
+    } catch (error) {
+      console.error("Booking error:", error);
+      alert("Lỗi khi đặt phòng");
     }
-
-  } catch (error) {
-    console.error("Booking error:", error);
-    alert("Lỗi khi đặt phòng");
-  }
-});
+  });
 
 function fillBookingInfo(booking) {
-
   const setValue = (id, value) => {
     const el = document.querySelector(`#booking-info #${id}`);
     if (el) el.value = value ?? "";

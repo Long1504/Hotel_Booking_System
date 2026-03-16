@@ -61,7 +61,7 @@
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a id="logout-btn" class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Đăng xuất</span>
               </a>
@@ -137,6 +137,11 @@
                     <option>Thời gian: Mới nhất</option>
                     <option>Thời gian: Cũ nhất</option>
                   </select>
+                </div>
+                <div class="col-lg-4 col-md-6"></div>
+                <div class="col-lg-2 col-md-6">
+                  <label class="form-label fw-semibold small">Tìm kiếm</label>
+                  <input type="text" class="form-control form-control-sm" id="search-by-booking-code" placeholder="Nhập mã đặt phòng...">
                 </div>
               </div>
     
@@ -359,6 +364,7 @@
   <!-- Custom JS -->
   <script src="assets/js/api.js"></script>
   <script src="assets/js/bookings.js"></script>
+  <script src="assets/js/logout.js"></script>
 
 </body>
 

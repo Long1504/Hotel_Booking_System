@@ -40,8 +40,9 @@ public class BookingService {
 
     public Page<BookingResponse> findAllBookings(String bookingStatus,
                                                  String paymentStatus,
+                                                 String bookingCode,
                                                  Pageable pageable) {
-        return bookingRepository.findAll(bookingStatus, paymentStatus, pageable)
+        return bookingRepository.findAll(bookingStatus, paymentStatus, bookingCode, pageable)
                 .map(booking -> bookingMapper.toBookingResponse(booking));
     }
 

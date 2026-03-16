@@ -1,11 +1,15 @@
 package com.hotel_booking_system.controller;
 
 import com.hotel_booking_system.dto.request.AuthenticationRequest;
+import com.hotel_booking_system.dto.request.LogoutRequest;
 import com.hotel_booking_system.dto.response.ApiResponse;
 import com.hotel_booking_system.dto.response.AuthenticationResponse;
 import com.hotel_booking_system.service.AuthenticationService;
+import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -19,6 +23,14 @@ public class AuthenticationController {
         return ApiResponse.<AuthenticationResponse>builder()
                 .message("Đăng nhập thành công")
                 .result(authenticationService.authenticate(request))
+                .build();
+    }
+
+    @PostMapping("/logout")
+    public ApiResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
+        authenticationService.logout(request);
+        return ApiResponse.<Void>builder()
+                .message("Đăng xuất thành công")
                 .build();
     }
 }

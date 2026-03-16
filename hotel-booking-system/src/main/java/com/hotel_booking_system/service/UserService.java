@@ -1,6 +1,7 @@
 package com.hotel_booking_system.service;
 
 import com.hotel_booking_system.dto.request.CreateUserRequest;
+import com.hotel_booking_system.dto.request.ResetPasswordRequest;
 import com.hotel_booking_system.dto.request.UpdatePasswordRequest;
 import com.hotel_booking_system.dto.request.UpdateUserRequest;
 import com.hotel_booking_system.dto.response.UserResponse;
@@ -61,8 +62,8 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    public Page<UserResponse> getAllUsersByRoleName(String roleName, Pageable pageable) {
-        return userRepository.findAllByRolesRoleNameAndDeletedAtIsNull(roleName, pageable)
+    public Page<UserResponse> getAllUsers(String roleName, String userStatus, String username, Pageable pageable) {
+        return userRepository.findAll(roleName, userStatus, username, pageable)
                 .map(user -> userMapper.toUserResponse(user));
     }
 
@@ -86,9 +87,6 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
-        if (request.getPassword() != null) {
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
-        }
         if (request.getFirstName() != null) {
             user.setFirstName(request.getFirstName());
         }
@@ -145,7 +143,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse updatePassword(UpdatePasswordRequest request) {
+    public UserResponse updateMyPassword(UpdatePasswordRequest request) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userRepository.findByUsername(username)
@@ -158,6 +156,18 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
         userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
+    @Transactional
+    public UserResponse resetPassword(String userId, ResetPasswordRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        userRepository.save(user);
+
         return userMapper.toUserResponse(user);
     }
 

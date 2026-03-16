@@ -1,3 +1,7 @@
+if (!localStorage.getItem("tokenHotelBooking")) {
+  window.location.href = "login.html";
+}
+
 let currentPage = 0;
 let pageSize = 10;
 
@@ -5,6 +9,7 @@ async function loadBookings() {
   const bookingStatus = document.getElementById("booking-status-filter").value;
   const paymentStatus = document.getElementById("payment-status-filter").value;
   const sortOption = document.getElementById("sort-by").selectedIndex;
+  const keyword = document.getElementById("search-by-booking-code").value;
 
   let sort = "createdAt,desc";
   if (sortOption === 1) {
@@ -19,6 +24,10 @@ async function loadBookings() {
 
   if (paymentStatus) {
     endpoint += `&paymentStatus=${paymentStatus}`;
+  }
+
+  if (keyword) {
+    endpoint += `&bookingCode=${keyword}`;
   }
 
   try {
@@ -38,39 +47,18 @@ function renderBookings(bookings) {
   const tbody = document.querySelector("table tbody");
   tbody.innerHTML = "";
 
-  bookings.forEach((b) => {
+  // Nếu không có dữ liệu
+  if (!bookings || bookings.length === 0) {
     const tr = document.createElement("tr");
 
-    // Đoạn này oke nhưng chưa có màu theo trạng thái
-    // tr.innerHTML = `
-    //     <td class="align-content-center">${b.bookingCode}</td>
-    //     <td class="align-content-center">${formatDate(b.checkInDate)}</td>
-    //     <td class="align-content-center">${formatDate(b.checkOutDate)}</td>
-    //     <td class="align-content-center">${b.guestName}</td>
-    //     <td class="align-content-center">${b.guestPhone}</td>
-    //     <td class="align-content-center">${formatCurrency(b.totalPrice)}</td>
-    //     <td class="align-content-center">${formatDateTime(b.createdAt)}</td>
-    //     <td class="align-content-center">
-    //       <select class="form-select form-select-sm" onchange="updateBookingStatus('${b.bookingId}', this.value)">
-    //         <option value="PENDING" ${b.bookingStatus === "PENDING" ? "selected" : ""}>Đang xử lý</option>
-    //         <option value="CONFIRMED" ${b.bookingStatus === "CONFIRMED" ? "selected" : ""}>Đã xác nhận</option>
-    //         <option value="CHECKED_IN" ${b.bookingStatus === "CHECKED_IN" ? "selected" : ""}>Đã nhận phòng</option>
-    //         <option value="CHECKED_OUT" ${b.bookingStatus === "CHECKED_OUT" ? "selected" : ""}>Đã trả phòng</option>
-    //         <option value="CANCELLED" ${b.bookingStatus === "CANCELLED" ? "selected" : ""}>Đã hủy</option>
-    //       </select>
-    //     </td>
-    //     <td class="align-content-center">
-    //       <select class="form-select form-select-sm" onchange="updatePaymentStatus('${b.bookingId}', this.value)">
-    //         <option value="UNPAID" ${b.paymentStatus === "UNPAID" ? "selected" : ""}>Chưa thanh toán</option>
-    //         <option value="PAID" ${b.paymentStatus === "PAID" ? "selected" : ""}>Đã thanh toán</option>
-    //       </select>
-    //     </td>
-    //     <td class="align-content-center">
-    //       <button class="btn btn-sm btn-primary" onclick='showBookingDetail(${JSON.stringify(b)})'>
-    //         <i class="bx bx-info-circle"></i>
-    //       </button>
-    //     </td>
-    // `;
+    tr.innerHTML = `<td colspan="10" class="text-center text-muted">Không có đặt phòng phù hợp</td>`;
+
+    tbody.appendChild(tr);
+    return;
+  }
+
+  bookings.forEach((b) => {
+    const tr = document.createElement("tr");
 
     tr.innerHTML = `
         <td class="align-content-center">${b.bookingCode}</td>
@@ -122,10 +110,21 @@ function showBookingDetail(booking) {
   document.getElementById("booking-status").innerText = translateBookingStatus(
     booking.bookingStatus,
   );
-  document.getElementById("payment-method").innerText = booking.paymentMethod;
-  document.getElementById("payment-status").innerText = translatePaymentStatus(
-    booking.paymentStatus,
-  );
+
+  if (booking.paymentMethod === "CASH") {
+    document.getElementById("payment-method").innerText = "Tiền mặt";
+  } else if (booking.paymentMethod === "VNPAY") {
+    document.getElementById("payment-method").innerText = "VNPay";
+  } else {
+    document.getElementById("payment-method").innerText = booking.paymentMethod;
+  }
+  
+  const paymentStatusText = translatePaymentStatus(booking.paymentStatus);
+  if (booking.paymentStatus === "PAID" && booking.paidAt) {
+    document.getElementById("payment-status").innerText = `${paymentStatusText} (${formatDateTime(booking.paidAt)})`;
+  } else {
+    document.getElementById("payment-status").innerText = paymentStatusText;
+  }
 
   document.getElementById("room-name").innerText = booking.room.roomName;
   document.getElementById("room-number").innerText = booking.room.roomNumber;
@@ -317,6 +316,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   document.getElementById("sort-by").addEventListener("change", () => {
+    currentPage = 0;
+    loadBookings();
+  });
+
+  document
+  .getElementById("search-by-booking-code")
+  .addEventListener("keyup", () => {
     currentPage = 0;
     loadBookings();
   });

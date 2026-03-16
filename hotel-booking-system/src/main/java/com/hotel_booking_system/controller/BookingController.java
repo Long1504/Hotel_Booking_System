@@ -21,10 +21,11 @@ public class BookingController {
     @GetMapping
     public ApiResponse<Page<BookingResponse>> getAllBookings(@RequestParam(required = false) String bookingStatus,
                                                              @RequestParam(required = false) String paymentStatus,
+                                                             @RequestParam(required = false) String bookingCode,
                                                              Pageable pageable) {
         return ApiResponse.<Page<BookingResponse>>builder()
                 .message("Lấy danh sách đặt phòng thành công")
-                .result(bookingService.findAllBookings(bookingStatus, paymentStatus, pageable))
+                .result(bookingService.findAllBookings(bookingStatus, paymentStatus, bookingCode, pageable))
                 .build();
     }
 

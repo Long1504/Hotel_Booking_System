@@ -1,6 +1,7 @@
 package com.hotel_booking_system.controller;
 
 import com.hotel_booking_system.dto.request.CreateUserRequest;
+import com.hotel_booking_system.dto.request.ResetPasswordRequest;
 import com.hotel_booking_system.dto.request.UpdatePasswordRequest;
 import com.hotel_booking_system.dto.request.UpdateUserRequest;
 import com.hotel_booking_system.dto.response.ApiResponse;
@@ -27,7 +28,7 @@ public class UserController {
                 .build();
     }
 
-    @PostMapping
+    @PostMapping("/receptionist")
     public ApiResponse<UserResponse> createReceptionist(@RequestBody CreateUserRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .message("Tạo tài khoản lễ tân thành công")
@@ -36,10 +37,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ApiResponse<Page<UserResponse>> getAllUsersByRoleName(@RequestParam String roleName, Pageable pageable) {
+    public ApiResponse<Page<UserResponse>> getAllUsers(@RequestParam String roleName,
+                                                       @RequestParam(required = false) String userStatus,
+                                                       @RequestParam(required = false) String username,
+                                                       Pageable pageable) {
         return  ApiResponse.<Page<UserResponse>>builder()
                 .message("Lấy danh sách người dùng thành công")
-                .result(userService.getAllUsersByRoleName(roleName, pageable))
+                .result(userService.getAllUsers(roleName, userStatus, username, pageable))
                 .build();
     }
 
@@ -59,12 +63,21 @@ public class UserController {
                 .build();
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/{userId}/info")
     public ApiResponse<UserResponse> updateUser(@PathVariable String userId,
                                                 @RequestBody UpdateUserRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .message("Cập nhật thông tin thành công")
                 .result(userService.updateUser(userId, request))
+                .build();
+    }
+
+    @PutMapping("/{userId}/password")
+    public ApiResponse<UserResponse> resetPassword(@PathVariable String userId,
+                                                    @RequestBody ResetPasswordRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .message("Cấp lại mật khẩu thành công")
+                .result(userService.resetPassword(userId, request))
                 .build();
     }
 
@@ -76,11 +89,11 @@ public class UserController {
                 .build();
     }
 
-    @PutMapping("/password")
-    public ApiResponse<UserResponse> updatePassword(@RequestBody UpdatePasswordRequest request) {
+    @PutMapping("/my-password")
+    public ApiResponse<UserResponse> updateMyPassword(@RequestBody UpdatePasswordRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .message("Cập nhật mật khẩu thành công")
-                .result(userService.updatePassword(request))
+                .result(userService.updateMyPassword(request))
                 .build();
     }
 
