@@ -5,7 +5,7 @@ if (!localStorage.getItem("tokenHotelBooking")) {
 // Load danh sách loại phòng và điền vào select filter
 async function loadRoomTypes() {
   try {
-    const data = await callAPI("/room-types");
+    const data = await callAPI("/room-types/summary");
     const select = document.getElementById("room-type-filter");
     if (select) {
       select.innerHTML = '<option value="">Tất cả</option>';
@@ -24,7 +24,7 @@ async function loadRoomTypes() {
 // Load danh sách view và điền vào select filter
 async function loadViews() {
   try {
-    const data = await callAPI("/views");
+    const data = await callAPI("/views/summary");
     const select = document.getElementById("view-filter");
     if (select) {
       select.innerHTML = '<option value="">Tất cả</option>';

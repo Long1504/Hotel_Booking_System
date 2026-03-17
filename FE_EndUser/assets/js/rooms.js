@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // load room types
   async function loadRoomTypes() {
     try {
-      const response = await callAPI("/room-types");
+      const response = await callAPI("/room-types/summary");
       const roomTypes = response.result || response;
       const select = document.getElementById("room-type-id");
       select.innerHTML = '<option value="">Tất cả</option>';
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // load views
   async function loadViews() {
     try {
-      const response = await callAPI("/views");
+      const response = await callAPI("/views/summary");
       const views = response.result || response;
       const select = document.getElementById("view-id");
       select.innerHTML = '<option value="">Tất cả</option>';

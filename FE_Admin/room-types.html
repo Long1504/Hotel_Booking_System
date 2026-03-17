@@ -170,32 +170,32 @@
               <div class="room-filters row pb-3">
                 <div class="col-2">
                   <label class="form-label fw-semibold small">Tìm kiếm</label>
-                  <input class="form-control form-control-sm" id="username-search" placeholder="Nhập tên loại phòng..." type="text">
+                  <input class="form-control form-control-sm" id="room-type-name-search" placeholder="Nhập tên loại phòng..." type="text">
                 </div>
 
                 <div class="col-10 d-flex justify-content-between align-items-center">
                   <span></span>
-                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-receptionist-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
+                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-room-type-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
                 </div>
               </div>
 
-              <table class="table table-hover small text-center">
+              <table class="table table-hover small">
                 <thead>
                   <tr>
                     <th scope="col">Tên loại phòng</th>
                     <th scope="col">Mô tả</th>
-                    <th scope="col">Hành động</th>
+                    <th scope="col" class="text-center">Hành động</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="room-type-table-body">
                   <tr>
                     <td class="align-content-center">Phòng cơ bản</td>
                     <td class="align-content-center text-truncate" style="max-width: 1000px;" title="Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.">
                       Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.
                     </td>
                     <td class="align-content-center">
-                      <button type="button" class="btn btn-sm btn-primary text-white"><i class="bx bxs-pencil"></i></button>
-                      <button type="button" class="btn btn-sm btn-danger text-white"><i class="bx bxs-trash"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#update-room-type-modal"><i class="bx bxs-pencil"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger text-white" data-bs-toggle="modal" data-bs-target="#delete-room-type-modal"><i class="bx bxs-trash"></i></button>
                     </td>
                   </tr>
                 </tbody>
@@ -221,6 +221,103 @@
       </div>
     </section>
 
+    <!-- Modal Thêm loại phòng -->
+    <div class="modal fade" id="add-room-type-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-success">Thêm mới loại phòng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form id="add-room-type-form" action="" method="post">
+
+            <div class="modal-body">
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Tên loại phòng</label>
+                  <input class="form-control form-control-sm" id="add-room-type-name" type="text" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Mô tả</label>
+                  <textarea class="form-control form-control-sm" id="add-description" rows="3" required></textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-sm btn-success">Thêm</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div><!-- End Modal Thêm loại phòng -->
+
+    <!-- Modal Sửa thông tin loại phòng -->
+    <div class="modal fade" id="update-room-type-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary">Sửa thông tin loại phòng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form id="update-room-type-form" action="" method="post">
+
+            <div class="modal-body">
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Tên loại phòng</label>
+                  <input class="form-control form-control-sm" id="update-room-type" value="Phòng gia đình" type="text" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Mô tả</label>
+                  <textarea class="form-control form-control-sm" id="update-description" rows="3" required>Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.</textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-sm btn-primary">Lưu thay đổi</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div><!-- End Modal Sửa thông tin loại phòng -->
+
+    <!-- Modal Xóa loại phòng -->
+    <div class="modal fade" id="delete-room-type-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger">Xác nhận xóa loại phòng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Bạn có chắc chắn muốn xóa loại phòng [Tên loại phòng] không?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button id="confirm-delete-room-type" type="button" class="btn btn-sm btn-danger">Xóa</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Modal Xóa loại phòng -->
+
+    <div id="alert-container" class="position-fixed top-0 end-0" style="margin-top: 80px; margin-right: 20px; z-index: 1055;"></div>
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -244,6 +341,11 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Custom JS -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/room-types.js"></script>
+  <script src="assets/js/logout.js"></script>
 
 </body>
 

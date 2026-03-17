@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/views")
+@RequestMapping("/api/v1/views/summary")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*") // Cho phép FE gọi từ mọi domain
 public class ViewController {
@@ -22,7 +22,7 @@ public class ViewController {
 
     // Customer
     @GetMapping
-    public ApiResponse<List<ViewResponse>> getAllViews() {
+    public ApiResponse<List<ViewResponse>> getAllSummaryViews() {
         return ApiResponse.<List<ViewResponse>>builder()
                 .message("Lấy danh sách view thành công")
                 .result(viewService.getAllViews())

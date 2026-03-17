@@ -36,19 +36,21 @@ public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS_GET = {
             "/api/v1/rooms/available",
             "/api/v1/rooms/available/*",
-            "/api/v1/room-types",
-            "/api/v1/views",
+            "/api/v1/room-types/summary",
+            "/api/v1/views/summary",
             "/api/v1/payment/**"
     };
 
     private final String[] ADMIN_ENDPOINTS_POST = {
-            "/api/v1/users/receptionist"
+            "/api/v1/users/receptionist",
+            "/api/v1/room-types"
     };
 
     private final String[] ADMIN_ENDPOINTS_GET = {
             "/api/v1/users",
             "/api/v1/rooms",
-            "/api/v1/rooms/*"
+            "/api/v1/rooms/*",
+            "/api/v1/room-types",
     };
 
     private final String[] ADMIN_ENDPOINTS_PUT = {
@@ -56,11 +58,13 @@ public class SecurityConfig {
             "/api/v1/users/*/password",
             "/api/v1/users/*/info",
             "/api/v1/users/*/status",
-            "/api/v1/users/*/restore"
+            "/api/v1/users/*/restore",
+            "/api/v1/room-types"
     };
 
     private final String[] ADMIN_ENDPOINTS_DELETE = {
-            "/api/v1/users/*"
+            "/api/v1/users/*",
+            "/api/v1/room-types"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_POST = {
