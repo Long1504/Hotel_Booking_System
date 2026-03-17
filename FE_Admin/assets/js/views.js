@@ -2,13 +2,13 @@ let currentPage = 0;
 let pageSize = 10;
 let currentKeyword = "";
 
-let updateRoomTypeId = null;
-let deleteRoomTypeId = null;
+let updateViewId = null;
+let deleteViewId = null;
 
 // Load dữ liệu
-async function loadRoomTypes(page = 0, keyword = "") {
+async function loadViews(page = 0, keyword = "") {
   try {
-    const endpoint = `/room-types?roomTypeName=${keyword}&page=${page}&size=${pageSize}&sort=roomTypeName,asc`;
+    const endpoint = `/views?viewName=${keyword}&page=${page}&size=${pageSize}&sort=viewName,asc`;
     const response = await callAPIWithAuth(endpoint);
 
     const data = response.result;
@@ -16,21 +16,21 @@ async function loadRoomTypes(page = 0, keyword = "") {
     renderPagination(data);
 
   } catch (error) {
-    console.error("Lỗi khi load room types:", error);
+    console.error("Lỗi khi load views:", error);
   }
 }
 
 // Render bảng
-function renderTable(roomTypes) {
-  const tbody = document.getElementById("room-type-table-body");
+function renderTable(views) {
+  const tbody = document.getElementById("view-table-body");
   tbody.innerHTML = "";
 
   // Không có dữ liệu
-  if (!roomTypes || roomTypes.length === 0) {
+  if (!views || views.length === 0) {
     tbody.innerHTML = `
       <tr>
         <td colspan="3" class="text-center text-secondary">
-          Không có loại phòng phù hợp.
+          Không có view phù hợp.
         </td>
       </tr>
     `;
@@ -38,22 +38,22 @@ function renderTable(roomTypes) {
   }
 
   // Có dữ liệu
-  roomTypes.forEach(rt => {
+  views.forEach(view => {
     const row = `
       <tr>
-        <td class="align-content-center">${rt.roomTypeName}</td>
-        <td class="align-content-center text-truncate" style="max-width: 900px;" title="${rt.description}">
-          ${rt.description}
+        <td class="align-content-center">${view.viewName}</td>
+        <td class="align-content-center text-truncate" style="max-width: 900px;" title="${view.description}">
+          ${view.description}
         </td>
         <td class="align-content-center text-center">
           <button class="btn btn-sm btn-primary text-white"
             title="Sửa"
-            onclick="openUpdateRoomType(event, '${rt.roomTypeId}')">
+            onclick="openUpdateView(event, '${view.viewId}')">
             <i class="bx bxs-pencil"></i>
           </button>
           <button class="btn btn-sm btn-danger text-white"
             title="Xóa"
-            onclick="openDeleteRoomType(event, '${rt.roomTypeId}')">
+            onclick="openDeleteView(event, '${view.viewId}')">
             <i class="bx bxs-trash"></i>
           </button>
         </td>
@@ -96,20 +96,20 @@ function renderPagination(data) {
 function changePage(page) {
   if (page < 0) return;
   currentPage = page;
-  loadRoomTypes(currentPage, currentKeyword);
+  loadViews(currentPage, currentKeyword);
 }
 
 // Search (debounce nhẹ)
-document.getElementById("room-type-name-search").addEventListener("input", function () {
+document.getElementById("view-name-search").addEventListener("input", function () {
   currentKeyword = this.value;
   currentPage = 0;
-  loadRoomTypes(currentPage, currentKeyword);
+  loadViews(currentPage, currentKeyword);
 });
 
-document.getElementById("add-room-type-form").addEventListener("submit", async function (e) {
+document.getElementById("add-view-form").addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const name = document.getElementById("add-room-type-name").value.trim();
+  const name = document.getElementById("add-view-name").value.trim();
   const description = document.getElementById("add-description").value.trim();
 
   if (!name || !description) {
@@ -118,31 +118,31 @@ document.getElementById("add-room-type-form").addEventListener("submit", async f
   }
 
   const data = {
-    roomTypeName: name,
+    viewName: name,
     description: description
   };
 
   try {
-    const response = await callAPIWithAuth("/room-types", "POST", data);
+    const response = await callAPIWithAuth("/views", "POST", data);
 
     if (response.code === 1000) {
-      showAlert("Thêm loại phòng thành công", "success");
+      showAlert("Thêm view thành công", "success");
 
       const modal = bootstrap.Modal.getInstance(
-        document.getElementById("add-room-type-modal")
+        document.getElementById("add-view-modal")
       );
       modal.hide();
 
-      document.getElementById("add-room-type-form").reset();
+      document.getElementById("add-view-form").reset();
 
-      loadRoomTypes(0, currentKeyword);
+      loadViews(0, currentKeyword);
     } else {
-      showAlert(response.message || "Thêm thất bại", "danger");
+      showAlert(response.message || "Thêm view thất bại", "danger");
     }
 
   } catch (error) {
-    console.error("Lỗi thêm loại phòng:", error);
-    showAlert("Không thể thêm loại phòng", "danger");
+    console.error("Lỗi thêm view:", error);
+    showAlert("Không thể thêm view", "danger");
   }
 });
 
@@ -175,28 +175,28 @@ function showAlert(message, type = "success") {
   }, 3000);
 }
 
-function openUpdateRoomType(event, roomTypeId) {
-  updateRoomTypeId = roomTypeId;
+function openUpdateView(event, viewId) {
+  updateViewId = viewId;
 
   const row = event.target.closest("tr");
 
   const name = row.children[0].innerText;
   const description = row.children[1].innerText;
 
-  document.getElementById("update-room-type").value = name;
+  document.getElementById("update-view").value = name;
   document.getElementById("update-description").value = description;
 
   const modal = new bootstrap.Modal(
-    document.getElementById("update-room-type-modal")
+    document.getElementById("update-view-modal")
   );
 
   modal.show();
 }
 
-async function updateRoomType(event) {
+async function updateView(event) {
   event.preventDefault();
 
-  const name = document.getElementById("update-room-type").value.trim();
+  const name = document.getElementById("update-view").value.trim();
   const description = document.getElementById("update-description").value.trim();
 
   if (!name || !description) {
@@ -205,32 +205,32 @@ async function updateRoomType(event) {
   }
 
   const data = {
-    roomTypeName: name,
+    viewName: name,
     description: description
   };
 
   try {
     const response = await callAPIWithAuth(
-      `/room-types/${updateRoomTypeId}`,
+      `/views/${updateViewId}`,
       "PUT",
       data
     );
 
     // Thành công
     if (response.code === 1000) {
-      showAlert("Cập nhật loại phòng thành công", "success");
+      showAlert("Cập nhật view thành công", "success");
 
       const modal = bootstrap.Modal.getInstance(
-        document.getElementById("update-room-type-modal")
+        document.getElementById("update-view-modal")
       );
 
       modal.hide();
 
-      loadRoomTypes(currentPage, currentKeyword);
+      loadViews(currentPage, currentKeyword);
     }
     // Trùng tên
     else if (response.code === 4002) {
-      showAlert("Loại phòng đã tồn tại", "warning");
+      showAlert("View đã tồn tại", "warning");
     }
     // Lỗi khác
     else {
@@ -238,69 +238,69 @@ async function updateRoomType(event) {
     }
 
   } catch (error) {
-    console.error("Lỗi cập nhật loại phòng:", error);
-    showAlert("Không thể cập nhật loại phòng", "danger");
+    console.error("Lỗi cập nhật view:", error);
+    showAlert("Không thể cập nhật view", "danger");
   }
 }
 
-function openDeleteRoomType(event, roomTypeId) {
-  deleteRoomTypeId = roomTypeId;
+function openDeleteView(event, viewId) {
+  deleteViewId = viewId;
 
   const row = event.target.closest("tr");
 
   const name = row.children[0].innerText;
 
   const modalBody = document.querySelector(
-    "#delete-room-type-modal .modal-body"
+    "#delete-view-modal .modal-body"
   );
 
   modalBody.innerHTML = `
-    Bạn có chắc chắn muốn xóa loại phòng <b>${name}</b> không?
+    Bạn có chắc chắn muốn xóa view <b>${name}</b> không?
   `;
 
   const modal = new bootstrap.Modal(
-    document.getElementById("delete-room-type-modal")
+    document.getElementById("delete-view-modal")
   );
 
   modal.show();
 }
 
-async function deleteRoomType() {
+async function deleteView() {
   try {
     const response = await callAPIWithAuth(
-      `/room-types/${deleteRoomTypeId}`,
+      `/views/${deleteViewId}`,
       "DELETE"
     );
 
     if (response.code === 1000) {
-      showAlert(`Đã xóa loại phòng "${response.result.roomTypeName}"`, "success");
+      showAlert(`Đã xóa view "${response.result.viewName}"`, "success");
 
       const modal = bootstrap.Modal.getInstance(
-        document.getElementById("delete-room-type-modal")
+        document.getElementById("delete-view-modal")
       );
 
       modal.hide();
 
-      loadRoomTypes(currentPage, currentKeyword);
+      loadViews(currentPage, currentKeyword);
     } else {
       showAlert(response.message || "Xóa thất bại", "danger");
     }
 
   } catch (error) {
-    console.error("Lỗi xóa loại phòng:", error);
-    showAlert("Không thể xóa loại phòng", "danger");
+    console.error("Lỗi xóa view:", error);
+    showAlert("Không thể xóa view", "danger");
   }
 }
 
 // Load lần đầu
 document.addEventListener("DOMContentLoaded", function () {
-  loadRoomTypes();
+  loadViews();
 
   document
-    .getElementById("update-room-type-form")
-    .addEventListener("submit", updateRoomType);
+    .getElementById("update-view-form")
+    .addEventListener("submit", updateView);
 
   document
-    .getElementById("confirm-delete-room-type")
-    .addEventListener("click", deleteRoomType);
+    .getElementById("confirm-delete-view")
+    .addEventListener("click", deleteView);
 });

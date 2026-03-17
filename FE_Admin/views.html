@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Khách hàng</title>
+  <title>View</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -87,7 +87,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="customers.html">
+        <a class="nav-link collapsed" href="customers.html">
           <i class="bi bi-people"></i>
           <span>Khách hàng</span>
         </a>
@@ -108,7 +108,7 @@
       </li><!-- End Room Type Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="views.html">
+        <a class="nav-link " href="views.html">
           <i class="bi bi-eye"></i>
           <span>View</span>
         </a>
@@ -156,7 +156,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Danh sách tài khoản khách hàng</h1>
+      <h1>Danh sách view</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -165,70 +165,37 @@
 
           <div class="card">
             <div class="card-body pt-3 pb-0">
-              <!-- <h5 class="card-title m-0">Danh sách khách hàng</h5> -->
+              <!-- <h5 class="card-title m-0">Danh sách loại phòng</h5> -->
 
               <div class="room-filters row pb-3">
                 <div class="col-2">
-                  <label class="form-label fw-semibold small">Trạng thái</label>
-                  <select class="form-select form-select-sm" id="user-status-filter">
-                    <option value="">Tất cả</option>
-                    <option value="ACTIVE">Hoạt động</option>
-                    <option value="LOCKED">Bị khóa</option>
-                  </select>
-                </div>
-                <div class="col-2">
-                  <label class="form-label fw-semibold small">Sắp xếp</label>
-                  <select class="form-select form-select-sm" id="sort-by-last-name">
-                    <option>Tên: A - Z</option>
-                    <option>Tên: Z - A</option>
-                  </select>
-                </div>
-                <div class="col-2">
                   <label class="form-label fw-semibold small">Tìm kiếm</label>
-                  <input class="form-control form-control-sm" id="username-search" placeholder="Nhập tên đăng nhập..." type="text">
+                  <input class="form-control form-control-sm" id="view-name-search" placeholder="Nhập tên view..." type="text">
+                </div>
+
+                <div class="col-10 d-flex justify-content-between align-items-center">
+                  <span></span>
+                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-view-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
                 </div>
               </div>
 
               <table class="table table-hover small">
                 <thead>
                   <tr>
-                    <th scope="col">Tên đăng nhập</th>
-                    <th scope="col">Họ</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Giới tính</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Số điện thoại</th>
-                    <th scope="col">Trạng thái</th>
-                    <th scope="col">Thời gian tạo</th>
-                    <th scope="col" class="text-center">Khóa/Mở</th>
+                    <th scope="col">Tên view</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col" class="text-center">Hành động</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="view-table-body">
                   <tr>
-                    <td class="align-content-center">phamlong</td>
-                    <td class="align-content-center">Phạm</td>
-                    <td class="align-content-center">Long</td>
-                    <td class="align-content-center">Nam</td>
-                    <td class="align-content-center">pvl@gmail.com</td>
-                    <td class="align-content-center">0123456789</td>
-                    <td class="align-content-center text-success">HOẠT ĐỘNG</td>
-                    <td class="align-content-center">01/02/2025 - 14:00:00</td>
-                    <td class="align-content-center">
-                      <button type="button" class="btn btn-sm btn-warning text-white"><i class="bx bxs-lock-open"></i></button>
+                    <td class="align-content-center">View biển</td>
+                    <td class="align-content-center text-truncate" style="max-width: 1000px;" title="Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.">
+                      Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.
                     </td>
-                  </tr>
-
-                  <tr>
-                    <td class="align-content-center">phamlong</td>
-                    <td class="align-content-center">Phạm</td>
-                    <td class="align-content-center">Long</td>
-                    <td class="align-content-center">Nam</td>
-                    <td class="align-content-center">pvl@gmail.com</td>
-                    <td class="align-content-center">0123456789</td>
-                    <td class="align-content-center text-warning">KHÓA</td>
-                    <td class="align-content-center">01/02/2025 - 14:00:00</td>
                     <td class="align-content-center">
-                      <button type="button" class="btn btn-sm btn-warning text-white"><i class="bx bxs-lock"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#update-view-modal"><i class="bx bxs-pencil"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger text-white" data-bs-toggle="modal" data-bs-target="#delete-view-modal"><i class="bx bxs-trash"></i></button>
                     </td>
                   </tr>
                 </tbody>
@@ -247,13 +214,107 @@
                   </li>
                 </ul>
               </nav>
-
             </div>
           </div>
 
         </div>
       </div>
     </section>
+
+    <!-- Modal Thêm view -->
+    <div class="modal fade" id="add-view-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-success">Thêm mới view</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form id="add-view-form" action="" method="post">
+
+            <div class="modal-body">
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Tên view</label>
+                  <input class="form-control form-control-sm" id="add-view-name" type="text" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Mô tả</label>
+                  <textarea class="form-control form-control-sm" id="add-description" rows="3" required></textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-sm btn-success">Thêm</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div><!-- End Modal Thêm view -->
+
+    <!-- Modal Sửa thông tin view -->
+    <div class="modal fade" id="update-view-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary">Sửa thông tin view</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form id="update-view-form" action="" method="post">
+
+            <div class="modal-body">
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Tên view</label>
+                  <input class="form-control form-control-sm" id="update-view" value="View biển" type="text" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Mô tả</label>
+                  <textarea class="form-control form-control-sm" id="update-description" rows="3" required>Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.</textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-sm btn-primary">Lưu thay đổi</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div><!-- End Modal Sửa thông tin view -->
+
+    <!-- Modal Xóa view -->
+    <div class="modal fade" id="delete-view-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger">Xác nhận xóa view</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Bạn có chắc chắn muốn xóa view [Tên view] không?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button id="confirm-delete-view" type="button" class="btn btn-sm btn-danger">Xóa</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Modal Xóa view -->
 
     <div id="alert-container" class="position-fixed top-0 end-0" style="margin-top: 80px; margin-right: 20px; z-index: 1055;"></div>
 
@@ -283,7 +344,7 @@
 
   <!-- Custom JS -->
   <script src="assets/js/api.js"></script>
-  <script src="assets/js/customers.js"></script>
+  <script src="assets/js/views.js"></script>
   <script src="assets/js/logout.js"></script>
 
 </body>

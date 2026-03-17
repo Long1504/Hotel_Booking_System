@@ -106,11 +106,13 @@ function renderTable(customers) {
     const lockButton = user.userStatus === "ACTIVE"
       ? `
       <button class="btn btn-sm btn-warning text-white"
+        title="Khóa"
         onclick="toggleUserStatus('${user.userId}','${user.userStatus}')">
         <i class="bx bxs-lock-open"></i>
       </button>`
       : `
       <button class="btn btn-sm btn-warning text-white"
+        title="Mở"
         onclick="toggleUserStatus('${user.userId}','${user.userStatus}')">
         <i class="bx bxs-lock"></i>
       </button>
@@ -118,6 +120,7 @@ function renderTable(customers) {
 
     const editButton = `
       <button class="btn btn-sm btn-primary text-white"
+        title="Sửa"
         onclick="openUpdateReceptionist(event, '${user.userId}')">
         <i class="bx bxs-pencil"></i>
       </button>
@@ -125,6 +128,7 @@ function renderTable(customers) {
 
     const resetPasswordButton = `
       <button class="btn btn-sm btn-secondary text-white"
+        title="Cấp lại mật khẩu"
         onclick="openResetPassword(event, '${user.userId}')">
         <i class="bx bx-reset"></i>
       </button>
@@ -132,6 +136,7 @@ function renderTable(customers) {
 
     const deleteButton = `
       <button class="btn btn-sm btn-danger text-white"
+        title="Xóa"
         onclick="openDeleteReceptionist(event, '${user.userId}')">
         <i class="bx bxs-trash"></i>
       </button>
@@ -149,7 +154,7 @@ function renderTable(customers) {
         <td class="align-content-center">${user.phone}</td>
         <td class="align-content-center">${status}</td>
         <td class="align-content-center">${createdAt}</td>
-        <td class="align-content-center">
+        <td class="align-content-center text-center">
           ${lockButton}
           ${editButton}
           ${resetPasswordButton}

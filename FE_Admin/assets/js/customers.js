@@ -86,12 +86,14 @@ function renderTable(customers) {
         ? `
         <button 
           class="btn btn-sm btn-warning text-white"
+          title="Khóa"
           onclick="toggleUserStatus('${user.userId}','${user.userStatus}')">
           <i class="bx bxs-lock-open"></i>
         </button>`
         : `
         <button 
           class="btn btn-sm btn-warning text-white"
+          title="Mở"
           onclick="toggleUserStatus('${user.userId}','${user.userStatus}')">
           <i class="bx bxs-lock"></i>
         </button>`;
@@ -108,7 +110,7 @@ function renderTable(customers) {
         <td class="align-content-center">${user.phone}</td>
         <td class="align-content-center">${status}</td>
         <td class="align-content-center">${createdAt}</td>
-        <td class="align-content-center">${button}</td>
+        <td class="align-content-center text-center">${button}</td>
       </tr>
     `;
   });
