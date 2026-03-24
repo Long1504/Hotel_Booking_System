@@ -1,8 +1,6 @@
 package com.hotel_booking_system.controller;
 
-import com.hotel_booking_system.dto.request.CreateBookingRequest;
-import com.hotel_booking_system.dto.request.UpdateBookingStatusRequest;
-import com.hotel_booking_system.dto.request.UpdatePaymentStatusRequest;
+import com.hotel_booking_system.dto.request.*;
 import com.hotel_booking_system.dto.response.ApiResponse;
 import com.hotel_booking_system.dto.response.BookingResponse;
 import com.hotel_booking_system.service.BookingService;
@@ -36,12 +34,30 @@ public class BookingController {
                 .result(bookingService.createBooking(request))
                 .build();
     }
+
+    @PutMapping("/{bookingId}/identity-card")
+    public ApiResponse<BookingResponse> updateIdentityCard(@PathVariable String bookingId, @RequestBody UpdateIdentityCardRequest request) {
+        return ApiResponse.<BookingResponse>builder()
+                .message("Cập nhật thông tin CCCD thành công")
+                .result(bookingService.updateIdentityCard(bookingId, request.getIdentityCard()))
+                .build();
+    }
+
     @PutMapping("/{bookingId}/booking-status")
     public ApiResponse<BookingResponse> updateBookingStatus(@PathVariable String bookingId,
                                                             @RequestBody UpdateBookingStatusRequest request) {
         return ApiResponse.<BookingResponse>builder()
                 .message("Cập nhật trạng thái đặt phòng thành công")
                 .result(bookingService.updateBookingStatus(bookingId, request.getNewBookingStatus()))
+                .build();
+    }
+
+    @PutMapping("/{bookingId}/payment-method")
+    public ApiResponse<BookingResponse> updatePaymentMethod(@PathVariable String bookingId,
+                                                            @RequestBody UpdatePaymentMethodRequest request) {
+        return ApiResponse.<BookingResponse>builder()
+                .message("Cập nhật phương thức thanh toán thành công")
+                .result(bookingService.updatePaymentMethod(bookingId, request.getNewPaymentMethod()))
                 .build();
     }
 

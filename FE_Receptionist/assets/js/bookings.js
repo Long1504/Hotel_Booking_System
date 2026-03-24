@@ -5,6 +5,10 @@ if (!localStorage.getItem("tokenHotelBooking")) {
 let currentPage = 0;
 let pageSize = 10;
 
+let currentBookingId = null;
+
+let highlightBookingCode = null;
+
 async function loadBookings() {
   const bookingStatus = document.getElementById("booking-status-filter").value;
   const paymentStatus = document.getElementById("payment-status-filter").value;
@@ -47,12 +51,9 @@ function renderBookings(bookings) {
   const tbody = document.querySelector("table tbody");
   tbody.innerHTML = "";
 
-  // Nếu không có dữ liệu
   if (!bookings || bookings.length === 0) {
     const tr = document.createElement("tr");
-
     tr.innerHTML = `<td colspan="10" class="text-center text-muted">Không có đặt phòng phù hợp</td>`;
-
     tbody.appendChild(tr);
     return;
   }
@@ -61,31 +62,44 @@ function renderBookings(bookings) {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-        <td class="align-content-center">${b.bookingCode}</td>
-        <td class="align-content-center">${formatDate(b.checkInDate)}</td>
-        <td class="align-content-center">${formatDate(b.checkOutDate)}</td>
-        <td class="align-content-center">${b.guestName}</td>
-        <td class="align-content-center">${b.guestPhone}</td>
-        <td class="align-content-center">${formatCurrency(b.totalPrice)}</td>
-        <td class="align-content-center">${formatDateTime(b.createdAt)}</td>
-        <td class="align-content-center">
-          <select class="form-select form-select-sm" onchange="updateBookingStatus('${b.bookingId}', this.value)">
-            ${bookingStatusOptions(b.bookingStatus)}
-          </select>
-        </td>
-        <td class="align-content-center">
-          <select class="form-select form-select-sm" onchange="updatePaymentStatus('${b.bookingId}', this.value)">
-            ${paymentStatusOptions(b.paymentStatus)}
-          </select>
-        </td>
-        <td class="align-content-center">
-          <button class="btn btn-sm btn-primary" onclick='showBookingDetail(${JSON.stringify(b)})'>
-            <i class="bx bx-info-circle"></i>
-          </button>
-        </td>
+      <td class="align-content-center">${b.bookingCode}</td>
+      <td class="align-content-center">${formatDate(b.checkInDate)}</td>
+      <td class="align-content-center">${formatDate(b.checkOutDate)}</td>
+      <td class="align-content-center">${b.guestName}</td>
+      <td class="align-content-center">${b.guestPhone}</td>
+      <td class="align-content-center">${formatCurrency(b.totalPrice)}</td>
+      <td class="align-content-center">${formatDateTime(b.createdAt)}</td>
+      <td class="align-content-center">
+        <span class="w-100 rounded-pill p-1 badge 
+          ${b.bookingStatus === "PENDING" ? "bg-warning" : ""}
+          ${b.bookingStatus === "CONFIRMED" ? "bg-success" : ""}
+          ${b.bookingStatus === "CHECKED_IN" ? "bg-primary" : ""}
+          ${b.bookingStatus === "CHECKED_OUT" ? "bg-secondary" : ""}
+          ${b.bookingStatus === "CANCELLED" ? "bg-danger" : ""}">
+          ${translateBookingStatus(b.bookingStatus)}
+        </span>
+      </td>
+      <td class="align-content-center">
+        <span class="w-100 rounded-pill p-1 badge 
+          ${b.paymentStatus === "UNPAID" ? "bg-danger" : ""}
+          ${b.paymentStatus === "PAID" ? "bg-success" : ""}">
+          ${translatePaymentStatus(b.paymentStatus)}
+        </span>
+      </td>
+      <td class="align-content-center">
+        <button class="btn btn-sm btn-primary"><i class="bx bx-info-circle"></i></button>
+      </td>
     `;
 
+    // Thêm sự kiện show modal cho nút chi tiết
+    tr.querySelector("button").addEventListener("click", () => showBookingDetail(b));
+
     tbody.appendChild(tr);
+
+    // Nếu có highlightBookingCode
+    if (highlightBookingCode && b.bookingCode === highlightBookingCode) {
+      setTimeout(() => showBookingDetail(b), 300);
+    }
   });
 }
 
@@ -98,6 +112,12 @@ function showBookingDetail(booking) {
     booking.checkOutDate,
   );
   document.getElementById("guest-name").innerText = booking.guestName;
+  document.getElementById("guest-phone").innerText = booking.guestPhone;
+  document.getElementById("guest-email").innerText = booking.guestEmail;
+
+  const cccdInput = document.getElementById("identity-card-input");
+  cccdInput.value = booking.identityCard || "";
+
   document.getElementById("adults").innerText = booking.adults;
   document.getElementById("children").innerText = booking.children;
   document.getElementById("note").innerText = booking.note || "";
@@ -107,24 +127,26 @@ function showBookingDetail(booking) {
   document.getElementById("createdAt").innerText = formatDateTime(
     booking.createdAt,
   );
-  document.getElementById("booking-status").innerText = translateBookingStatus(
-    booking.bookingStatus,
-  );
 
-  if (booking.paymentMethod === "CASH") {
-    document.getElementById("payment-method").innerText = "Tiền mặt";
-  } else if (booking.paymentMethod === "VNPAY") {
-    document.getElementById("payment-method").innerText = "VNPay";
-  } else {
-    document.getElementById("payment-method").innerText = booking.paymentMethod;
-  }
-  
-  const paymentStatusText = translatePaymentStatus(booking.paymentStatus);
-  if (booking.paymentStatus === "PAID" && booking.paidAt) {
-    document.getElementById("payment-status").innerText = `${paymentStatusText} (${formatDateTime(booking.paidAt)})`;
-  } else {
-    document.getElementById("payment-status").innerText = paymentStatusText;
-  }
+  currentBookingId = booking.bookingId;
+
+  // Booking status
+  document.getElementById("modal-booking-status").innerHTML =
+    bookingStatusOptions(booking.bookingStatus);
+
+  // Payment status
+  document.getElementById("modal-payment-status").innerHTML =
+    paymentStatusOptions(booking.paymentStatus);
+
+  // Payment method
+  const paymentMethodSelect = document.getElementById("modal-payment-method");
+
+  paymentMethodSelect.value = booking.paymentMethod || "CASH";
+
+  paymentMethodSelect.setAttribute("data-old", paymentMethodSelect.value);
+
+  // Hiện nút VNPAY nếu chọn VNPAY
+  toggleVNPayButton();
 
   document.getElementById("room-name").innerText = booking.room.roomName;
   document.getElementById("room-number").innerText = booking.room.roomNumber;
@@ -267,8 +289,7 @@ function paymentStatusOptions(current) {
 }
 
 async function updateBookingStatus(bookingId, status) {
-  if (!confirm(`Bạn có chắc muốn thay đổi trạng thái sang ${status}?`))
-    return;
+  if (!confirm(`Bạn có chắc muốn thay đổi trạng thái sang ${status}?`)) return;
 
   try {
     await callAPIWithAuth(`/bookings/${bookingId}/booking-status`, "PUT", {
@@ -283,8 +304,7 @@ async function updateBookingStatus(bookingId, status) {
 }
 
 async function updatePaymentStatus(bookingId, status) {
-  if (!confirm(`Bạn có chắc muốn thay đổi trạng thái sang ${status}?`))
-    return;
+  if (!confirm(`Bạn có chắc muốn thay đổi trạng thái sang ${status}?`)) return;
 
   try {
     await callAPIWithAuth(`/bookings/${bookingId}/payment-status`, "PUT", {
@@ -298,8 +318,31 @@ async function updatePaymentStatus(bookingId, status) {
   }
 }
 
+function toggleVNPayButton() {
+  const method = document.getElementById("modal-payment-method").value;
+  const btn = document.getElementById("btn-vnpay");
+
+  if (method === "VNPAY") {
+    btn.classList.remove("d-none");
+  } else {
+    btn.classList.add("d-none");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+
+  highlightBookingCode = params.get("bookingCode");
+  const status = params.get("status");
+
+  if (status === "success") {
+    alert("Thanh toán thành công!");
+  }
+
   loadBookings();
+
+  // Xóa param khỏi URL
+  window.history.replaceState({}, document.title, "bookings.html");
 
   document
     .getElementById("booking-status-filter")
@@ -321,9 +364,133 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document
-  .getElementById("search-by-booking-code")
-  .addEventListener("keyup", () => {
-    currentPage = 0;
-    loadBookings();
+    .getElementById("search-by-booking-code")
+    .addEventListener("keyup", () => {
+      currentPage = 0;
+      loadBookings();
+    });
+
+  document
+    .getElementById("modal-payment-method")
+    .addEventListener("change", async function () {
+      const method = this.value;
+      const oldValue = this.getAttribute("data-old");
+
+      if (!confirm("Cập nhật phương thức thanh toán?")) {
+        this.value = oldValue;
+        return;
+      }
+
+      this.disabled = true;
+
+      try {
+        await callAPIWithAuth(
+          `/bookings/${currentBookingId}/payment-method`,
+          "PUT",
+          {
+            newPaymentMethod: method,
+          },
+        );
+
+        // lưu lại giá trị mới
+        this.setAttribute("data-old", method);
+
+        // cập nhật UI nút VNPay
+        toggleVNPayButton();
+
+        // reload bảng
+        loadBookings();
+      } catch (e) {
+        alert("Lỗi cập nhật phương thức thanh toán");
+
+        // rollback lại value cũ
+        this.value = oldValue;
+      }
+
+      this.disabled = false;
+    });
+
+  document
+    .getElementById("modal-booking-status")
+    .addEventListener("change", async function () {
+      const status = this.value;
+
+      if (!confirm("Cập nhật trạng thái đặt phòng?")) return;
+
+      try {
+        await callAPIWithAuth(
+          `/bookings/${currentBookingId}/booking-status`,
+          "PUT",
+          { newBookingStatus: status },
+        );
+
+        loadBookings();
+      } catch (e) {
+        alert("Lỗi cập nhật!");
+      }
+    });
+
+  document
+    .getElementById("modal-payment-status")
+    .addEventListener("change", async function () {
+      const status = this.value;
+
+      if (!confirm("Cập nhật trạng thái thanh toán?")) return;
+
+      try {
+        await callAPIWithAuth(
+          `/bookings/${currentBookingId}/payment-status`,
+          "PUT",
+          { newPaymentStatus: status },
+        );
+
+        loadBookings();
+      } catch (e) {
+        alert("Lỗi cập nhật!");
+      }
+    });
+
+  document.getElementById("btn-vnpay").addEventListener("click", async () => {
+    if (!currentBookingId) return;
+
+    try {
+      // Gọi API thanh toán VNPay
+      const res = await callAPIWithAuth(
+        `/payments/vnpay/${currentBookingId}`,
+        "POST",
+      );
+
+      // res.result là link VNPay
+      if (res && res.result) {
+        window.location.href = res.result; // redirect sang VNPay
+      } else {
+        alert(res.message);
+      }
+    } catch (e) {
+      console.error("Lỗi khi tạo thanh toán VNPay:", e);
+      alert("Không tạo được thanh toán VNPay");
+    }
+  });
+
+  // Sự kiện cập nhật CCCD
+  document.getElementById("btn-update-cccd").addEventListener("click", async () => {
+    const newCCCD = document.getElementById("identity-card-input").value.trim();
+    if (!newCCCD || !currentBookingId) return alert("Vui lòng nhập CCCD");
+
+    if (!confirm("Bạn có chắc muốn cập nhật số CCCD?")) return;
+
+    try {
+      const res = await callAPIWithAuth(`/bookings/${currentBookingId}/identity-card`, "PUT", { identityCard: newCCCD });
+      if (res.code === 1000 && res.result) {
+        alert("Cập nhật CCCD thành công!");
+
+        document.getElementById("identity-card-input").value = res.result.identityCard;
+      } else {
+        alert(res.message || "Cập nhật CCCD thất bại");
+      }
+    } catch (e) {
+      console.error("Lỗi cập nhật CCCD:", e);
+      alert("Không thể cập nhật CCCD");
+    }
   });
 });

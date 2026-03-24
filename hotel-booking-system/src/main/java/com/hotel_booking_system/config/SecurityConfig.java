@@ -41,7 +41,7 @@ public class SecurityConfig {
             "/api/v1/room-types/summary",
             "/api/v1/views/summary",
             "/api/v1/amenities/summary",
-            "/api/v1/payment/**"
+            "/api/v1/payments/vnpay-return"
     };
 
     private final String[] ADMIN_ENDPOINTS_POST = {
@@ -83,7 +83,7 @@ public class SecurityConfig {
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_POST = {
-
+            "/api/v1/payments/vnpay"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_GET = {
@@ -94,7 +94,9 @@ public class SecurityConfig {
     private final String[] RECEPTIONIST_ENDPOINTS_PUT = {
             // "/api/v1/users/my-info"
             "/api/v1/bookings/*/booking-status",
-            "/api/v1/bookings/*/payment-status"
+            "/api/v1/bookings/*/payment-status",
+            "/api/v1/bookings/*/payment-method",
+            "/api/v1/bookings/*/identity-card"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_DELETE = {

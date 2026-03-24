@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Quản lý lễ tân</title>
+  <title>Quản lý ngày lễ</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -94,7 +94,7 @@
       </li><!-- End Customer Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="receptionists.html">
+        <a class="nav-link collapsed" href="receptionists.html">
           <i class="bi bi-person"></i>
           <span>Lễ tân</span>
         </a>
@@ -129,7 +129,7 @@
       </li><!-- End Room Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="holidays.html">
+        <a class="nav-link " href="holidays.html">
           <i class="bi bi-calendar4"></i>
           <span>Ngày lễ</span>
         </a>
@@ -149,7 +149,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Danh sách tài khoản lễ tân</h1>
+      <h1>Danh sách ngày lễ</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -163,66 +163,50 @@
               <div class="room-filters row pb-3">
                 <div class="col-2">
                   <label class="form-label fw-semibold small">Trạng thái</label>
-                  <select class="form-select form-select-sm" id="user-status-filter">
+                  <select class="form-select form-select-sm" id="price-rule-status-filter">
                     <option value="">Tất cả</option>
-                    <option value="ACTIVE">Hoạt động</option>
-                    <option value="LOCKED">Bị khóa</option>
-                  </select>
-                </div>
-                <div class="col-2">
-                  <label class="form-label fw-semibold small">Sắp xếp</label>
-                  <select class="form-select form-select-sm" id="sort-by-last-name">
-                    <option>Tên: A - Z</option>
-                    <option>Tên: Z - A</option>
+                    <option value="true">Hoạt động</option>
+                    <option value="false">Không hoạt động</option>
                   </select>
                 </div>
                 <div class="col-2">
                   <label class="form-label fw-semibold small">Tìm kiếm</label>
-                  <input class="form-control form-control-sm" id="username-search" placeholder="Nhập tên đăng nhập..." type="text">
+                  <input class="form-control form-control-sm" id="price-rule-name-search" placeholder="Nhập tên ngày lễ..." type="text">
                 </div>
 
-                <div class="col-6 d-flex justify-content-between align-items-center">
+                <div class="col-8 d-flex justify-content-between align-items-center">
                   <span></span>
-                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-receptionist-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
+                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-price-rule-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
                 </div>
               </div>
 
               <table class="table table-hover small">
                 <thead>
                   <tr>
-                    <th scope="col">Tên đăng nhập</th>
-                    <th scope="col">Họ</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Giới tính</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Tên ngày lễ</th>
+                    <th scope="col">Ngày bắt đầu</th>
+                    <th scope="col">Ngày kết thúc</th>
+                    <th scope="col">Hệ số giá phòng</th>
                     <th scope="col">Trạng thái</th>
-                    <th scope="col">Thời gian tạo</th>
                     <th scope="col" class="text-center">Hành động</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="align-content-center">phamlong</td>
-                    <td class="align-content-center">Phạm</td>
-                    <td class="align-content-center">Long</td>
-                    <td class="align-content-center">Nam</td>
-                    <td class="align-content-center">pvl@gmail.com</td>
-                    <td class="align-content-center">0123456789</td>
+                    <td class="align-content-center">Tết dương lịch</td>
+                    <td class="align-content-center">01/01/2026</td>
+                    <td class="align-content-center">05/01/2026</td>
+                    <td class="align-content-center">1.2</td>
                     <td class="align-content-center text-success">HOẠT ĐỘNG</td>
-                    <td class="align-content-center">01/02/2025 - 14:00:00</td>
                     <td class="align-content-center">
                       <button type="button" class="btn btn-sm btn-warning text-white"><i class="bx bxs-lock-open"></i></button>
-                      <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#update-receptionist-modal"><i class="bx bxs-pencil"></i></button>
-                      <button type="button" class="btn btn-sm btn-secondary text-white" data-bs-toggle="modal" data-bs-target="#reset-password-receptionist-modal"><i class="bx bx-reset"></i></button>
-                      <button type="button" class="btn btn-sm btn-danger text-white" data-bs-toggle="modal" data-bs-target="#delete-receptionist-modal"><i class="bx bxs-trash"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#update-price-rule-modal"><i class="bx bxs-pencil"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger text-white" data-bs-toggle="modal" data-bs-target="#delete-price-rule-modal"><i class="bx bxs-trash"></i></button>
                     </td>
                   </tr>
                 </tbody>
               </table>
-
-              
-
+            
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
                   <li class="page-item disabled">
@@ -244,55 +228,40 @@
       </div>
     </section>
 
-    <!-- Modal Thêm lễ tân -->
-    <div class="modal fade" id="add-receptionist-modal" tabindex="-1">
+    <!-- Modal Thêm ngày lễ -->
+    <div class="modal fade" id="add-price-rule-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-success">Thêm mới lễ tân</h5>
+            <h5 class="modal-title text-success">Thêm mới ngày lễ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <form id="add-receptionist-form" action="" method="post">
+          <form id="add-price-rule-form" action="" method="post">
 
             <div class="modal-body">
 
               <div class="row mb-3">
-                <div class="col-4">
-                  <label class="form-label fw-semibold small">Họ</label>
-                  <input class="form-control form-control-sm" id="add-first-name" type="text" required>
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Tên ngày lễ</label>
+                  <input class="form-control form-control-sm" id="add-price-rule-name" type="text" required>
                 </div>
-                <div class="col-4">
-                  <label class="form-label fw-semibold small">Tên</label>
-                  <input class="form-control form-control-sm" id="add-last-name" type="text" required>
-                </div>
-                <div class="col-4">
-                  <label class="form-label fw-semibold small">Giới tính</label>
-                  <select class="form-select form-select-sm" id="add-gender">
-                    <option value="MALE">Nam</option>
-                    <option value="FEMALE">Nữ</option>
-                    <option value="OTHER">Khác</option>
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Trạng thái</label>
+                  <select class="form-select form-select-sm" id="add-price-rule-status">
+                    <option value="true">Hoạt động</option>
+                    <option value="false">Không hoạt động</option>
                   </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-6">
-                  <label class="form-label fw-semibold small">Tên đăng nhập</label>
-                  <input class="form-control form-control-sm" id="add-username" type="text" required>
-                </div>
-                <div class="col-6">
-                  <label class="form-label fw-semibold small">Mật khẩu</label>
-                  <input class="form-control form-control-sm" id="add-password" type="password" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-6">
-                  <label class="form-label fw-semibold small">Email</label>
-                  <input class="form-control form-control-sm" id="add-email" type="email" required>
+                  <label class="form-label fw-semibold small">Ngày bắt đầu</label>
+                  <input class="form-control form-control-sm" id="add-start-date" type="date" required>
                 </div>
                 <div class="col-6">
-                  <label class="form-label fw-semibold small">Số điện thoại</label>
-                  <input class="form-control form-control-sm" id="add-phone" type="tel" required>
+                  <label class="form-label fw-semibold small">Ngày kết thúc</label>
+                  <input class="form-control form-control-sm" id="add-end-date" type="date" required>
                 </div>
               </div>
 
@@ -306,51 +275,42 @@
 
         </div>
       </div>
-    </div><!-- End Modal Thêm lễ tân -->
+    </div><!-- End Modal Thêm ngày lễ -->
 
-    <!-- Modal Sửa thông tin lễ tân -->
-    <div class="modal fade" id="update-receptionist-modal" tabindex="-1">
+    <!-- Modal Sửa thông tin ngày lễ -->
+    <div class="modal fade" id="update-price-rule-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-primary">Sửa thông tin lễ tân</h5>
+            <h5 class="modal-title text-primary">Sửa thông tin ngày lễ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <form id="update-receptionist-form" action="" method="post">
+          <form id="update-price-rule-form" action="" method="post">
 
             <div class="modal-body">
 
               <div class="row mb-3">
-                <div class="col-5">
-                  <label class="form-label fw-semibold small">Tên đăng nhập</label>
-                  <input class="form-control form-control-sm" id="update-username" value="letan01" type="text" disabled>
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Tên ngày lễ</label>
+                  <input class="form-control form-control-sm" id="update-price-rule-name" type="text" value="Tết dương lịch" required>
                 </div>
-                <div class="col-4">
-                  <label class="form-label fw-semibold small">Họ</label>
-                  <input class="form-control form-control-sm" id="update-first-name" value="Phạm" type="text" required>
-                </div>
-                <div class="col-3">
-                  <label class="form-label fw-semibold small">Tên</label>
-                  <input class="form-control form-control-sm" id="update-last-name" value="Long" type="text" required>
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Trạng thái</label>
+                  <select class="form-select form-select-sm" id="update-price-rule-status">
+                    <option value="true">Hoạt động</option>
+                    <option value="false">Không hoạt động</option>
+                  </select>
                 </div>
               </div>
               <div class="row">
-                <div class="col-5">
-                  <label class="form-label fw-semibold small">Email</label>
-                  <input class="form-control form-control-sm" id="update-email" value="pvl@gmail.com" type="email" required>
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Ngày bắt đầu</label>
+                  <input class="form-control form-control-sm" id="update-start-date" type="date" value="" required>
                 </div>
-                <div class="col-4">
-                  <label class="form-label fw-semibold small">Số điện thoại</label>
-                  <input class="form-control form-control-sm" id="update-phone" value="0123456789" type="tel" required>
-                </div>
-                <div class="col-3">
-                  <label class="form-label fw-semibold small">Giới tính</label>
-                  <select class="form-select form-select-sm" id="update-gender">
-                    <option value="MALE">Nam</option>
-                    <option value="FEMALE">Nữ</option>
-                    <option value="OTHER">Khác</option>
-                  </select>
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Ngày kết thúc</label>
+                  <input class="form-control form-control-sm" id="update-end-date" type="date" value="" required>
                 </div>
               </div>
 
@@ -364,76 +324,26 @@
 
         </div>
       </div>
-    </div><!-- End Modal Sửa thông tin lễ tân -->
+    </div><!-- End Modal Sửa thông tin ngày lễ -->
 
-    <!-- Modal Cấp lại mật khẩu lễ tân -->
-    <div class="modal fade" id="reset-password-receptionist-modal" tabindex="-1">
+    <!-- Modal Xóa ngày lễ -->
+    <div class="modal fade" id="delete-price-rule-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-primary">Cấp lại mật khẩu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <form id="reset-password-form" action="" method="put">
-
-            <div class="modal-body">
-
-              <div class="row mb-3">
-                <div class="col-6">
-                  <label class="form-label fw-semibold small">Tên đăng nhập</label>
-                  <input class="form-control form-control-sm" id="reset-username" value="letan01" type="text" disabled>
-                </div>
-                <div class="col-3">
-                  <label class="form-label fw-semibold small">Họ</label>
-                  <input class="form-control form-control-sm" id="reset-first-name" value="Phạm" type="text" disabled>
-                </div>
-                <div class="col-3">
-                  <label class="form-label fw-semibold small">Tên</label>
-                  <input class="form-control form-control-sm" id="reset-last-name" value="Long" type="text" disabled>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label class="form-label fw-semibold small">Mật khẩu mới</label>
-                  <input class="form-control form-control-sm" id="reset-new-password" type="password" required>
-                </div>
-                <div class="col-6">
-                  <label class="form-label fw-semibold small">Nhập lại mật khẩu mới</label>
-                  <input class="form-control form-control-sm" id="reset-re-enter-new-password" type="password" required>
-                </div>
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
-              <button type="submit" class="btn btn-sm btn-primary">Cấp lại mật khẩu</button>
-            </div>
-
-          </form>
-
-        </div>
-      </div>
-    </div><!-- End Modal Cấp lại mật khẩu lễ tân -->
-
-    <!-- Modal Xóa lễ tân -->
-    <div class="modal fade" id="delete-receptionist-modal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-danger">Xác nhận xóa lễ tân</h5>
+            <h5 class="modal-title text-danger">Xác nhận xóa ngày lễ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            Bạn có chắc chắn muốn xóa lễ tân [tên lễ tân] không?
+            Bạn có chắc chắn muốn xóa ngày lễ [Tên ngày lễ] không?
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            <button id="confirm-delete-receptionist" type="button" class="btn btn-sm btn-danger">Xóa</button>
+            <button id="confirm-delete-price-rule" type="button" class="btn btn-sm btn-danger">Xóa</button>
           </div>
         </div>
       </div>
-    </div><!-- End Modal Xóa lễ tân -->
+    </div><!-- End Modal Xóa ngày lễ -->
     <div id="alert-container" class="position-fixed top-0 end-0" style="margin-top: 80px; margin-right: 20px; z-index: 1055;"></div>
 
   </main><!-- End #main -->
@@ -462,7 +372,7 @@
 
   <!-- Custom JS -->
   <script src="assets/js/api.js"></script>
-  <script src="assets/js/receptionists.js"></script>
+  <script src="assets/js/price-rules.js"></script>
   <script src="assets/js/logout.js"></script>
 
 </body>

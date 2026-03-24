@@ -34,6 +34,7 @@ public class Booking {
     private String guestPhone;
     @Column(nullable = false)
     private String guestEmail;
+    private String identityCard;
     @Column(nullable = false)
     private Integer adults;
     @Column(nullable = false)

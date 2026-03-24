@@ -49,8 +49,7 @@ async function loadRooms(page = 0) {
     let checkInDate = document.getElementById("check-in-date-filter").value;
     let checkOutDate = document.getElementById("check-out-date-filter").value;
     let adults = parseInt(document.getElementById("adults-filter").value) || 1;
-    let children =
-      parseInt(document.getElementById("children-filter").value) || 0;
+    let children = parseInt(document.getElementById("children-filter").value) || 0;
     const roomTypeId = document.getElementById("room-type-filter").value;
     const viewId = document.getElementById("view-filter").value;
     const sortBy = document.getElementById("sort-by").value;
@@ -230,23 +229,16 @@ function prepareBooking(
   document.getElementById("room-name").value = roomName;
   document.getElementById("floor").value = floor;
   document.getElementById("room-number").value = roomNumber;
-  document.getElementById("total-price").value =
-    `${finalPrice.toLocaleString("vi-VN")}đ / ${nights} đêm`;
+  document.getElementById("total-price").value = `${finalPrice.toLocaleString("vi-VN")}đ / ${nights} đêm`;
   document.getElementById("room-id").value = roomId;
 
   // Pre-fill dates from filters
-  document.getElementById("check-in-date").value = document.getElementById(
-    "check-in-date-filter",
-  ).value;
-  document.getElementById("check-out-date").value = document.getElementById(
-    "check-out-date-filter",
-  ).value;
+  document.getElementById("check-in-date").value = document.getElementById("check-in-date-filter",).value;
+  document.getElementById("check-out-date").value = document.getElementById("check-out-date-filter",).value;
 
   // Pre-fill guests from filters
-  document.getElementById("adults").value =
-    document.getElementById("adults-filter").value || 1;
-  document.getElementById("children").value =
-    document.getElementById("children-filter").value || 0;
+  document.getElementById("adults").value = document.getElementById("adults-filter").value || 1;
+  document.getElementById("children").value = document.getElementById("children-filter").value || 0;
 
   console.log("Prepare booking for room:", roomId);
 }
@@ -339,10 +331,10 @@ document
         guestName: document.getElementById("guest-name").value,
         guestPhone: document.getElementById("phone").value,
         guestEmail: document.getElementById("email").value,
+        identityCard: document.getElementById("identity-card").value,
         adults: parseInt(document.getElementById("adults").value),
         children: parseInt(document.getElementById("children").value),
         note: document.getElementById("note").value,
-        paymentMethod: "CASH",
         roomId: document.getElementById("room-id").value,
       };
 
@@ -390,6 +382,7 @@ function fillBookingInfo(booking) {
   setValue("guest-name", booking.guestName);
   setValue("email", booking.guestEmail);
   setValue("phone", booking.guestPhone);
+  setValue("identity-card", booking.identityCard);
   setValue("adults", booking.adults);
   setValue("children", booking.children);
   setValue("note", booking.note);

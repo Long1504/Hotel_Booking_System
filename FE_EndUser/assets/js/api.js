@@ -17,9 +17,9 @@ async function callAPI(endpoint, method = "GET", data = null) {
 
   const response = await fetch(API_BASE + endpoint, options);
 
-  if (!response.ok) {
-    throw new Error("API error");
-  }
+  // if (!response.ok) {
+  //   throw new Error("API error");
+  // }
 
   return response.json();
 }
@@ -43,9 +43,9 @@ async function callAPIWithAuth(endpoint, method = "GET", data = null) {
 
   const response = await fetch(API_BASE + endpoint, options);
 
-  if (!response.ok) {
-    throw new Error("API error");
-  }
+  // if (!response.ok) {
+  //   throw new Error("API error");
+  // }
 
   return response.json();
 }

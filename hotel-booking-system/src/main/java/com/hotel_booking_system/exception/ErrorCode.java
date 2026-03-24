@@ -53,6 +53,7 @@ public enum ErrorCode {
     INVALID_BOOKING_STATUS_TRANSITION(8003, "Chuyển đổi trạng thái đặt phòng không hợp lệ", HttpStatus.BAD_REQUEST),
     INVALID_BOOKING_STATUS(8004, "Trạng thái đặt phòng không hợp lệ", HttpStatus.BAD_REQUEST),
     INVALID_PAYMENT_STATUS(8005, "Trạng thái thanh toán không hợp lệ", HttpStatus.BAD_REQUEST),
+    BOOKING_ALREADY_PAID(8006, "Đơn đặt phòng đã thanh toán", HttpStatus.CONFLICT),
 
     // VNPay
     INVALID_VNPAY_SIGNATURE(9001, "Chữ ký VNPay không hợp lệ", HttpStatus.BAD_REQUEST),

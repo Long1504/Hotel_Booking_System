@@ -20,6 +20,7 @@ public class BookingResponse {
     private String guestName;
     private String guestPhone;
     private String guestEmail;
+    private String identityCard;
     private Integer adults;
     private Integer children;
     private String note;

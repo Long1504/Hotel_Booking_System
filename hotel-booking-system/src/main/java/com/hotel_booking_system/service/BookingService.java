@@ -86,6 +86,30 @@ public class BookingService {
     }
 
     @Transactional
+    public BookingResponse updateIdentityCard(String bookingId, String identityCard) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        booking.setIdentityCard(identityCard);
+
+        booking = bookingRepository.save(booking);
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
+    @Transactional
+    public BookingResponse updatePaymentMethod(String bookingId, String newPaymentMethod) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        booking.setPaymentMethod(newPaymentMethod);
+
+        booking =  bookingRepository.save(booking);
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
+    @Transactional
     public BookingResponse updatePaymentStatus(String bookingId, String newPaymentStatus) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
@@ -162,25 +186,17 @@ public class BookingService {
                 .guestName(request.getGuestName())
                 .guestPhone(request.getGuestPhone())
                 .guestEmail(request.getGuestEmail())
+                .identityCard(request.getIdentityCard())
                 .adults(request.getAdults())
                 .children(request.getChildren())
                 .note(request.getNote())
                 .totalPrice(totalPrice)
+                .bookingStatus(BookingStatus.PENDING.name())
+                .paymentMethod(PaymentMethod.CASH.name())
+                .paymentStatus(PaymentStatus.UNPAID.name())
                 .user(user)
                 .room(room)
                 .build();
-
-        if (request.getPaymentMethod().equals(PaymentMethod.CASH.name())) {
-            booking.setPaymentMethod(PaymentMethod.CASH.name());
-            booking.setPaymentStatus(PaymentStatus.UNPAID.name());
-            booking.setPaidAt(null);
-        } else if (request.getPaymentMethod().equals(PaymentMethod.VNPAY.name())) {
-            booking.setPaymentMethod(PaymentMethod.VNPAY.name());
-            booking.setPaymentStatus(PaymentStatus.UNPAID.name());
-            booking.setPaidAt(null);
-        } else {
-            throw new AppException(ErrorCode.INVALID_PAYMENT_METHOD);
-        }
 
         BookingStatusHistory history = BookingStatusHistory.builder()
                 .booking(booking)
@@ -193,19 +209,26 @@ public class BookingService {
 
         booking = bookingRepository.save(booking);
 
-        if (request.getPaymentMethod().equals(PaymentMethod.VNPAY.name())) {
-            String paymentUrl = VNPayService.createPaymentUrl(booking.getBookingCode(), booking.getTotalPrice());
-
-            BookingResponse response = bookingMapper.toBookingResponse(booking);
-
-            response.setPaymentUrl(paymentUrl);
-
-            return response;
-        }
-
         emailService.sendEmail(bookingMapper.toSendBookingEmailRequest(booking));
 
         return bookingMapper.toBookingResponse(booking);
+    }
+
+    public String createVNPayPayment(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        if (PaymentStatus.PAID.name().equals(booking.getPaymentStatus())) {
+            throw new AppException(ErrorCode.BOOKING_ALREADY_PAID);
+        }
+
+        booking.setPaymentMethod(PaymentMethod.VNPAY.name());
+        bookingRepository.save(booking);
+
+        return VNPayService.createPaymentUrl(
+                booking.getBookingCode(),
+                booking.getTotalPrice()
+        );
     }
 
     private String generateBookingCode() {

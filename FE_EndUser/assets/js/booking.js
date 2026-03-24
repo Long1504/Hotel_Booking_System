@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const adults = parseInt(document.getElementById("adults").value) || 0;
       const children = parseInt(document.getElementById("children").value) || 0;
       const note = document.getElementById("note").value.trim();
-      const paymentMethod = document.getElementById("payment-method").value;
+      // const paymentMethod = document.getElementById("payment-method").value;
 
       if (!guestName || !guestPhone || !guestEmail) {
         alert("Vui lòng nhập đầy đủ thông tin khách hàng");
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
         adults,
         children,
         note,
-        paymentMethod,
+        // paymentMethod,
         roomId,
       };
 
@@ -218,9 +218,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (response.code === 1000) {
-          alert("Đặt phòng thành công");
+          alert("Đặt phòng thành công. Thông tin chi tiết sẽ được gửi tới email của bạn!");
           // Có thể redirect đến trang xác nhận
           // window.location.href = `confirmation.html?bookingId=${response.result.bookingId}`;
+          window.location.href = "index.html"
         } else {
           alert("Lỗi: " + response.message);
         }
