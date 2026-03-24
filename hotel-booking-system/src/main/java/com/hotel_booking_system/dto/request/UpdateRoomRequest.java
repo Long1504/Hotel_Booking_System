@@ -1,19 +1,16 @@
-package com.hotel_booking_system.dto.response;
+package com.hotel_booking_system.dto.request;
 
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RoomResponse {
-    private String roomId;
+public class UpdateRoomRequest {
     private String roomName;
     private String roomNumber;
     private Integer floor;
@@ -23,9 +20,9 @@ public class RoomResponse {
     private BigDecimal area;
     private String description;
     private String roomStatus;
-    private LocalDateTime deletedAt;
-    private RoomTypeResponse roomType;
-    private ViewResponse view;
-    private Set<AmenityResponse> amenities;
-    private List<RoomImageResponse> roomImages;
+    private String roomTypeId;
+    private String viewId;
+    private List<String> amenityIds;
+
+    private List<String> deleteImageIds;
 }

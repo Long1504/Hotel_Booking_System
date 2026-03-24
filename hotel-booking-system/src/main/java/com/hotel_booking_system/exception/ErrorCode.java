@@ -45,6 +45,7 @@ public enum ErrorCode {
     ROOM_ALREADY_EXISTS(7002, "Phòng đã tồn tại", HttpStatus.CONFLICT),
     ROOM_NOT_AVAILABLE(7003, "Phòng không khả dụng trong khoảng thời gian đã chọn", HttpStatus.BAD_REQUEST),
     INVALID_DATE_RANGE(7004, "Khoảng thời gian không hợp lệ", HttpStatus.BAD_REQUEST),
+    ROOM_NUMBER_ALREADY_EXISTS(7005, "Số phòng đã tồn tại", HttpStatus.CONFLICT),
 
     // Booking
     BOOKING_NOT_FOUND(8001, "Không tìm thấy đặt phòng", HttpStatus.NOT_FOUND),
@@ -56,7 +57,15 @@ public enum ErrorCode {
     // VNPay
     INVALID_VNPAY_SIGNATURE(9001, "Chữ ký VNPay không hợp lệ", HttpStatus.BAD_REQUEST),
     PAYMENT_FAILED(9002, "Thanh toán thất bại", HttpStatus.BAD_REQUEST),
-    INVALID_PAYMENT_AMOUNT(9003, "Số tiền thanh toán không hợp lệ", HttpStatus.BAD_REQUEST)
+    INVALID_PAYMENT_AMOUNT(9003, "Số tiền thanh toán không hợp lệ", HttpStatus.BAD_REQUEST),
+
+    // Image
+    IMAGE_CAN_NOT_EMPTY(10001, "Phải có 5 ảnh", HttpStatus.BAD_REQUEST),
+    INVALID_IMAGE_FILE(10002, "File ảnh không hợp lệ", HttpStatus.BAD_REQUEST),
+    UPLOAD_IMAGE_FAILED(10003, "Upload ảnh thất bại", HttpStatus.BAD_REQUEST),
+    MAIN_IMAGE_REQUIRED(10004, "Cần có ảnh chính", HttpStatus.BAD_REQUEST),
+    TOO_MANY_SUB_IMAGES(10005, "Cần đúng 5 ảnh chính", HttpStatus.BAD_REQUEST),
+    DELETE_IMAGE_FAILED(10006, "Xóa ảnh thất bại", HttpStatus.BAD_REQUEST),
     ;
 
     private int code;

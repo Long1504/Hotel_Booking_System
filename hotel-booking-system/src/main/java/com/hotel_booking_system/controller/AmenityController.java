@@ -23,6 +23,14 @@ import java.util.List;
 public class AmenityController {
     private final AmenityService amenityService;
 
+    @GetMapping("/summary")
+    public ApiResponse<List<AmenityResponse>> getAllSummaryAmenities() {
+        return ApiResponse.<List<AmenityResponse>>builder()
+                .message("Lấy danh sách tiện nghi thành công")
+                .result(amenityService.getAllSummaryAmenities())
+                .build();
+    }
+
     @GetMapping
     public ApiResponse<Page<AmenityResponse>> getAllAmenities(@RequestParam(required = false) String amenityName,
                                                               Pageable pageable) {

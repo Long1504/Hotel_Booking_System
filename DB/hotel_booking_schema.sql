@@ -92,6 +92,7 @@ CREATE TABLE rooms_amenities (
 CREATE TABLE room_images (
     room_image_id CHAR(36) PRIMARY KEY,
     image_url VARCHAR(255) NOT NULL,
+    public_id VARCHAR(255),
     is_main BOOLEAN NOT NULL DEFAULT FALSE,
     room_id CHAR(36) NOT NULL,
     FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE

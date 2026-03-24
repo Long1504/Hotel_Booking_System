@@ -16,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class SecurityConfig {
             "/api/v1/rooms/available/*",
             "/api/v1/room-types/summary",
             "/api/v1/views/summary",
+            "/api/v1/amenities/summary",
             "/api/v1/payment/**"
     };
 
@@ -45,7 +48,9 @@ public class SecurityConfig {
             "/api/v1/users/receptionist",
             "/api/v1/room-types",
             "/api/v1/views",
-            "/api/v1/amenities"
+            "/api/v1/amenities",
+            "/api/v1/upload",
+            "/api/v1/rooms"
     };
 
     private final String[] ADMIN_ENDPOINTS_GET = {
@@ -65,14 +70,16 @@ public class SecurityConfig {
             "/api/v1/users/*/restore",
             "/api/v1/room-types",
             "/api/v1/views",
-            "/api/v1/amenities"
+            "/api/v1/amenities",
+            "/api/v1/rooms"
     };
 
     private final String[] ADMIN_ENDPOINTS_DELETE = {
             "/api/v1/users/*",
             "/api/v1/room-types",
             "/api/v1/views",
-            "/api/v1/amenities"
+            "/api/v1/amenities",
+            "/api/v1/rooms"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_POST = {
@@ -175,5 +182,10 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+
+    @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
+    public StandardServletMultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
     }
 }

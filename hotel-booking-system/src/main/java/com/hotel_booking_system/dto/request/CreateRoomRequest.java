@@ -1,5 +1,10 @@
-package com.hotel_booking_system.dto.response;
+package com.hotel_booking_system.dto.request;
 
+import com.hotel_booking_system.entity.Amenity;
+import com.hotel_booking_system.entity.RoomImage;
+import com.hotel_booking_system.entity.RoomType;
+import com.hotel_booking_system.entity.View;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -12,8 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RoomResponse {
-    private String roomId;
+public class CreateRoomRequest {
     private String roomName;
     private String roomNumber;
     private Integer floor;
@@ -23,9 +27,7 @@ public class RoomResponse {
     private BigDecimal area;
     private String description;
     private String roomStatus;
-    private LocalDateTime deletedAt;
-    private RoomTypeResponse roomType;
-    private ViewResponse view;
-    private Set<AmenityResponse> amenities;
-    private List<RoomImageResponse> roomImages;
+    private String roomTypeId;
+    private String viewId;
+    private List<String> amenityIds;
 }

@@ -17,6 +17,8 @@ public class RoomImage {
 
     @Column(nullable = false)
     private String imageUrl;
+//    @Column(nullable = false)
+    private String publicId;
     @Column(nullable = false)
     private Boolean isMain;
 

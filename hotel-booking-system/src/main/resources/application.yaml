@@ -32,6 +32,12 @@ spring:
           starttls:
             enable: true
 
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 50MB
+
 vnpay:
   tmnCode: 9MASX4HI
   hashSecret: MITKX7R7KYM02X2K5G154TQ5GA29AEEC
@@ -42,3 +48,8 @@ jwt:
   signerKey: "a193e5f9c15cd8ce16e881b591e21f1a91bda4ea6a41313d4b24d07e5c466821"
   valid-duration: 3600 # Thời hạn token (giây)
   refreshable-duration: 36000 # Khoảng thời gian có thể refresh token (giây)
+
+cloudinary:
+  cloud-name: duibxo3kw
+  api-key: 885231218479346
+  api-secret: I32nwhbrHOevdS1tjB8y4MwSs6k

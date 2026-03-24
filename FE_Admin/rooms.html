@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Phòng</title>
+  <title>Quản lý phòng</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -15,9 +15,7 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/rooms.css" rel="stylesheet">
 </head>
 
 <body>
@@ -50,7 +49,7 @@
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/avt-profile.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Lễ tân</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">ADMIN</span>
           </a><!-- End Profile Iamge Icon -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
@@ -82,11 +81,67 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Tổng quan</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="customers.html">
+          <i class="bi bi-people"></i>
+          <span>Khách hàng</span>
+        </a>
+      </li><!-- End Customer Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="receptionists.html">
+          <i class="bi bi-person"></i>
+          <span>Lễ tân</span>
+        </a>
+      </li><!-- End Receptionist Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="room-types.html">
+          <i class="bi bi-bookmarks"></i>
+          <span>Loại phòng</span>
+        </a>
+      </li><!-- End Room Type Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="views.html">
+          <i class="bi bi-eye"></i>
+          <span>View</span>
+        </a>
+      </li><!-- End View Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="amenities.html">
+          <i class="bi bi-box-seam"></i>
+          <span>Tiện nghi</span>
+        </a>
+      </li><!-- End Amenity Nav -->
+
+      <li class="nav-item">
         <a class="nav-link " href="rooms.html">
           <i class="bi bi-door-open"></i>
           <span>Phòng</span>
         </a>
       </li><!-- End Room Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="services.html">
+          <i class="bi bi-minecart-loaded"></i>
+          <span>Dịch vụ</span>
+        </a>
+      </li><!-- End Service Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="holidays.html">
+          <i class="bi bi-calendar4"></i>
+          <span>Ngày lễ</span>
+        </a>
+      </li><!-- End Holiday Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="bookings.html">
@@ -102,7 +157,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Danh sách phòng trống</h1>
+      <h1>Danh sách phòng</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -111,25 +166,9 @@
 
           <div class="card">
             <div class="card-body pt-3 pb-0">
-              <!-- <h5 class="card-title m-0">Danh sách phòng</h5> -->
+              <!-- <h5 class="card-title m-0">Danh sách loại phòng</h5> -->
 
               <div class="room-filters row pb-3">
-                <div class="col-lg-2 col-md-6">
-                  <label class="form-label fw-semibold small">Nhận phòng</label>
-                  <input class="form-control form-control-sm" id="check-in-date-filter" type="date">
-                </div>
-                <div class="col-lg-2 col-md-6">
-                  <label class="form-label fw-semibold small">Trả phòng</label>
-                  <input class="form-control form-control-sm" id="check-out-date-filter" type="date">
-                </div>
-                <div class="col-lg-1 col-md-6">
-                  <label class="form-label fw-semibold small">Người lớn</label>
-                  <input class="form-control form-control-sm" id="adults-filter" type="number" min="1" value="1">
-                </div>
-                <div class="col-lg-1 col-md-6">
-                  <label class="form-label fw-semibold small">Trẻ em</label>
-                  <input class="form-control form-control-sm" id="children-filter" type="number" min="0" value="0">
-                </div>
                 <div class="col-lg-2 col-md-6">
                   <label class="form-label fw-semibold small">Loại phòng</label>
                   <select class="form-select form-select-sm" id="room-type-filter">
@@ -145,296 +184,62 @@
                   </select>
                 </div>
                 <div class="col-lg-2 col-md-6">
-                  <label class="form-label fw-semibold small">Sắp xếp</label>
-                  <select class="form-select form-select-sm" id="sort-by">
-                    <option>Giá: Thấp đến Cao</option>
-                    <option>Giá: Cao đến Thấp</option>
+                  <label class="form-label fw-semibold small">Trạng thái</label>
+                  <select class="form-select form-select-sm" id="room-status-filter">
+                    <option value="">Tất cả</option>
+                    <option value="AVAILABLE">Hoạt động</option>
+                    <option value="MAINTENANCE">Bảo trì</option>
                   </select>
+                </div>
+                <div class="col-2">
+                  <label class="form-label fw-semibold small">Tìm kiếm</label>
+                  <input class="form-control form-control-sm" id="room-name-search" placeholder="Nhập tên phòng..." type="text">
+                </div>
+
+                <div class="col-4 d-flex justify-content-between align-items-center">
+                  <span></span>
+                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-room-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
                 </div>
               </div>
 
-              <table class="table table-hover small text-center" id="rooms-table">
+              <table class="table table-hover small">
                 <thead>
                   <tr>
                     <th scope="col">Ảnh</th>
                     <th scope="col">Tên phòng</th>
                     <th scope="col">Tầng</th>
                     <th scope="col">Số phòng</th>
+                    <th scope="col">Giá cơ bản</th>
                     <th scope="col">Sức chứa</th>
                     <th scope="col">Diện tích</th>
                     <th scope="col">Loại phòng</th>
                     <th scope="col">View</th>
-                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Trạng thái</th>
                     <th scope="col">Hành động</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="room-table-body">
                   <tr>
-
-                    <td class="align-content-center"><img style="height: 70px; width: 100px; object-fit: cover; border-radius: 8px;" src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" alt="Phòng"></td>
+                    <td class="align-content-center"><img style="height: 60px; width: 90px; object-fit: cover; border-radius: 8px;" src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" alt="Phòng"></td>
                     <td class="align-content-center">Phòng gia đình cao cấp hướng biển</td>
                     <td class="align-content-center">1</td>
                     <td class="align-content-center">101</td>
+                    <td class="align-content-center">2.000.0000đ</td>
                     <td class="align-content-center">4 người lớn - 2 trẻ em</td>
                     <td class="align-content-center">32m²</td>
                     <td class="align-content-center">Gia đình</td>
                     <td class="align-content-center">Thành phố</td>
-                    <td class="align-content-center">2.000.0000đ / 2 đêm</td>
+                    <td class="align-content-center">Hoạt động</td>
                     <td class="align-content-center">
-                      <button type="button" title="Chi tiết" data-bs-toggle="modal" data-bs-target="#room-detail" class="btn btn-sm btn-primary text-white"><i class="bx bx-info-circle"></i></button>
-                      <button type="button" title="Đặt phòng" data-bs-toggle="modal" data-bs-target="#booking" class="btn btn-sm btn-success text-white"><i class="bx bx-calendar-check"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#update-room-modal"><i class="bx bxs-pencil"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger text-white" data-bs-toggle="modal" data-bs-target="#delete-room-modal"><i class="bx bxs-trash"></i></button>
                     </td>
-
-                    <!-- Modal Chi tiết phòng -->
-                    <div class="modal fade" id="room-detail" tabindex="-1">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">Thông tin phòng</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-
-                            <div class="row mb-3" id="detail-room-images">
-                              <div class="col-2"><img src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" class="img-fluid rounded"></div>
-                              <div class="col-2"><img src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" class="img-fluid rounded"></div>
-                              <div class="col-2"><img src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" class="img-fluid rounded"></div>
-                              <div class="col-2"><img src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" class="img-fluid rounded"></div>
-                              <div class="col-2"><img src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" class="img-fluid rounded"></div>
-                              <div class="col-2"><img src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" class="img-fluid rounded"></div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">Tên phòng:</div>
-                              <div class="col-md-10" id="detail-room-name">Phòng cao cấp gia đình hướng biển</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">Tầng:</div>
-                              <div class="col-md-10" id="detail-floor">1</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">Số phòng:</div>
-                              <div class="col-md-10" id="detail-room-number">101</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">Tổng tiền:</div>
-                              <div class="col-md-10" id="detail-total-price">2.000.000đ / 2 đêm</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">Diện tích:</div>
-                              <div class="col-md-10" id="detail-area">32m²</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">Sức chứa:</div>
-                              <div class="col-md-10" id="detail-capacity">4 người lớn - 2 trẻ em</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">Loại phòng:</div>
-                              <div class="col-md-10" id="detail-room-type">Phòng gia đình</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">View:</div>
-                              <div class="col-md-10" id="detail-view">Hướng biển</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-2 fw-semibold">Mô tả:</div>
-                              <div class="col-md-10" id="detail-description">Phòng rộng rãi với ban công hướng biển, nội thất hiện đại, phù hợp cho cặp đôi hoặc gia đình nhỏ.</div>
-                            </div>
- 
-                            <div class="row">
-                              <div class="col-md-2 fw-semibold">Tiện nghi:</div>
-                              <div class="col-md-10" id="detail-amenities">
-                                Wifi miễn phí,
-                                TV màn hình phẳng,
-                                Máy lạnh,
-                                Minibar,
-                                Bồn tắm
-                              </div>
-                            </div>
-
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Modal Đặt phòng -->
-                    <div class="modal fade" id="booking" tabindex="-1">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">Đặt phòng</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-
-                          <form id="booking-form" action="" method="post">
-
-                            <div class="modal-body">
-                              <div class="row mb-3">
-                                <div class="col-3">
-                                  <label class="form-label fw-semibold small">Ngày nhận phòng</label>
-                                  <input class="form-control form-control-sm" id="check-in-date" type="date" disabled>
-                                </div>
-                                <div class="col-3">
-                                  <label class="form-label fw-semibold small">Ngày trả phòng</label>
-                                  <input class="form-control form-control-sm" id="check-out-date" type="date" disabled>
-                                </div>
-                                <div class="col-3">
-                                  <label class="form-label fw-semibold small">Số người lớn</label>
-                                  <input class="form-control form-control-sm" id="adults" type="number" min="1" value="1" required>
-                                </div>
-                                <div class="col-3">
-                                  <label class="form-label fw-semibold small">Số trẻ em</label>
-                                  <input class="form-control form-control-sm" id="children" type="number" min="0" value="0" required>
-                                </div>
-                              </div>
-                              <div class="row mb-3">
-                                <div class="col-6">
-                                  <label class="form-label fw-semibold small">Tên người đại diện</label>
-                                  <input class="form-control form-control-sm" id="guest-name" type="text" required>
-                                </div>
-                                <div class="col-3">
-                                  <label class="form-label fw-semibold small">Email</label>
-                                  <input class="form-control form-control-sm" id="email" type="email" required>
-                                </div>
-                                <div class="col-3">
-                                  <label class="form-label fw-semibold small">Số điện thoại</label>
-                                  <input class="form-control form-control-sm" id="phone" type="tel" required>
-                                </div>
-                              </div>
-                              <div class="row mb-3">
-                                <div class="col-12">
-                                  <label class="form-label fw-semibold small">Ghi chú</label>
-                                  <input class="form-control form-control-sm" id="note" type="text" required>
-                                </div>
-                              </div>
-                              <input type="hidden" id="room-id" name="roomId">
-                              <div class="row">
-                                <div class="col-6">
-                                  <label class="form-label fw-semibold small">Tên phòng</label>
-                                  <input class="form-control form-control-sm" id="room-name" type="text" value="Phòng gia đình cao cấp hướng biển" disabled>
-                                </div>
-                                <div class="col-1">
-                                  <label class="form-label fw-semibold small">Tầng</label>
-                                  <input class="form-control form-control-sm" id="floor" type="text" value="1" disabled>
-                                </div>
-                                <div class="col-2">
-                                  <label class="form-label fw-semibold small">Số phòng</label>
-                                  <input class="form-control form-control-sm" id="room-number" type="text" value="101" disabled>
-                                </div>
-                                <div class="col-3">
-                                  <label class="form-label fw-semibold small">Tổng tiền</label>
-                                  <input class="form-control form-control-sm" id="total-price" type="text" value="2.000.000đ / 2 đêm" disabled>
-                                </div>
-                              </div>
-                            </div>
-  
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                              <button type="submit" class="btn btn-success">Đặt phòng</button>
-                            </div>
-                            
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Modal Thông tin đặt phòng -->
-                    <div class="modal fade" id="booking-info" tabindex="-1">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">Đặt phòng thành công</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-
-                          <div class="modal-body">
-                            <div class="row mb-3">
-                              <div class="col-4">
-                                <label class="form-label fw-semibold small">Mã đặt phòng</label>
-                                <input class="form-control form-control-sm" id="booking-code" type="text" value="BK-165120-14032026-59813" disabled>
-                              </div>
-                              <div class="col-4">
-                                <label class="form-label fw-semibold small">Ngày nhận phòng</label>
-                                <input class="form-control form-control-sm" id="check-in-date" type="date" value="2026-04-15" disabled>
-                              </div>
-                              <div class="col-4">
-                                <label class="form-label fw-semibold small">Ngày trả phòng</label>
-                                <input class="form-control form-control-sm" id="check-out-date" type="date" value="2026-05-16" disabled>
-                              </div>
-                            </div>
-                            <div class="row mb-3">
-                              <div class="col-4">
-                                <label class="form-label fw-semibold small">Tên người đại diện</label>
-                                <input class="form-control form-control-sm" id="guest-name" type="text" value="Phạm Long" disabled>
-                              </div>
-                              <div class="col-4">
-                                <label class="form-label fw-semibold small">Email</label>
-                                <input class="form-control form-control-sm" id="email" type="email" value="pvl@gmail.com" disabled>
-                              </div>
-                              <div class="col-4">
-                                <label class="form-label fw-semibold small">Số điện thoại</label>
-                                <input class="form-control form-control-sm" id="phone" type="tel" value="0123456789" disabled>
-                              </div>
-                            </div>
-                            <div class="row mb-3">
-                              <div class="col-2">
-                                <label class="form-label fw-semibold small">Số người lớn</label>
-                                <input class="form-control form-control-sm" id="adults" type="number" value="2" disabled>
-                              </div>
-                              <div class="col-2">
-                                <label class="form-label fw-semibold small">Số trẻ em</label>
-                                <input class="form-control form-control-sm" id="children" type="number" value="1" disabled>
-                              </div>
-                              <div class="col-8">
-                                <label class="form-label fw-semibold small">Ghi chú</label>
-                                <input class="form-control form-control-sm" id="note" type="text" value="Chuẩn bị đồ cho em bé" disabled>
-                              </div>
-                            </div>
-                            <input type="hidden" id="room-id" name="roomId">
-                            <div class="row">
-                              <div class="col-6">
-                                <label class="form-label fw-semibold small">Tên phòng</label>
-                                <input class="form-control form-control-sm" id="room-name" type="text" value="Phòng gia đình cao cấp hướng biển" disabled>
-                              </div>
-                              <div class="col-1">
-                                <label class="form-label fw-semibold small">Tầng</label>
-                                <input class="form-control form-control-sm" id="floor" type="text" value="1" disabled>
-                              </div>
-                              <div class="col-2">
-                                <label class="form-label fw-semibold small">Số phòng</label>
-                                <input class="form-control form-control-sm" id="room-number" type="text" value="101" disabled>
-                              </div>
-                              <div class="col-3">
-                                <label class="form-label fw-semibold small">Tổng tiền</label>
-                                <input class="form-control form-control-sm" id="total-price" type="text" value="2.000.000đ / 2 đêm" disabled>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
                   </tr>
                 </tbody>
               </table>
 
               <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-end" id="pagination-controls">
+                <ul class="pagination justify-content-end">
                   <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
                   </li>
@@ -453,6 +258,279 @@
       </div>
     </section>
 
+    <!-- Modal Thêm phòng -->
+    <div class="modal fade" id="add-room-modal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-success">Thêm mới phòng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form id="add-room-form" action="" method="post">
+
+            <div class="modal-body">
+
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Tên phòng</label>
+                  <input class="form-control form-control-sm" id="add-room-name" type="text" required>
+                </div>
+                <div class="col-3">
+                  <label class="form-label fw-semibold small">Loại phòng</label>
+                  <select class="form-select form-select-sm" id="add-room-type">
+                    <!-- <option>Phòng gia đình</option> -->
+                  </select>
+                </div>
+                <div class="col-3">
+                  <label class="form-label fw-semibold small">View</label>
+                  <select class="form-select form-select-sm" id="add-view">
+                    <!-- <option>Hướng biển</option> -->
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-2">
+                  <label class="form-label fw-semibold small">Tầng</label>
+                  <input class="form-control form-control-sm" id="add-floor" type="number" min="1" required>
+                </div>
+                <div class="col-2">
+                  <label class="form-label fw-semibold small">Số phòng</label>
+                  <input class="form-control form-control-sm" id="add-room-number" type="text" required>
+                </div>
+                <div class="col-2">
+                  <label class="form-label fw-semibold small">Diện tích</label>
+                  <input class="form-control form-control-sm" id="add-area" type="number" min="0" required>
+                </div>
+                <div class="col-3">
+                  <label class="form-label fw-semibold small">Số người lớn tối đa</label>
+                  <input class="form-control form-control-sm" id="add-max-adults" type="number" min="1"required>
+                </div>
+                <div class="col-3">
+                  <label class="form-label fw-semibold small">Số trẻ em tối đa</label>
+                  <input class="form-control form-control-sm" id="add-max-children" type="number" min="0"required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Giá cơ bản</label>
+                  <input class="form-control form-control-sm" id="add-base-price" type="number" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Mô tả</label>
+                  <textarea class="form-control form-control-sm" id="add-description" rows="3" required></textarea>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="form-label fw-semibold small">Tiện nghi</label>
+                <!-- <div class="col-2">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Wifi" id="amenity-wifi"">
+                    <label class="form-check-label" for="amenity-wifi">Wifi</label>
+                  </div>
+                </div> -->
+                <div id="add-amenities-container" class="row">
+                  <div class="col-12 text-muted small">Đang tải tiện nghi...</div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Ảnh chính (1 ảnh) <span class="text-danger">*</span></label>
+                  <input class="form-control form-control-sm" type="file" id="main-image" accept="image/*" required>
+                  <div id="main-image-preview" class="mt-2 d-none">
+                    <img src="" class="img-thumbnail" style="height: 100px; width: 150px; object-fit: cover;">
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Ảnh phụ (ít nhất 1 ảnh) <span class="text-danger">*</span></label>
+                  <!-- Bỏ thuộc tính required ở đây -->
+                  <input class="form-control form-control-sm" type="file" id="sub-images" accept="image/*" multiple>
+                  
+                  <!-- Nơi hiển thị các ảnh đã chọn kèm nút Xóa -->
+                  <div id="sub-images-preview" class="mt-2 d-flex flex-wrap gap-3">
+                    <!-- Các preview-item sẽ được render vào đây -->
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Trạng thái</label>
+                  <select class="form-select form-select-sm" id="add-room-status">
+                    <option value="AVAILABLE">Hoạt động</option>
+                    <option value="MAINTENANCE">Bảo trì</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" id="btn-submit-room" class="btn btn-sm btn-success d-flex align-items-center">
+                <span id="btn-text">Thêm</span>
+                <span id="btn-loader" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div><!-- End Modal Thêm phòng -->
+
+    <!-- Modal Sửa thông tin phòng -->
+    <div class="modal fade" id="update-room-modal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary">Sửa thông tin phòng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form id="update-room-form" enctype="multipart/form-data">
+            <div class="modal-body">
+
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Tên phòng</label>
+                  <input class="form-control form-control-sm" id="update-room-name" type="text" required>
+                </div>
+                <div class="col-3">
+                  <label class="form-label fw-semibold small">Loại phòng</label>
+                  <select class="form-select form-select-sm" id="update-room-type">
+                    <!-- Data đổ từ JS -->
+                  </select>
+                </div>
+                <div class="col-3">
+                  <label class="form-label fw-semibold small">View</label>
+                  <select class="form-select form-select-sm" id="update-view">
+                    <!-- Data đổ từ JS -->
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-2">
+                  <label class="form-label fw-semibold small">Tầng</label>
+                  <input class="form-control form-control-sm" id="update-floor" type="number" min="1" required>
+                </div>
+                <div class="col-2">
+                  <label class="form-label fw-semibold small">Số phòng</label>
+                  <input class="form-control form-control-sm" id="update-room-number" type="text" required>
+                </div>
+                <div class="col-2">
+                  <label class="form-label fw-semibold small">Diện tích</label>
+                  <input class="form-control form-control-sm" id="update-area" type="number" min="0" required>
+                </div>
+                <div class="col-3">
+                  <label class="form-label fw-semibold small">Số người lớn tối đa</label>
+                  <input class="form-control form-control-sm" id="update-max-adults" type="number" min="1" required>
+                </div>
+                <div class="col-3">
+                  <label class="form-label fw-semibold small">Số trẻ em tối đa</label>
+                  <input class="form-control form-control-sm" id="update-max-children" type="number" min="0" required>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Giá cơ bản</label>
+                  <input class="form-control form-control-sm" id="update-base-price" type="number" required>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Mô tả</label>
+                  <textarea class="form-control form-control-sm" id="update-description" rows="3" required></textarea>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label class="form-label fw-semibold small">Tiện nghi</label>
+                <div id="update-amenities-container" class="row ms-0">
+                  <!-- Tiện nghi render từ JS -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Ảnh chính hiện tại</label>
+                  <div class="mb-2">
+                    <img id="current-main-image" src="" class="img-thumbnail" style="height: 100px; width: 150px; object-fit: cover;">
+                  </div>
+                  <label class="form-label fw-semibold small text-primary">Thay đổi ảnh chính (không chọn nếu giữ nguyên)</label>
+                  <input class="form-control form-control-sm" type="file" id="update-main-image" accept="image/*">
+                  <div id="update-main-image-preview" class="mt-2 d-none">
+                    <img src="" class="img-thumbnail" style="height: 100px; width: 150px; border: 2px solid #0d6efd; object-fit: cover;">
+                    <div class="small text-primary">Xem trước ảnh mới</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Ảnh phụ hiện tại</label>
+                  <div id="update-sub-images-preview" class="mt-2 d-flex flex-wrap gap-3 border p-2 rounded bg-light mb-2" style="min-height: 80px;">
+                    <!-- Ảnh cũ từ server -->
+                  </div>
+                  
+                  <label class="form-label fw-semibold small text-primary">Thêm ảnh phụ mới</label>
+                  <input class="form-control form-control-sm" type="file" id="update-sub-images" accept="image/*" multiple>
+                  <div id="update-new-sub-preview" class="mt-2 d-flex flex-wrap gap-3">
+                    <!-- Ảnh mới chọn preview ở đây -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Trạng thái</label>
+                  <select class="form-select form-select-sm" id="update-room-status">
+                    <option value="AVAILABLE">Hoạt động</option>
+                    <option value="MAINTENANCE">Bảo trì</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" id="btn-update-room" class="btn btn-sm btn-primary d-flex align-items-center">
+                <span id="btn-update-text">Lưu thay đổi</span>
+                <span id="btn-update-loader" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div><!-- End Modal Sửa thông tin phòng -->
+
+    <!-- Modal Xóa phòng -->
+    <div class="modal fade" id="delete-room-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger">Xác nhận xóa phòng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" id="delete-room-message">
+            Bạn có chắc chắn muốn xóa phòng này không?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button id="confirm-delete-room" type="button" class="btn btn-sm btn-danger">Xóa</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Modal Xóa loại phòng -->
+
+    <div id="alert-container" class="position-fixed top-0 end-0" style="margin-top: 80px; margin-right: 20px; z-index: 1055;"></div>
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -462,8 +540,7 @@
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
