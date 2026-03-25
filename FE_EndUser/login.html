@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Đăng ký tài khoản</title>
+  <title>Đăng nhập</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -15,9 +15,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,10 +26,10 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-  <link href="assets/css/register.css" rel="stylesheet">
+  <link href="assets/css/login.css" rel="stylesheet">
 </head>
 
-<body class="starter-page-page">
+<body class="index-page">
 
   <header id="header" class="header sticky-top">
 
@@ -61,7 +59,7 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="index.html" class="active">Trang chủ</a></li>
             <li><a href="about.html">Giới thiệu</a></li>
             <li><a href="rooms.html">Phòng</a></li>
             <li><a href="amenities.html">Tiện nghi</a></li>
@@ -91,119 +89,51 @@
 
   <main class="main">
 
-    <!-- Register Section -->
-    <section id="register-section" class="register-section section">
+    <!-- Login Section -->
+    <section id="login-section" class="login-section section">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row justify-content-center">
-          <div class="col-lg-8 col-md-8">
-            <div class="card register-card shadow-lg border-0 rounded-4">
+          <div class="col-lg-6 col-md-8">
+            <div class="card login-card shadow-lg border-0 rounded-4">
               <div class="card-body p-5">
 
                 <div class="text-center mb-4">
-                  <h3 class="fw-bold mb-1">Đăng ký tài khoản</h3>
-                  <p class="text-muted">Vui lòng nhập đầy đủ thông tin để đăng ký tài khoản</p>
+                  <h3 class="fw-bold mb-1">Chào mừng trở lại</h3>
+                  <p class="text-muted">Đăng nhập vào tài khoản của bạn</p>
                 </div>
-
-                <form id="registerForm" novalidate>
-                  <div class="row mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-medium">Tên đăng nhập</label>
-                      <input type="text" class="form-control" id="username" required>
-                      <div class="invalid-feedback">
-                        Vui lòng nhập tên đăng nhập (tối thiểu 4 ký tự).
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label fw-medium">Giới tính</label>
-                      <select class="form-select" id="gender" required>
-                        <option value="MALE">Nam</option>
-                        <option value="FEMALE">Nữ</option>
-                        <option value="OTHER">Không tiết lộ</option>
-                      </select>
-                    </div>
+                
+                <form id="loginForm">
+                  <div class="mb-4">
+                    <label class="form-label fw-medium">Tên đăng nhập</label>
+                    <input type="text" class="form-control" id="username" required>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-medium">Mật khẩu</label>
+                    <input type="password" class="form-control" id="password" required>
                   </div>
 
-                  <div class="row mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-medium">Họ</label>
-                      <input type="text" class="form-control" id="last-name" required>
-                      <div class="invalid-feedback">
-                        Vui lòng nhập họ.
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label fw-medium">Tên</label>
-                      <input type="text" class="form-control" id="first-name" required>
-                      <div class="invalid-feedback">
-                        Vui lòng nhập tên.
-                      </div>
-                    </div>
+                  <div id="loginMessage" class="mb-4 text-center small"></div>
+
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div></div>
+                    <a href="#" class="small text-decoration-none">Quên mật khẩu?</a>
                   </div>
-
-                  <div class="row mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-medium">Email</label>
-                      <input type="email" class="form-control" id="email" required>
-                      <div class="invalid-feedback">
-                        Email không hợp lệ.
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label fw-medium">Số điện thoại</label>
-                      <input type="number" class="form-control" id="phone" required>
-                      <div class="invalid-feedback">
-                        Số điện thoại phải gồm 10 chữ số.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-medium">Mật khẩu</label>
-                      <input type="password" class="form-control" id="password" required>
-                      <div class="invalid-feedback">
-                        Mật khẩu tối thiểu 6 ký tự.
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <label class="form-label fw-medium">Nhập lại mật khẩu</label>
-                      <input type="password" class="form-control" id="confirm-password" required>
-                      <div class="invalid-feedback">
-                        Mật khẩu nhập lại không khớp.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="registerMessage" class="mb-4 text-center small"></div>
-
                   <div class="d-grid">
-                    <button type="submit" class="btn btn-success register-btn">
-                      Tạo tài khoản
-                    </button>
+                    <button type="submit" class="btn btn-success login-btn">Đăng nhập</button>
                   </div>
-
                   <div class="text-center mt-4">
-                    <span class="text-muted">Bạn đã có tài khoản?</span>
-                    <a href="login.html" class="fw-bold text-decoration-none ms-1">Đăng nhập</a>
+                    <span class="text-muted">Bạn chưa có tài khoản?</span>
+                    <a href="register.html" class="fw-bold text-decoration-none ms-1">Đăng ký</a>
                   </div>
                 </form>
 
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
-    </section>
-
-    <!-- Link file CSS -->
-    <link rel="stylesheet" href="assets/css/register.css">
-
-    <!-- Link file JS -->
-    <script src="assets/js/register.js"></script><!-- /Register Section Section -->
+    </section><!-- /Login Section -->
 
   </main>
 
@@ -275,8 +205,7 @@
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
@@ -294,10 +223,10 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- Custom JS File -->
-  <script src="assets/js/api.js"></script>
-  <script src="assets/js/register.js"></script>
+  <!-- Customer JS -->
   <script src="assets/js/navbar.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/login.js"></script>
 
 </body>
 
