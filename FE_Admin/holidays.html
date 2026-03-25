@@ -184,10 +184,10 @@
                 <thead>
                   <tr>
                     <th scope="col">Tên ngày lễ</th>
-                    <th scope="col">Ngày bắt đầu</th>
-                    <th scope="col">Ngày kết thúc</th>
-                    <th scope="col">Hệ số giá phòng</th>
-                    <th scope="col">Trạng thái</th>
+                    <th scope="col" class="text-center">Ngày bắt đầu</th>
+                    <th scope="col" class="text-center">Ngày kết thúc</th>
+                    <th scope="col" class="text-center">Hệ số giá phòng</th>
+                    <th scope="col" class="text-center">Trạng thái</th>
                     <th scope="col" class="text-center">Hành động</th>
                   </tr>
                 </thead>
@@ -242,9 +242,15 @@
             <div class="modal-body">
 
               <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-12">
                   <label class="form-label fw-semibold small">Tên ngày lễ</label>
                   <input class="form-control form-control-sm" id="add-price-rule-name" type="text" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Hệ số giá phòng</label>
+                  <input class="form-control form-control-sm" id="add-price-multiplier" type="number" min="0" step="0.1" required>
                 </div>
                 <div class="col-6">
                   <label class="form-label fw-semibold small">Trạng thái</label>
@@ -291,9 +297,15 @@
             <div class="modal-body">
 
               <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-12">
                   <label class="form-label fw-semibold small">Tên ngày lễ</label>
                   <input class="form-control form-control-sm" id="update-price-rule-name" type="text" value="Tết dương lịch" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label class="form-label fw-semibold small">Hệ số giá phòng</label>
+                  <input class="form-control form-control-sm" id="update-price-multiplier" type="number" step="0.1" min="0" value="1.2" required>
                 </div>
                 <div class="col-6">
                   <label class="form-label fw-semibold small">Trạng thái</label>

@@ -234,6 +234,9 @@ function renderRoomTable(rooms) {
   rooms.forEach((room) => {
     const row = document.createElement("tr");
 
+    const statusText = room.roomStatus === "AVAILABLE" ? "HOẠT ĐỘNG" : "BẢO TRÌ";
+    const statusClass = room.roomStatus === "AVAILABLE" ? "text-success" : "text-warning";
+
     row.innerHTML = `
       <td class="align-content-center">
         <img style="height:60px;width:90px;object-fit:cover;border-radius:8px;"
@@ -247,7 +250,7 @@ function renderRoomTable(rooms) {
       <td class="align-content-center">${room.area}m²</td>
       <td class="align-content-center">${room.roomTypeName}</td>
       <td class="align-content-center">${room.viewName}</td>
-      <td class="align-content-center">${formatStatus(room.roomStatus)}</td>
+      <td class="align-content-center ${statusClass}">${statusText}</td>
       <td class="align-content-center">
         <button class="btn btn-sm btn-primary text-white" onclick="openUpdateModal('${room.roomId}')">
           <i class="bx bxs-pencil"></i>
@@ -306,17 +309,6 @@ function renderPagination(pageData) {
 function formatPrice(price) {
   if (!price) return "0đ";
   return price.toLocaleString("vi-VN") + "đ";
-}
-
-function formatStatus(status) {
-  switch (status) {
-    case "AVAILABLE":
-      return "Hoạt động";
-    case "MAINTENANCE":
-      return "Bảo trì";
-    default:
-      return status;
-  }
 }
 
 // Preview ảnh chính

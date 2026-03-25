@@ -44,13 +44,18 @@ public class SecurityConfig {
             "/api/v1/payments/vnpay-return"
     };
 
+    private final String[] ADMIN_RECEPTIONIST_ENDPOINTS_GET = {
+            "/api/v1/bookings"
+    };
+
     private final String[] ADMIN_ENDPOINTS_POST = {
             "/api/v1/users/receptionist",
             "/api/v1/room-types",
             "/api/v1/views",
             "/api/v1/amenities",
             "/api/v1/upload",
-            "/api/v1/rooms"
+            "/api/v1/rooms",
+            "/api/v1/price-rules"
     };
 
     private final String[] ADMIN_ENDPOINTS_GET = {
@@ -60,6 +65,7 @@ public class SecurityConfig {
             "/api/v1/room-types",
             "/api/v1/views",
             "/api/v1/amenities",
+            "/api/v1/price-rules",
     };
 
     private final String[] ADMIN_ENDPOINTS_PUT = {
@@ -71,7 +77,8 @@ public class SecurityConfig {
             "/api/v1/room-types",
             "/api/v1/views",
             "/api/v1/amenities",
-            "/api/v1/rooms"
+            "/api/v1/rooms",
+            "/api/v1/price-rules",
     };
 
     private final String[] ADMIN_ENDPOINTS_DELETE = {
@@ -79,7 +86,8 @@ public class SecurityConfig {
             "/api/v1/room-types",
             "/api/v1/views",
             "/api/v1/amenities",
-            "/api/v1/rooms"
+            "/api/v1/rooms",
+            "/api/v1/price-rules",
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_POST = {
@@ -88,7 +96,7 @@ public class SecurityConfig {
 
     private final String[] RECEPTIONIST_ENDPOINTS_GET = {
             // "/api/v1/users/my-info"
-            "/api/v1/bookings"
+            // "/api/v1/bookings"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_PUT = {
@@ -128,6 +136,8 @@ public class SecurityConfig {
                         // PUBLIC
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST).permitAll()
                         .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET).permitAll()
+                        // ADMIN & RECEPTIONIST
+                        .requestMatchers(HttpMethod.GET, ADMIN_RECEPTIONIST_ENDPOINTS_GET).hasAnyRole(RoleName.ADMIN.name(), RoleName.RECEPTIONIST.name())
                         // ADMIN
                         .requestMatchers(HttpMethod.POST, ADMIN_ENDPOINTS_POST).hasRole(RoleName.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, ADMIN_ENDPOINTS_GET).hasRole(RoleName.ADMIN.name())

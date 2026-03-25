@@ -67,6 +67,11 @@ public enum ErrorCode {
     MAIN_IMAGE_REQUIRED(10004, "Cần có ảnh chính", HttpStatus.BAD_REQUEST),
     TOO_MANY_SUB_IMAGES(10005, "Cần đúng 5 ảnh chính", HttpStatus.BAD_REQUEST),
     DELETE_IMAGE_FAILED(10006, "Xóa ảnh thất bại", HttpStatus.BAD_REQUEST),
+
+    // PriceRule
+    PRICE_RULE_ALREADY_EXISTS(11001, "Ngày lễ đã tồn tại", HttpStatus.CONFLICT),
+    PRICE_RULE_DATE_OVERLAP(11002, "Khoảng thời gian ngày lễ bị trùng", HttpStatus.CONFLICT),
+    PRICE_RULE_NOT_FOUND(11003, "Ngày lễ không tồn tại", HttpStatus.NOT_FOUND),
     ;
 
     private int code;

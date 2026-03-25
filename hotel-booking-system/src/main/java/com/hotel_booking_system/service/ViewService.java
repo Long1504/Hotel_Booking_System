@@ -37,7 +37,7 @@ public class ViewService {
     }
 
     public Page<ViewResponse> getAllViews(String viewName, Pageable pageable) {
-        return  viewRepository.findAll(viewName, pageable)
+        return viewRepository.findAll(viewName, pageable)
                 .map(view -> viewMapper.toViewResponse(view));
     }
 
