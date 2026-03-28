@@ -41,6 +41,8 @@ public class Booking {
     private Integer children;
     private String note;
     @Column(nullable = false)
+    private BigDecimal roomPrice; // mới
+    @Column(nullable = false)
     private BigDecimal totalPrice;
     @Column(nullable = false)
     private LocalDateTime createdAt;
@@ -62,6 +64,12 @@ public class Booking {
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingStatusHistory> bookingStatusHistories;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingService> bookingServices; // mới
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Extra> extras; // mới
 
     @PrePersist
     protected void onCreate() {

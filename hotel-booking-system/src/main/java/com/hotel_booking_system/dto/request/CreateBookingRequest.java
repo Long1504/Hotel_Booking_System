@@ -20,6 +20,5 @@ public class CreateBookingRequest {
     private Integer children;
     private String note;
     private String paymentMethod;
-//    private String userId;
     private String roomId;
 }

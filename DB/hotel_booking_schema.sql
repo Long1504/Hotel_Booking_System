@@ -119,9 +119,11 @@ CREATE TABLE bookings (
     guest_name VARCHAR(200) NOT NULL,
     guest_phone VARCHAR(20) NOT NULL,
     guest_email VARCHAR(100) NOT NULL,
+    identity_card VARCHAR(20),
     adults INTEGER NOT NULL,
     children INTEGER NOT NULL,
     note VARCHAR(255),
+    room_price DECIMAL(12,2) NOT NULL,
     total_price DECIMAL(12, 2) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     booking_status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
@@ -135,6 +137,7 @@ CREATE TABLE bookings (
     CHECK (check_out_date > check_in_date),
     CHECK (adults >= 1),
 	CHECK (children >= 0),
+    CHECK (room_price >= 0),
     CHECK (total_price >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -154,11 +157,37 @@ CREATE TABLE services (
     service_id CHAR(36) PRIMARY KEY,
     service_name VARCHAR(100) NOT NULL UNIQUE,
     description VARCHAR(255),
-    image_url VARCHAR(255) NOT NULL,
+    base_price DECIMAL(12, 2) NOT NULL,
     deleted_at TIMESTAMP DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE invalidated_token (
+-- 14. Bảng BOOKING_SERVICES
+CREATE TABLE booking_services (
+    booking_service_id CHAR(36) PRIMARY KEY,
+    booking_id CHAR(36) NOT NULL,
+    service_id CHAR(36) NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    unit_price DECIMAL(12,2) NOT NULL,
+    total_price DECIMAL(12,2) NOT NULL,
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    FOREIGN KEY (service_id) REFERENCES services(service_id),
+    CHECK (quantity > 0),
+    CHECK (unit_price >= 0),
+    CHECK (total_price >= 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 15. Bảng EXTRAS
+CREATE TABLE extras (
+    extra_id CHAR(36) PRIMARY KEY,
+    booking_id CHAR(36) NOT NULL,
+    extra_name VARCHAR(100) NOT NULL,
+    amount DECIMAL(12,2) NOT NULL,
+    note VARCHAR(255),
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    CHECK (amount >= 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE invalidated_tokens (
 	id VARCHAR(36) PRIMARY KEY,
     expiry_time DATE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

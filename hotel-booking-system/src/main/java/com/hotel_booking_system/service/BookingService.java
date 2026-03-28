@@ -162,7 +162,7 @@ public class BookingService {
 
         Map<LocalDate, BigDecimal> priceMap = buildPriceMap(checkInDate, checkOutDate);
 
-        BigDecimal totalPrice = calculateTotalPrice(
+        BigDecimal roomPrice = calculateRoomPriceByDateRange(
                 room.getBasePrice(),
                 checkInDate,
                 checkOutDate,
@@ -190,7 +190,8 @@ public class BookingService {
                 .adults(request.getAdults())
                 .children(request.getChildren())
                 .note(request.getNote())
-                .totalPrice(totalPrice)
+                .roomPrice(roomPrice)
+                .totalPrice(roomPrice)
                 .bookingStatus(BookingStatus.PENDING.name())
                 .paymentMethod(PaymentMethod.CASH.name())
                 .paymentStatus(PaymentStatus.UNPAID.name())
@@ -265,22 +266,22 @@ public class BookingService {
         return priceMap;
     }
 
-    private BigDecimal calculateTotalPrice(BigDecimal basePrice,
-                                           LocalDate checkInDate,
-                                           LocalDate checkOutDate,
-                                           Map<LocalDate, BigDecimal> priceMap) {
-        BigDecimal totalPrice = BigDecimal.ZERO;
+    private BigDecimal calculateRoomPriceByDateRange(BigDecimal basePrice,
+                                                     LocalDate checkInDate,
+                                                     LocalDate checkOutDate,
+                                                     Map<LocalDate, BigDecimal> priceMap) {
+        BigDecimal roomPrice = BigDecimal.ZERO;
 
         LocalDate date = checkInDate;
 
         while (date.isBefore(checkOutDate)) {
             BigDecimal multiplier = priceMap.getOrDefault(date, BigDecimal.ONE);
 
-            totalPrice = totalPrice.add(basePrice.multiply(multiplier));
+            roomPrice = roomPrice.add(basePrice.multiply(multiplier));
 
             date = date.plusDays(1);
         }
 
-        return totalPrice;
+        return roomPrice;
     }
 }

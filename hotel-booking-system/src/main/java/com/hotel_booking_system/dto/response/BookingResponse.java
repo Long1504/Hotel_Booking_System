@@ -1,5 +1,7 @@
 package com.hotel_booking_system.dto.response;
 
+import com.hotel_booking_system.entity.BookingService;
+import com.hotel_booking_system.entity.Extra;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -24,6 +26,7 @@ public class BookingResponse {
     private Integer adults;
     private Integer children;
     private String note;
+    private BigDecimal roomPrice;
     private BigDecimal totalPrice;
     private LocalDateTime createdAt;
     private String bookingStatus;
@@ -33,4 +36,6 @@ public class BookingResponse {
     private String paymentUrl;
     private RoomBookingResponse room;
     private List<BookingStatusHistoryResponse> bookingStatusHistories;
+    private List<BookingService> bookingServices;
+    private List<Extra> extras;
 }
