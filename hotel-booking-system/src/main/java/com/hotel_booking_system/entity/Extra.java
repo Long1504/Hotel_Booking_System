@@ -24,9 +24,6 @@ public class Extra {
     private Booking booking;
 
     @Column(nullable = false)
-    private String extraName;
-
-    @Column(nullable = false)
     private BigDecimal amount;
 
     private String note;

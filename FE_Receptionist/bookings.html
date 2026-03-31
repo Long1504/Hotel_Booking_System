@@ -225,17 +225,24 @@
 
             <div class="row mb-3">
               <div class="col-md-3 fw-semibold">Mã đặt phòng:</div>
-              <div class="col-md-9" id="booking-code">BK-165055-14032026-56513</div>
+              <div class="col-md-9 text-primary" id="booking-code">BK-165055-14032026-56513</div>
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-3 fw-semibold">Ngày nhận phòng:</div>
-              <div class="col-md-9" id="check-in-date">15/03/2026</div>
+              <div class="col-md-3 fw-semibold">Thời gian đặt:</div>
+              <div class="col-md-9" id="createdAt">13/03/2026 - 14:30</div>
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-3 fw-semibold">Ngày trả phòng:</div>
-              <div class="col-md-9" id="check-out-date">17/03/2026</div>
+              <div class="col-md-3 fw-semibold">Trạng thái đặt phòng:</div>
+              <div class="col-md-3">
+                <select class="form-select form-select-sm" id="modal-booking-status"></select>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Ngày nhận - trả phòng:</div>
+              <div class="col-md-9" id="check-in-out-date">15/03/2026</div>
             </div>
 
             <div class="row mb-3">
@@ -264,13 +271,8 @@
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-3 fw-semibold">Số người lớn:</div>
-              <div class="col-md-9" id="adults">3</div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-md-3 fw-semibold">Số trẻ em:</div>
-              <div class="col-md-9" id="children">1</div>
+              <div class="col-md-3 fw-semibold">Số khách:</div>
+              <div class="col-md-9" id="adults-children">3</div>
             </div>
 
             <div class="row mb-3">
@@ -279,20 +281,42 @@
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-3 fw-semibold">Tổng tiền:</div>
-              <div class="col-md-9" id="totalPrice">2.000.000đ</div>
+              <div class="col-md-3 fw-semibold">Tiền phòng:</div>
+              <div class="col-md-9" id="room-price">2.000.000đ</div>
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-3 fw-semibold">Thời gian đặt:</div>
-              <div class="col-md-9" id="createdAt">13/03/2026 - 14:30</div>
+              <div class="col-md-3 fw-semibold">Phí dịch vụ:</div>
+              <div class="col-md-9" id="service-price">...đ</div>
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-3 fw-semibold">Trạng thái đặt phòng:</div>
-              <div class="col-md-3">
-                <select class="form-select form-select-sm" id="modal-booking-status"></select>
+              <div class="col-md-3"></div>
+              <div class="col-md-7" id="booking-services">
+                <div class="row" id="service-list">
+                  <!-- Render JS -->
+                </div>
               </div>
+              <div class="col-md-2 text-end">
+                <button class="btn btn-primary btn-sm" onclick="saveServices()">Cập nhật</button>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Phụ phí:</div>
+              <div class="col-md-9" id="extra-price">0đ</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3"></div>
+              <div class="col-md-9" id="extra-list">
+                <!-- Render JS -->
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Tổng tiền:</div>
+              <div class="col-md-9 text-danger fw-semibold" id="total-price">2.000.000đ</div>
             </div>
 
             <div class="row mb-3">
@@ -353,7 +377,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
           </div>
         </div>
       </div>

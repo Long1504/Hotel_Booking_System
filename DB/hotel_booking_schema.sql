@@ -180,7 +180,6 @@ CREATE TABLE booking_services (
 CREATE TABLE extras (
     extra_id CHAR(36) PRIMARY KEY,
     booking_id CHAR(36) NOT NULL,
-    extra_name VARCHAR(100) NOT NULL,
     amount DECIMAL(12,2) NOT NULL,
     note VARCHAR(255),
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,

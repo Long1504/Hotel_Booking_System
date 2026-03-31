@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Quản lý view</title>
+  <title>Quản lý dịch vụ</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -108,7 +108,7 @@
       </li><!-- End Room Type Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="views.html">
+        <a class="nav-link collapsed" href="views.html">
           <i class="bi bi-eye"></i>
           <span>View</span>
         </a>
@@ -129,7 +129,7 @@
       </li><!-- End Room Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="services.html">
+        <a class="nav-link " href="services.html">
           <i class="bi bi-minecart-loaded"></i>
           <span>Dịch vụ</span>
         </a>
@@ -156,7 +156,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Danh sách view</h1>
+      <h1>Danh sách dịch vụ</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -165,37 +165,38 @@
 
           <div class="card">
             <div class="card-body pt-3 pb-0">
-              <!-- <h5 class="card-title m-0">Danh sách loại phòng</h5> -->
 
               <div class="room-filters row pb-3">
                 <div class="col-2">
                   <label class="form-label fw-semibold small">Tìm kiếm</label>
-                  <input class="form-control form-control-sm" id="view-name-search" placeholder="Nhập tên view..." type="text">
+                  <input class="form-control form-control-sm" id="service-name-search" placeholder="Nhập tên dịch vụ..." type="text">
                 </div>
 
                 <div class="col-10 d-flex justify-content-between align-items-center">
                   <span></span>
-                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-view-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
+                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-service-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
                 </div>
               </div>
 
               <table class="table table-hover small">
                 <thead>
                   <tr>
-                    <th scope="col">Tên view</th>
+                    <th scope="col">Tên dịch vụ</th>
                     <th scope="col">Mô tả</th>
+                    <th scope="col">Đơn giá</th>
                     <th scope="col" class="text-center">Hành động</th>
                   </tr>
                 </thead>
-                <tbody id="view-table-body">
+                <tbody id="service-table-body">
                   <tr>
-                    <td class="align-content-center">View biển</td>
-                    <td class="align-content-center text-truncate" style="max-width: 1000px;" title="Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.">
+                    <td class="align-content-center">Wifi</td>
+                    <td class="align-content-center text-truncate" style="max-width: 800px;" title="Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.">
                       Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.
                     </td>
-                    <td class="align-content-center">
-                      <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#update-view-modal"><i class="bx bxs-pencil"></i></button>
-                      <button type="button" class="btn btn-sm btn-danger text-white" data-bs-toggle="modal" data-bs-target="#delete-view-modal"><i class="bx bxs-trash"></i></button>
+                    <td class="align-content-center">500.000đ</td>
+                    <td class="align-content-center text-center">
+                      <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#update-service-modal"><i class="bx bxs-pencil"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger text-white" data-bs-toggle="modal" data-bs-target="#delete-service-modal"><i class="bx bxs-trash"></i></button>
                     </td>
                   </tr>
                 </tbody>
@@ -221,23 +222,27 @@
       </div>
     </section>
 
-    <!-- Modal Thêm view -->
-    <div class="modal fade" id="add-view-modal" tabindex="-1">
+    <!-- Modal Thêm dịch vụ -->
+    <div class="modal fade" id="add-service-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-success">Thêm mới view</h5>
+            <h5 class="modal-title text-success">Thêm mới dịch vụ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <form id="add-view-form" action="" method="post">
+          <form id="add-service-form" action="" method="post">
 
             <div class="modal-body">
 
               <div class="row mb-3">
-                <div class="col-12">
-                  <label class="form-label fw-semibold small">Tên view</label>
-                  <input class="form-control form-control-sm" id="add-view-name" type="text" required>
+                <div class="col-8">
+                  <label class="form-label fw-semibold small">Tên dịch vụ</label>
+                  <input class="form-control form-control-sm" id="add-service-name" type="text" required>
+                </div>
+                <div class="col-4">
+                  <label class="form-label fw-semibold small">Đơn giá</label>
+                  <input class="form-control form-control-sm" id="add-base-price" type="number" required>
                 </div>
               </div>
               <div class="row">
@@ -257,25 +262,29 @@
 
         </div>
       </div>
-    </div><!-- End Modal Thêm view -->
+    </div><!-- End Modal Thêm dịch vụ -->
 
-    <!-- Modal Sửa thông tin view -->
-    <div class="modal fade" id="update-view-modal" tabindex="-1">
+    <!-- Modal Sửa thông tin dịch vụ -->
+    <div class="modal fade" id="update-service-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-primary">Sửa thông tin view</h5>
+            <h5 class="modal-title text-primary">Sửa thông tin dịch vụ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <form id="update-view-form" action="" method="post">
+          <form id="update-service-form" action="" method="post">
 
             <div class="modal-body">
 
               <div class="row mb-3">
-                <div class="col-12">
-                  <label class="form-label fw-semibold small">Tên view</label>
-                  <input class="form-control form-control-sm" id="update-view" value="View biển" type="text" required>
+                <div class="col-8">
+                  <label class="form-label fw-semibold small">Tên dịch vụ</label>
+                  <input class="form-control form-control-sm" id="update-service-name" value="Wifi" type="text" required>
+                </div>
+                <div class="col-4">
+                  <label class="form-label fw-semibold small">Đơn giá</label>
+                  <input class="form-control form-control-sm" id="update-base-price" value="500000" type="number" required>
                 </div>
               </div>
               <div class="row">
@@ -295,26 +304,26 @@
 
         </div>
       </div>
-    </div><!-- End Modal Sửa thông tin view -->
+    </div><!-- End Modal Sửa thông tin dịch vụ -->
 
-    <!-- Modal Xóa view -->
-    <div class="modal fade" id="delete-view-modal" tabindex="-1">
+    <!-- Modal Xóa dịch vụ -->
+    <div class="modal fade" id="delete-service-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-danger">Xác nhận xóa view</h5>
+            <h5 class="modal-title text-danger">Xác nhận xóa dịch vụ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            Bạn có chắc chắn muốn xóa view [Tên view] không?
+            Bạn có chắc chắn muốn xóa dịch vụ [Tên dịch vụ] không?
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            <button id="confirm-delete-view" type="button" class="btn btn-sm btn-danger">Xóa</button>
+            <button id="confirm-delete-service" type="button" class="btn btn-sm btn-danger">Xóa</button>
           </div>
         </div>
       </div>
-    </div><!-- End Modal Xóa view -->
+    </div><!-- End Modal Xóa dịch vụ -->
 
     <div id="alert-container" class="position-fixed top-0 end-0" style="margin-top: 80px; margin-right: 20px; z-index: 1055;"></div>
 
@@ -344,7 +353,7 @@
 
   <!-- Custom JS -->
   <script src="assets/js/api.js"></script>
-  <script src="assets/js/views.js"></script>
+  <script src="assets/js/services.js"></script>
   <script src="assets/js/logout.js"></script>
 
 </body>

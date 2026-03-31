@@ -23,7 +23,7 @@ async function callAPI(endpoint, method = "GET", data = null) {
 
 // API cần token
 async function callAPIWithAuth(endpoint, method = "GET", data = null) {
-  const token = localStorage.getItem("tokenHotelBooking");
+  const token = localStorage.getItem("tokenHotelBookingAdmin");
 
   if (!token) {
     window.location.href = "login.html";
@@ -47,7 +47,7 @@ async function callAPIWithAuth(endpoint, method = "GET", data = null) {
 
   // Token hết hạn hoặc không hợp lệ
   if (response.status === 401) {
-    localStorage.removeItem("tokenHotelBooking");
+    localStorage.removeItem("tokenHotelBookingAdmin");
     window.location.href = "login.html";
     return;
   }

@@ -72,6 +72,15 @@ public enum ErrorCode {
     PRICE_RULE_ALREADY_EXISTS(11001, "Ngày lễ đã tồn tại", HttpStatus.CONFLICT),
     PRICE_RULE_DATE_OVERLAP(11002, "Khoảng thời gian ngày lễ bị trùng", HttpStatus.CONFLICT),
     PRICE_RULE_NOT_FOUND(11003, "Ngày lễ không tồn tại", HttpStatus.NOT_FOUND),
+
+    // Service
+    SERVICE_NOT_FOUND(12001, "Không tìm thấy dịch vụ", HttpStatus.NOT_FOUND),
+
+    // BookingService
+    BOOKING_SERVICE_NOT_FOUND(13001, "Không tìm thấy dịch vụ đặt", HttpStatus.NOT_FOUND),
+
+    // Extra
+    EXTRA_NOT_FOUND(14001, "Không tìm thấy phụ phí", HttpStatus.NOT_FOUND),
     ;
 
     private int code;

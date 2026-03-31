@@ -46,6 +46,13 @@ public class BookingService {
                 .map(booking -> bookingMapper.toBookingResponse(booking));
     }
 
+    public BookingResponse getBookingById(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
     @Transactional
     public BookingResponse updateBookingStatus(String bookingId, String newBookingStatus) {
         Booking booking = bookingRepository.findById(bookingId)

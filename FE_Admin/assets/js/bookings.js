@@ -1,4 +1,4 @@
-if (!localStorage.getItem("tokenHotelBooking")) {
+if (!localStorage.getItem("tokenHotelBookingAdmin")) {
   window.location.href = "login.html";
 }
 

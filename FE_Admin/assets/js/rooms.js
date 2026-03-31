@@ -403,7 +403,7 @@ async function createRoom(e) {
   selectedSubFiles.forEach((file) => formData.append("subImages", file));
 
   try {
-    const token = localStorage.getItem("tokenHotelBooking");
+    const token = localStorage.getItem("tokenHotelBookingAdmin");
     const response = await fetch(
       "http://localhost:8080/hotel-booking/api/v1/rooms",
       {
@@ -631,7 +631,7 @@ async function updateRoom(e) {
   });
 
   try {
-    const token = localStorage.getItem("tokenHotelBooking");
+    const token = localStorage.getItem("tokenHotelBookingAdmin");
     const response = await fetch(
       `http://localhost:8080/hotel-booking/api/v1/rooms/${currentUpdateRoomId}`,
       {
@@ -747,7 +747,7 @@ async function deleteRoom() {
   if (!currentDeleteRoomId) return;
 
   try {
-    const token = localStorage.getItem("tokenHotelBooking");
+    const token = localStorage.getItem("tokenHotelBookingAdmin");
 
     const response = await fetch(
       `http://localhost:8080/hotel-booking/api/v1/rooms/${currentDeleteRoomId}`,

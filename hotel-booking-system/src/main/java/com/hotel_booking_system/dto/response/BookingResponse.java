@@ -36,6 +36,6 @@ public class BookingResponse {
     private String paymentUrl;
     private RoomBookingResponse room;
     private List<BookingStatusHistoryResponse> bookingStatusHistories;
-    private List<BookingService> bookingServices;
-    private List<Extra> extras;
+    private List<BookingServiceResponse> bookingServices;
+    private List<ExtraResponse> extras;
 }

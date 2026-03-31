@@ -1,4 +1,4 @@
-if (!localStorage.getItem("tokenHotelBooking")) {
+if (!localStorage.getItem("tokenHotelBookingReceptionist")) {
   window.location.href = "login.html";
 }
 
@@ -8,6 +8,8 @@ let pageSize = 10;
 let currentBookingId = null;
 
 let highlightBookingCode = null;
+
+let currentBooking = null;
 
 async function loadBookings() {
   const bookingStatus = document.getElementById("booking-status-filter").value;
@@ -92,7 +94,9 @@ function renderBookings(bookings) {
     `;
 
     // Thêm sự kiện show modal cho nút chi tiết
-    tr.querySelector("button").addEventListener("click", () => showBookingDetail(b));
+    tr.querySelector("button").addEventListener("click", () =>
+      showBookingDetail(b),
+    );
 
     tbody.appendChild(tr);
 
@@ -103,49 +107,55 @@ function renderBookings(bookings) {
   });
 }
 
-function showBookingDetail(booking) {
+function renderBookingDetail(booking) {
+  currentBooking = booking;
+
   document.getElementById("booking-code").innerText = booking.bookingCode;
-  document.getElementById("check-in-date").innerText = formatDate(
-    booking.checkInDate,
-  );
-  document.getElementById("check-out-date").innerText = formatDate(
-    booking.checkOutDate,
-  );
+  document.getElementById("check-in-out-date").innerText =
+    formatDate(booking.checkInDate) + " - " + formatDate(booking.checkOutDate);
+
   document.getElementById("guest-name").innerText = booking.guestName;
   document.getElementById("guest-phone").innerText = booking.guestPhone;
   document.getElementById("guest-email").innerText = booking.guestEmail;
 
-  const cccdInput = document.getElementById("identity-card-input");
-  cccdInput.value = booking.identityCard || "";
+  document.getElementById("identity-card-input").value =
+    booking.identityCard || "";
 
-  document.getElementById("adults").innerText = booking.adults;
-  document.getElementById("children").innerText = booking.children;
+  document.getElementById("adults-children").innerText =
+    booking.adults + " người lớn - " + booking.children + " trẻ em";
+
   document.getElementById("note").innerText = booking.note || "";
-  document.getElementById("totalPrice").innerText = formatCurrency(
-    booking.totalPrice,
+  document.getElementById("room-price").innerText = formatCurrency(
+    booking.roomPrice,
   );
+  document.getElementById("service-price").innerText = formatCurrency(
+    calculateServicePrice(booking),
+  );
+
+  document.getElementById("extra-price").innerText = formatCurrency(
+    calculateExtraPrice(booking),
+  );
+
   document.getElementById("createdAt").innerText = formatDateTime(
     booking.createdAt,
   );
 
+  document.getElementById("total-price").innerText = formatCurrency(
+    booking.totalPrice,
+  );
+
   currentBookingId = booking.bookingId;
 
-  // Booking status
   document.getElementById("modal-booking-status").innerHTML =
     bookingStatusOptions(booking.bookingStatus);
 
-  // Payment status
   document.getElementById("modal-payment-status").innerHTML =
     paymentStatusOptions(booking.paymentStatus);
 
-  // Payment method
   const paymentMethodSelect = document.getElementById("modal-payment-method");
-
   paymentMethodSelect.value = booking.paymentMethod || "CASH";
-
   paymentMethodSelect.setAttribute("data-old", paymentMethodSelect.value);
 
-  // Hiện nút VNPAY nếu chọn VNPAY
   toggleVNPayButton();
 
   document.getElementById("room-name").innerText = booking.room.roomName;
@@ -157,25 +167,54 @@ function showBookingDetail(booking) {
 
   document.getElementById("main-image").src = booking.room.mainImageUrl;
 
+  loadServicesForModal(booking.bookingServices);
+  renderExtras(booking.extras || []);
+}
+
+function showBookingDetail(booking) {
+  renderBookingDetail(booking);
+
   const modal = new bootstrap.Modal(document.getElementById("booking-detail"));
   modal.show();
 }
 
+function calculateServicePrice(booking) {
+  if (!booking.bookingServices || booking.bookingServices.length === 0) {
+    return 0;
+  }
+
+  return booking.bookingServices.reduce((total, service) => {
+    return total + (service.totalPrice || 0);
+  }, 0);
+}
+
+function calculateExtraPrice(booking) {
+  if (!booking.extras || booking.extras.length === 0) return 0;
+
+  return booking.extras.reduce((sum, e) => sum + (e.amount || 0), 0);
+}
+
 function formatDate(date) {
   const d = new Date(date);
-  return d.toLocaleDateString("vi-VN");
+
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = d.getFullYear();
+
+  return `${day}/${month}/${year}`;
 }
 
 function formatDateTime(date) {
   const d = new Date(date);
 
-  const day = d.toLocaleDateString("vi-VN");
-  const time = d.toLocaleTimeString("vi-VN", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = d.getFullYear();
 
-  return `${day} - ${time}`;
+  const hours = String(d.getHours()).padStart(2, "0");
+  const minutes = String(d.getMinutes()).padStart(2, "0");
+
+  return `${day}/${month}/${year} - ${hours}:${minutes}`;
 }
 
 function formatCurrency(value) {
@@ -288,36 +327,6 @@ function paymentStatusOptions(current) {
     .join("");
 }
 
-async function updateBookingStatus(bookingId, status) {
-  if (!confirm(`Bạn có chắc muốn thay đổi trạng thái sang ${status}?`)) return;
-
-  try {
-    await callAPIWithAuth(`/bookings/${bookingId}/booking-status`, "PUT", {
-      newBookingStatus: status,
-    });
-
-    loadBookings();
-  } catch (error) {
-    console.error("Lỗi cập nhật trạng thái booking:", error);
-    alert("Không thể cập nhật trạng thái đặt phòng");
-  }
-}
-
-async function updatePaymentStatus(bookingId, status) {
-  if (!confirm(`Bạn có chắc muốn thay đổi trạng thái sang ${status}?`)) return;
-
-  try {
-    await callAPIWithAuth(`/bookings/${bookingId}/payment-status`, "PUT", {
-      newPaymentStatus: status,
-    });
-
-    loadBookings();
-  } catch (error) {
-    console.error("Lỗi cập nhật trạng thái thanh toán:", error);
-    alert("Không thể cập nhật trạng thái thanh toán");
-  }
-}
-
 function toggleVNPayButton() {
   const method = document.getElementById("modal-payment-method").value;
   const btn = document.getElementById("btn-vnpay");
@@ -326,6 +335,292 @@ function toggleVNPayButton() {
     btn.classList.remove("d-none");
   } else {
     btn.classList.add("d-none");
+  }
+}
+
+let allServices = [];
+
+async function loadServicesForModal(bookingServices = []) {
+  try {
+    const res = await fetch(
+      "http://localhost:8080/hotel-booking/api/v1/services/summary",
+    );
+    const data = await res.json();
+
+    allServices = data.result;
+
+    renderServiceList(bookingServices);
+  } catch (e) {
+    console.error("Lỗi load services:", e);
+  }
+}
+
+function renderServiceList(bookingServices = []) {
+  const container = document.getElementById("service-list");
+  container.innerHTML = "";
+
+  allServices.forEach((service) => {
+    const selected = bookingServices.find(
+      (bs) => bs.serviceId === service.serviceId,
+    );
+
+    const isChecked = !!selected;
+    const quantity = selected ? selected.quantity : 1;
+
+    const col = document.createElement("div");
+    col.className = "col-6 mb-2";
+
+    col.innerHTML = `
+      <div class="form-check border rounded ps-2 pe-2 pt-1 pb-1 d-flex align-items-center">
+        <input class="form-check-input service-checkbox m-0 me-2"
+          type="checkbox"
+          value="${service.serviceId}"
+          id="service-${service.serviceId}"
+          ${isChecked ? "checked" : ""}>
+
+        <div class="flex-grow-1">
+          <label class="form-check-label fw-semibold" for="service-${service.serviceId}">
+            ${service.serviceName}
+          </label>
+
+          <div class="text-muted small">
+            Đơn giá: ${service.basePrice.toLocaleString()}đ
+          </div>
+        </div>
+
+        <input type="number"
+          class="form-control form-control-sm service-qty"
+          style="width: 50px;"
+          min="1"
+          value="${quantity}"
+          data-id="${service.serviceId}"
+          ${isChecked ? "" : "disabled"}>
+      </div>
+    `;
+
+    container.appendChild(col);
+  });
+
+  // enable/disable quantity
+  document.querySelectorAll(".service-checkbox").forEach((cb) => {
+    cb.addEventListener("change", function () {
+      const qtyInput =
+        this.closest(".form-check").querySelector(".service-qty");
+      qtyInput.disabled = !this.checked;
+    });
+  });
+}
+
+function getSelectedServicesFromUI() {
+  const result = [];
+
+  document.querySelectorAll(".service-checkbox").forEach((cb) => {
+    const serviceId = cb.value;
+    const qtyInput = cb.closest(".form-check").querySelector(".service-qty");
+
+    if (cb.checked) {
+      result.push({
+        serviceId: serviceId,
+        quantity: parseInt(qtyInput.value),
+      });
+    }
+  });
+
+  return result;
+}
+
+function diffServices(original, current) {
+  const toAdd = [];
+  const toUpdate = [];
+  const toDelete = [];
+
+  console.log("Original Map:", original);
+  console.log("Current Map:", current);
+
+  const originalMap = new Map();
+  original.forEach((s) => originalMap.set(s.serviceId, s));
+
+  const currentMap = new Map();
+  current.forEach((s) => currentMap.set(s.serviceId, s));
+
+  // ADD + UPDATE
+  current.forEach((s) => {
+    if (!originalMap.has(s.serviceId)) {
+      toAdd.push(s);
+    } else {
+      const old = originalMap.get(s.serviceId);
+      if (old.quantity !== s.quantity) {
+        toUpdate.push({
+          bookingServiceId: old.bookingServiceId,
+          quantity: s.quantity,
+        });
+      }
+    }
+  });
+
+  // DELETE
+  original.forEach((s) => {
+    if (!currentMap.has(s.serviceId)) {
+      toDelete.push(s.bookingServiceId);
+    }
+  });
+
+  return { toAdd, toUpdate, toDelete };
+}
+
+async function addService(bookingId, data) {
+  return callAPIWithAuth(`/bookings/${bookingId}/services`, "POST", data);
+}
+
+async function updateService(bookingId, bookingServiceId, quantity) {
+  return callAPIWithAuth(
+    `/bookings/${bookingId}/services/${bookingServiceId}`,
+    "PUT",
+    { quantity },
+  );
+}
+
+async function deleteService(bookingId, bookingServiceId) {
+  return callAPIWithAuth(
+    `/bookings/${bookingId}/services/${bookingServiceId}`,
+    "DELETE",
+  );
+}
+
+async function saveServices() {
+  if (!currentBooking || !currentBookingId) return;
+
+  const current = getSelectedServicesFromUI();
+  const { toAdd, toUpdate, toDelete } = diffServices(
+    currentBooking.bookingServices,
+    current,
+  );
+
+  try {
+    // ADD
+    for (const s of toAdd) {
+      await addService(currentBookingId, s);
+    }
+
+    // UPDATE
+    for (const s of toUpdate) {
+      await updateService(currentBookingId, s.bookingServiceId, s.quantity);
+    }
+
+    // DELETE
+    for (const id of toDelete) {
+      await deleteService(currentBookingId, id);
+    }
+
+    alert("Cập nhật dịch vụ thành công");
+
+    await reloadCurrentBooking();
+    loadBookings();
+  } catch (e) {
+    console.error(e);
+    alert("Lỗi cập nhật dịch vụ");
+  }
+}
+
+function renderExtras(extras = []) {
+  const container = document.getElementById("extra-list");
+  container.innerHTML = "";
+
+  // Render data (Nút xóa)
+  extras.forEach((e) => createExtraRow(e, false));
+
+  // Dòng cuối (Nút thêm)
+  createExtraRow({}, true);
+}
+
+function createExtraRow(data = {}, isLast = false) {
+  const container = document.getElementById("extra-list");
+
+  const row = document.createElement("div");
+  row.className = "row mb-2 extra-row";
+
+  row.innerHTML = `
+    <div class="col-md-4">
+      <input type="number" placeholder="Số tiền..." class="form-control form-control-sm extra-amount"
+        value="${data.amount || ""}">
+    </div>
+    <div class="col-md-6">
+      <input type="text" placeholder="Ghi chú..." class="form-control form-control-sm extra-note"
+        value="${data.note || ""}">
+    </div>
+    <div class="col-md-2">
+      ${
+        isLast
+          ? `<button class="btn btn-success btn-sm w-100 btn-add">Thêm</button>`
+          : `<button class="btn btn-danger btn-sm w-100 btn-delete">Xóa</button>`
+      }
+    </div>
+  `;
+
+  container.appendChild(row);
+
+  // ADD
+  const btnAdd = row.querySelector(".btn-add");
+  if (btnAdd) {
+    btnAdd.onclick = async () => {
+      const amount = row.querySelector(".extra-amount").value;
+      const note = row.querySelector(".extra-note").value;
+
+      if (!amount && !note) {
+        return alert("Nhập dữ liệu trước!");
+      }
+
+      try {
+        await callAPIWithAuth(`/bookings/${currentBookingId}/extras`, "POST", {
+          amount: Number(amount),
+          note: note,
+        });
+
+        alert("Thêm thành công");
+
+        await reloadCurrentBooking();
+        loadBookings();
+      } catch (e) {
+        console.error(e);
+        alert("Lỗi thêm phụ phí");
+      }
+    };
+  }
+
+  // DELETE
+  const btnDelete = row.querySelector(".btn-delete");
+  if (btnDelete) {
+    btnDelete.onclick = async () => {
+      if (!data.extraId) return;
+
+      if (!confirm("Xóa phụ phí này?")) return;
+
+      try {
+        await callAPIWithAuth(
+          `/bookings/${currentBookingId}/extras/${data.extraId}`,
+          "DELETE",
+        );
+
+        alert("Xóa thành công");
+
+        await reloadCurrentBooking();
+        loadBookings();
+      } catch (e) {
+        console.error(e);
+        alert("Lỗi xóa");
+      }
+    };
+  }
+}
+
+async function reloadCurrentBooking() {
+  if (!currentBookingId) return;
+
+  try {
+    const res = await callAPIWithAuth(`/bookings/${currentBookingId}`);
+    renderBookingDetail(res.result);
+  } catch (e) {
+    console.error("Lỗi reload booking:", e);
   }
 }
 
@@ -399,6 +694,7 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleVNPayButton();
 
         // reload bảng
+        await reloadCurrentBooking();
         loadBookings();
       } catch (e) {
         alert("Lỗi cập nhật phương thức thanh toán");
@@ -424,6 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
           { newBookingStatus: status },
         );
 
+        await reloadCurrentBooking();
         loadBookings();
       } catch (e) {
         alert("Lỗi cập nhật!");
@@ -444,6 +741,7 @@ document.addEventListener("DOMContentLoaded", () => {
           { newPaymentStatus: status },
         );
 
+        await reloadCurrentBooking();
         loadBookings();
       } catch (e) {
         alert("Lỗi cập nhật!");
@@ -462,7 +760,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // res.result là link VNPay
       if (res && res.result) {
-        window.location.href = res.result; // redirect sang VNPay
+        // window.location.href = res.result; // redirect sang VNPay
+        const paymentUrl = res.result;
+
+        window.open(paymentUrl, "_blank");
       } else {
         alert(res.message);
       }
@@ -473,24 +774,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Sự kiện cập nhật CCCD
-  document.getElementById("btn-update-cccd").addEventListener("click", async () => {
-    const newCCCD = document.getElementById("identity-card-input").value.trim();
-    if (!newCCCD || !currentBookingId) return alert("Vui lòng nhập CCCD");
+  document
+    .getElementById("btn-update-cccd")
+    .addEventListener("click", async () => {
+      const newCCCD = document
+        .getElementById("identity-card-input")
+        .value.trim();
+      if (!newCCCD || !currentBookingId) return alert("Vui lòng nhập CCCD");
 
-    if (!confirm("Bạn có chắc muốn cập nhật số CCCD?")) return;
+      if (!confirm("Bạn có chắc muốn cập nhật số CCCD?")) return;
 
-    try {
-      const res = await callAPIWithAuth(`/bookings/${currentBookingId}/identity-card`, "PUT", { identityCard: newCCCD });
-      if (res.code === 1000 && res.result) {
-        alert("Cập nhật CCCD thành công!");
+      try {
+        const res = await callAPIWithAuth(
+          `/bookings/${currentBookingId}/identity-card`,
+          "PUT",
+          { identityCard: newCCCD },
+        );
+        if (res.code === 1000 && res.result) {
+          alert("Cập nhật CCCD thành công!");
 
-        document.getElementById("identity-card-input").value = res.result.identityCard;
-      } else {
-        alert(res.message || "Cập nhật CCCD thất bại");
+          await reloadCurrentBooking();
+          loadBookings();
+        } else {
+          alert(res.message || "Cập nhật CCCD thất bại");
+        }
+      } catch (e) {
+        console.error("Lỗi cập nhật CCCD:", e);
+        alert("Không thể cập nhật CCCD");
       }
-    } catch (e) {
-      console.error("Lỗi cập nhật CCCD:", e);
-      alert("Không thể cập nhật CCCD");
-    }
-  });
+    });
 });
