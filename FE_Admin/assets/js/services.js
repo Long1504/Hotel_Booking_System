@@ -2,13 +2,13 @@ let currentPage = 0;
 let pageSize = 10;
 let currentKeyword = "";
 
-let updateAmenityId = null;
-let deleteAmenityId = null;
+let updateServiceId = null;
+let deleteServiceId = null;
 
 // Load dữ liệu
-async function loadAmenities(page = 0, keyword = "") {
+async function loadServices(page = 0, keyword = "") {
   try {
-    const endpoint = `/amenities?amenityName=${keyword}&page=${page}&size=${pageSize}&sort=amenityName,asc`;
+    const endpoint = `/services?serviceName=${keyword}&page=${page}&size=${pageSize}&sort=serviceName,asc`;
     const response = await callAPIWithAuth(endpoint);
 
     const data = response.result;
@@ -16,21 +16,21 @@ async function loadAmenities(page = 0, keyword = "") {
     renderPagination(data);
 
   } catch (error) {
-    console.error("Lỗi khi load amenities:", error);
+    console.error("Lỗi khi load services:", error);
   }
 }
 
 // Render bảng
-function renderTable(amenities) {
-  const tbody = document.getElementById("amenity-table-body");
+function renderTable(services) {
+  const tbody = document.getElementById("service-table-body");
   tbody.innerHTML = "";
 
   // Không có dữ liệu
-  if (!amenities || amenities.length === 0) {
+  if (!services || services.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="3" class="text-center text-secondary">
-          Không có tiện nghi phù hợp.
+        <td colspan="4" class="text-center text-secondary">
+          Không có dịch vụ phù hợp.
         </td>
       </tr>
     `;
@@ -38,22 +38,23 @@ function renderTable(amenities) {
   }
 
   // Có dữ liệu
-  amenities.forEach(amenity => {
+  services.forEach(service => {
     const row = `
       <tr>
-        <td class="align-content-center">${amenity.amenityName}</td>
-        <td class="align-content-center text-truncate" style="max-width: 900px;" title="${amenity.description}">
-          ${amenity.description}
+        <td class="align-content-center">${service.serviceName}</td>
+        <td class="align-content-center text-truncate" style="max-width: 900px;" title="${service.description}">
+          ${service.description}
         </td>
+        <td class="align-content-center">${formatPrice(service.basePrice)}</td>
         <td class="align-content-center text-center">
           <button class="btn btn-sm btn-primary text-white"
             title="Sửa"
-            onclick="openUpdateAmenity(event, '${amenity.amenityId}')">
+            onclick="openUpdateService(event, '${service.serviceId}')">
             <i class="bx bxs-pencil"></i>
           </button>
           <button class="btn btn-sm btn-danger text-white"
             title="Xóa"
-            onclick="openDeleteAmenity(event, '${amenity.amenityId}')">
+            onclick="openDeleteService(event, '${service.serviceId}')">
             <i class="bx bxs-trash"></i>
           </button>
         </td>
@@ -96,21 +97,22 @@ function renderPagination(data) {
 function changePage(page) {
   if (page < 0) return;
   currentPage = page;
-  loadAmenities(currentPage, currentKeyword);
+  loadServices(currentPage, currentKeyword);
 }
 
 // Search (debounce nhẹ)
-document.getElementById("amenity-name-search").addEventListener("input", function () {
+document.getElementById("service-name-search").addEventListener("input", function () {
   currentKeyword = this.value;
   currentPage = 0;
-  loadAmenities(currentPage, currentKeyword);
+  loadServices(currentPage, currentKeyword);
 });
 
-document.getElementById("add-amenity-form").addEventListener("submit", async function (e) {
+document.getElementById("add-service-form").addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const name = document.getElementById("add-amenity-name").value.trim();
+  const name = document.getElementById("add-service-name").value.trim();
   const description = document.getElementById("add-description").value.trim();
+  const basePrice = document.getElementById("add-base-price").value;
 
   if (!name || !description) {
     showAlert("Vui lòng nhập đầy đủ thông tin", "warning");
@@ -118,31 +120,32 @@ document.getElementById("add-amenity-form").addEventListener("submit", async fun
   }
 
   const data = {
-    amenityName: name,
-    description: description
+    serviceName: name,
+    description: description,
+    basePrice: basePrice
   };
 
   try {
-    const response = await callAPIWithAuth("/amenities", "POST", data);
+    const response = await callAPIWithAuth("/services", "POST", data);
 
     if (response.code === 1000) {
-      showAlert("Thêm tiện nghi thành công", "success");
+      showAlert("Thêm dịch vụ thành công", "success");
 
       const modal = bootstrap.Modal.getInstance(
-        document.getElementById("add-amenity-modal")
+        document.getElementById("add-service-modal")
       );
       modal.hide();
 
-      document.getElementById("add-amenity-form").reset();
+      document.getElementById("add-service-form").reset();
 
-      loadAmenities(0, currentKeyword);
+      loadServices(0, currentKeyword);
     } else {
-      showAlert(response.message || "Thêm tiện nghi thất bại", "danger");
+      showAlert(response.message || "Thêm dịch vụ thất bại", "danger");
     }
 
   } catch (error) {
-    console.error("Lỗi thêm tiện nghi:", error);
-    showAlert("Không thể thêm tiện nghi", "danger");
+    console.error("Lỗi thêm dịch vụ:", error);
+    showAlert("Không thể thêm dịch vụ", "danger");
   }
 });
 
@@ -175,29 +178,33 @@ function showAlert(message, type = "success") {
   }, 3000);
 }
 
-function openUpdateAmenity(event, amenityId) {
-  updateAmenityId = amenityId;
+function openUpdateService(event, serviceId) {
+  updateServiceId = serviceId;
 
   const row = event.target.closest("tr");
 
   const name = row.children[0].innerText;
   const description = row.children[1].innerText;
+  const basePriceText = row.children[2].innerText;
+  const basePrice = basePriceText.replace(/[^\d]/g, "");
 
-  document.getElementById("update-amenity").value = name;
+  document.getElementById("update-service-name").value = name;
+  document.getElementById("update-base-price").value = basePrice;
   document.getElementById("update-description").value = description;
 
   const modal = new bootstrap.Modal(
-    document.getElementById("update-amenity-modal")
+    document.getElementById("update-service-modal")
   );
 
   modal.show();
 }
 
-async function updateAmenity(event) {
+async function updateService(event) {
   event.preventDefault();
 
-  const name = document.getElementById("update-amenity").value.trim();
+  const name = document.getElementById("update-service-name").value.trim();
   const description = document.getElementById("update-description").value.trim();
+  const basePrice = document.getElementById("update-base-price").value;
 
   if (!name || !description) {
     showAlert("Vui lòng nhập đầy đủ thông tin", "warning");
@@ -205,102 +212,108 @@ async function updateAmenity(event) {
   }
 
   const data = {
-    amenityName: name,
-    description: description
+    serviceName: name,
+    description: description,
+    basePrice: basePrice
   };
 
   try {
     const response = await callAPIWithAuth(
-      `/amenities/${updateAmenityId}`,
+      `/services/${updateServiceId}`,
       "PUT",
       data
     );
 
     // Thành công
     if (response.code === 1000) {
-      showAlert("Cập nhật tiện nghi thành công", "success");
+      showAlert("Cập nhật dịch vụ thành công", "success");
 
       const modal = bootstrap.Modal.getInstance(
-        document.getElementById("update-amenity-modal")
+        document.getElementById("update-service-modal")
       );
 
       modal.hide();
 
-      loadAmenities(currentPage, currentKeyword);
+      loadServices(currentPage, currentKeyword);
     }
     // Trùng tên
     else if (response.code === 4002) {
-      showAlert("Tiện nghi đã tồn tại", "warning");
+      showAlert("Dịch vụ đã tồn tại", "warning");
     }
     // Lỗi khác
     else {
-      showAlert(response.message || "Cập nhật tiện nghi thất bại", "danger");
+      showAlert(response.message || "Cập nhật dịch vụ thất bại", "danger");
     }
 
   } catch (error) {
-    console.error("Lỗi cập nhật tiện nghi:", error);
-    showAlert("Không thể cập nhật tiện nghi", "danger");
+    console.error("Lỗi cập nhật dịch vụ:", error);
+    showAlert("Không thể cập nhật dịch vụ", "danger");
   }
 }
 
-function openDeleteAmenity(event, amenityId) {
-  deleteAmenityId = amenityId;
+function openDeleteService(event, serviceId) {
+  deleteServiceId = serviceId;
 
   const row = event.target.closest("tr");
 
   const name = row.children[0].innerText;
 
   const modalBody = document.querySelector(
-    "#delete-amenity-modal .modal-body"
+    "#delete-service-modal .modal-body"
   );
 
   modalBody.innerHTML = `
-    Bạn có chắc chắn muốn xóa tiện nghi <b>${name}</b> không?
+    Bạn có chắc chắn muốn xóa dịch vụ <b>${name}</b> không?
   `;
 
   const modal = new bootstrap.Modal(
-    document.getElementById("delete-amenity-modal")
+    document.getElementById("delete-service-modal")
   );
 
   modal.show();
 }
 
-async function deleteAmenity() {
+async function deleteService() {
   try {
     const response = await callAPIWithAuth(
-      `/amenities/${deleteAmenityId}`,
+      `/services/${deleteServiceId}`,
       "DELETE"
     );
 
     if (response.code === 1000) {
-      showAlert(`Đã xóa tiện nghi "${response.result.amenityName}"`, "success");
+      showAlert(`Đã xóa dịch vụ "${response.result.serviceName}"`, "success");
 
       const modal = bootstrap.Modal.getInstance(
-        document.getElementById("delete-amenity-modal")
+        document.getElementById("delete-service-modal")
       );
 
       modal.hide();
 
-      loadAmenities(currentPage, currentKeyword);
+      loadServices(currentPage, currentKeyword);
     } else {
       showAlert(response.message || "Xóa thất bại", "danger");
     }
 
   } catch (error) {
-    console.error("Lỗi xóa tiện nghi:", error);
-    showAlert("Không thể xóa tiện nghi", "danger");
+    console.error("Lỗi xóa dịch vụ:", error);
+    showAlert("Không thể xóa dịch vụ", "danger");
   }
+}
+
+function formatPrice(price) {
+  if (!price) return "0đ";
+  return price.toLocaleString("vi-VN") + "đ";
 }
 
 // Load lần đầu
 document.addEventListener("DOMContentLoaded", function () {
-  loadAmenities();
+  loadServices();
 
   document
-    .getElementById("update-amenity-form")
-    .addEventListener("submit", updateAmenity);
+    .getElementById("update-service-form")
+    .addEventListener("submit", updateService);
 
   document
-    .getElementById("confirm-delete-amenity")
-    .addEventListener("click", deleteAmenity);
+    .getElementById("confirm-delete-service")
+    .addEventListener("click", deleteService);
 });

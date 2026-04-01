@@ -75,6 +75,7 @@ public enum ErrorCode {
 
     // Service
     SERVICE_NOT_FOUND(12001, "Không tìm thấy dịch vụ", HttpStatus.NOT_FOUND),
+    SERVICE_ALREADY_EXISTS(12002, "Dịch vụ đã tồn tại", HttpStatus.CONFLICT),
 
     // BookingService
     BOOKING_SERVICE_NOT_FOUND(13001, "Không tìm thấy dịch vụ đặt", HttpStatus.NOT_FOUND),

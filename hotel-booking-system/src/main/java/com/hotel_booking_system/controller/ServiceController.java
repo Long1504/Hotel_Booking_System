@@ -1,7 +1,9 @@
 package com.hotel_booking_system.controller;
 
 import com.hotel_booking_system.dto.request.CreateAmenityRequest;
+import com.hotel_booking_system.dto.request.CreateServiceRequest;
 import com.hotel_booking_system.dto.request.UpdateAmenityRequest;
+import com.hotel_booking_system.dto.request.UpdateServiceRequest;
 import com.hotel_booking_system.dto.response.AmenityResponse;
 import com.hotel_booking_system.dto.response.ApiResponse;
 import com.hotel_booking_system.dto.response.ServiceResponse;
@@ -38,29 +40,29 @@ public class ServiceController {
                 .result(serviceService.getAllServices(serviceName, pageable))
                 .build();
     }
-//
-//    @PostMapping
-//    public ApiResponse<AmenityResponse> createAmenity(@RequestBody CreateAmenityRequest request) {
-//        return ApiResponse.<AmenityResponse>builder()
-//                .message("Thêm mới tiện nghi thành công")
-//                .result(amenityService.createAmenity(request))
-//                .build();
-//    }
-//
-//    @PutMapping("/{amenityId}")
-//    public ApiResponse<AmenityResponse> updateAmenity(@PathVariable String amenityId,
-//                                                      @RequestBody UpdateAmenityRequest request) {
-//        return ApiResponse.<AmenityResponse>builder()
-//                .message("Cập nhật thông tin tiện nghi thành công")
-//                .result(amenityService.updateAmenity(amenityId, request))
-//                .build();
-//    }
-//
-//    @DeleteMapping("/{amenityId}")
-//    public ApiResponse<AmenityResponse> deleteAmenity(@PathVariable String amenityId) {
-//        return ApiResponse.<AmenityResponse>builder()
-//                .message("Xóa tiện nghi thành công")
-//                .result(amenityService.deleteAmenity(amenityId))
-//                .build();
-//    }
+
+    @PostMapping
+    public ApiResponse<ServiceResponse> createService(@RequestBody CreateServiceRequest request) {
+        return ApiResponse.<ServiceResponse>builder()
+                .message("Thêm mới dịch vụ thành công")
+                .result(serviceService.createService(request))
+                .build();
+    }
+
+    @PutMapping("/{serviceId}")
+    public ApiResponse<ServiceResponse> updateService(@PathVariable String serviceId,
+                                                      @RequestBody UpdateServiceRequest request) {
+        return ApiResponse.<ServiceResponse>builder()
+                .message("Cập nhật thông tin dịch vụ thành công")
+                .result(serviceService.updateService(serviceId, request))
+                .build();
+    }
+
+    @DeleteMapping("/{serviceId}")
+    public ApiResponse<ServiceResponse> deleteAmenity(@PathVariable String serviceId) {
+        return ApiResponse.<ServiceResponse>builder()
+                .message("Xóa dịch vụ thành công")
+                .result(serviceService.deleteService(serviceId))
+                .build();
+    }
 }

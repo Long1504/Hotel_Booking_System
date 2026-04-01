@@ -1,7 +1,9 @@
 package com.hotel_booking_system.service;
 
 import com.hotel_booking_system.dto.request.CreateAmenityRequest;
+import com.hotel_booking_system.dto.request.CreateServiceRequest;
 import com.hotel_booking_system.dto.request.UpdateAmenityRequest;
+import com.hotel_booking_system.dto.request.UpdateServiceRequest;
 import com.hotel_booking_system.dto.response.AmenityResponse;
 import com.hotel_booking_system.dto.response.ServiceResponse;
 import com.hotel_booking_system.dto.response.ServiceSummaryResponse;
@@ -37,47 +39,48 @@ public class ServiceService {
     }
 
     public Page<ServiceResponse> getAllServices(String serviceName, Pageable pageable) {
-        return serviceRepository.findAll(amenityName, pageable)
-                .map(amenity -> amenityMapper.toAmenityResponse(amenity));
+        return serviceRepository.findAll(serviceName, pageable)
+                .map(service -> serviceMapper.toServiceResponse(service));
     }
-//
-//    public AmenityResponse createAmenity(CreateAmenityRequest request) {
-//        if (amenityRepository.existsByAmenityName(request.getAmenityName())) {
-//            throw new AppException(ErrorCode.AMENITY_ALREADY_EXISTS);
-//        }
-//
-//        Amenity amenity = amenityMapper.toAmenity(request);
-//
-//        amenity = amenityRepository.save(amenity);
-//
-//        return amenityMapper.toAmenityResponse(amenity);
-//    }
-//
-//    @Transactional
-//    public AmenityResponse updateAmenity(String amenityId, UpdateAmenityRequest request) {
-//        Amenity amenity = amenityRepository.findById(amenityId)
-//                .orElseThrow(() -> new AppException(ErrorCode.AMENITY_NOT_FOUND));
-//
-//        if (!amenity.getAmenityName().equals(request.getAmenityName()) && amenityRepository.existsByAmenityName(request.getAmenityName())) {
-//            throw new AppException(ErrorCode.AMENITY_ALREADY_EXISTS);
-//        }
-//
-//        amenity.setAmenityName(request.getAmenityName());
-//        amenity.setDescription(request.getDescription());
-//
-//        amenity = amenityRepository.save(amenity);
-//
-//        return amenityMapper.toAmenityResponse(amenity);
-//    }
-//
-//    public AmenityResponse deleteAmenity(String amenityId) {
-//        Amenity amenity = amenityRepository.findById(amenityId)
-//                .orElseThrow(() -> new AppException(ErrorCode.AMENITY_NOT_FOUND));
-//
-//        amenity.setDeletedAt(LocalDateTime.now());
-//
-//        amenity = amenityRepository.save(amenity);
-//
-//        return amenityMapper.toAmenityResponse(amenity);
-//    }
+
+    public ServiceResponse createService(CreateServiceRequest request) {
+        if (serviceRepository.existsByServiceName(request.getServiceName())) {
+            throw new AppException(ErrorCode.SERVICE_ALREADY_EXISTS);
+        }
+
+        com.hotel_booking_system.entity.Service service = serviceMapper.toService(request);
+
+        service = serviceRepository.save(service);
+
+        return serviceMapper.toServiceResponse(service);
+    }
+
+    @Transactional
+    public ServiceResponse updateService(String serviceId, UpdateServiceRequest request) {
+        com.hotel_booking_system.entity.Service service = serviceRepository.findById(serviceId)
+                .orElseThrow(() -> new AppException(ErrorCode.SERVICE_NOT_FOUND));
+
+        if (!service.getServiceName().equals(request.getServiceName()) && serviceRepository.existsByServiceName(request.getServiceName())) {
+            throw new AppException(ErrorCode.SERVICE_ALREADY_EXISTS);
+        }
+
+        service.setServiceName(request.getServiceName());
+        service.setDescription(request.getDescription());
+        service.setBasePrice(request.getBasePrice());
+
+        service = serviceRepository.save(service);
+
+        return serviceMapper.toServiceResponse(service);
+    }
+
+    public ServiceResponse deleteService(String serviceId) {
+        com.hotel_booking_system.entity.Service service = serviceRepository.findById(serviceId)
+                .orElseThrow(() -> new AppException(ErrorCode.SERVICE_NOT_FOUND));
+
+        service.setDeletedAt(LocalDateTime.now());
+
+        service = serviceRepository.save(service);
+
+        return serviceMapper.toServiceResponse(service);
+    }
 }

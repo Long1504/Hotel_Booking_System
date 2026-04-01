@@ -21,7 +21,7 @@ public interface ServiceRepository extends JpaRepository<Service, String> {
     @Query("""
         SELECT s FROM Service s
         WHERE s.deletedAt IS NULL
-        AND (:serviceName IS NULL OR a.serviceName LIKE %:serviceName%)
+        AND (:serviceName IS NULL OR s.serviceName LIKE %:serviceName%)
     """)
     Page<Service> findAll(String serviceName, Pageable pageable);
 }
