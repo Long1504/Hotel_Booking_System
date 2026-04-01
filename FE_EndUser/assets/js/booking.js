@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       try {
-        const token = localStorage.getItem("tokenHotelBooking");
+        const token = localStorage.getItem("tokenHotelBookingCustomer");
         let response;
         if (token) {
           response = await callAPIWithAuth("/bookings", "POST", data);

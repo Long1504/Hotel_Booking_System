@@ -38,10 +38,10 @@ public class BookingService {
 
     private final EmailService emailService;
 
-    public Page<BookingResponse> findAllBookings(String bookingStatus,
-                                                 String paymentStatus,
-                                                 String bookingCode,
-                                                 Pageable pageable) {
+    public Page<BookingResponse> getAllBookings(String bookingStatus,
+                                                String paymentStatus,
+                                                String bookingCode,
+                                                Pageable pageable) {
         return bookingRepository.findAll(bookingStatus, paymentStatus, bookingCode, pageable)
                 .map(booking -> bookingMapper.toBookingResponse(booking));
     }
@@ -49,6 +49,56 @@ public class BookingService {
     public BookingResponse getBookingById(String bookingId) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
+    public List<BookingResponse> getMyBookings() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        return bookingRepository.findAllByUserOrderByCreatedAtDesc(user).stream()
+                .map(booking -> bookingMapper.toBookingResponse(booking))
+                .toList();
+    }
+
+    @Transactional
+    public BookingResponse cancelBooking(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        // Chỉ cho hủy khi đang PENDING
+        if (!booking.getBookingStatus().equals(BookingStatus.PENDING.name())) {
+            throw new AppException(ErrorCode.INVALID_BOOKING_STATUS);
+        }
+
+        // Chỉ cho hủy trong 24h kể từ lúc đặt
+        LocalDateTime createdAt = booking.getCreatedAt();
+        LocalDateTime now = LocalDateTime.now();
+
+        if (createdAt.plusHours(24).isBefore(now)) {
+            throw new AppException(ErrorCode.CANNOT_CANCEL_AFTER_24H);
+        }
+
+        booking.setBookingStatus(BookingStatus.CANCELLED.name());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        BookingStatusHistory bookingStatusHistory = BookingStatusHistory.builder()
+                .booking(booking)
+                .status(BookingStatus.CANCELLED.name())
+                .changedBy(user)
+                .build();
+
+        booking.getBookingStatusHistories().add(bookingStatusHistory);
+
+        booking =  bookingRepository.save(booking);
 
         return bookingMapper.toBookingResponse(booking);
     }

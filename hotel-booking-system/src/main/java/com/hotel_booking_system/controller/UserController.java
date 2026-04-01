@@ -120,4 +120,12 @@ public class UserController {
                 .result(userService.deleteUser(userId))
                 .build();
     }
+
+    @DeleteMapping("/my-account")
+    public ApiResponse<UserResponse> deleteMyAccount() {
+        return ApiResponse.<UserResponse>builder()
+                .message("Xóa tài khoản thành công")
+                .result(userService.deleteMyAccount())
+                .build();
+    }
 }

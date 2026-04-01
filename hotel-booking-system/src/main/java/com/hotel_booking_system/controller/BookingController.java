@@ -30,7 +30,7 @@ public class BookingController {
                                                              Pageable pageable) {
         return ApiResponse.<Page<BookingResponse>>builder()
                 .message("Lấy danh sách đặt phòng thành công")
-                .result(bookingService.findAllBookings(bookingStatus, paymentStatus, bookingCode, pageable))
+                .result(bookingService.getAllBookings(bookingStatus, paymentStatus, bookingCode, pageable))
                 .build();
     }
 
@@ -39,6 +39,14 @@ public class BookingController {
         return ApiResponse.<BookingResponse>builder()
                 .message("Lấy thông tin đặt phòng thành công")
                 .result(bookingService.getBookingById(bookingId))
+                .build();
+    }
+
+    @GetMapping("/my-bookings")
+    public ApiResponse<List<BookingResponse>> getMyBookings() {
+        return ApiResponse.<List<BookingResponse>>builder()
+                .message("Lấy danh sách đặt phòng thành công")
+                .result(bookingService.getMyBookings())
                 .build();
     }
 
@@ -55,6 +63,15 @@ public class BookingController {
         return ApiResponse.<BookingResponse>builder()
                 .message("Cập nhật thông tin CCCD thành công")
                 .result(bookingService.updateIdentityCard(bookingId, request.getIdentityCard()))
+                .build();
+    }
+
+    // Customer
+    @PutMapping("/{bookingId}/cancel")
+    public ApiResponse<BookingResponse> cancelBooking(@PathVariable String bookingId) {
+        return ApiResponse.<BookingResponse>builder()
+                .message("Hủy đặt phòng thành công")
+                .result(bookingService.cancelBooking(bookingId))
                 .build();
     }
 

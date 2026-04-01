@@ -86,7 +86,8 @@ public class SecurityConfig {
     };
 
     private final String[] ADMIN_ENDPOINTS_DELETE = {
-            "/api/v1/users/*",
+//            "/api/v1/users/*",
+            "/api/v1/users",
             "/api/v1/room-types",
             "/api/v1/views",
             "/api/v1/amenities",
@@ -126,15 +127,18 @@ public class SecurityConfig {
     };
 
     private final String[] CUSTOMER_ENDPOINTS_GET = {
-            // "/api/v1/users/my-info"
+             "/api/v1/users/my-info",
+            "/api/v1/users/my-bookings"
     };
 
     private final String[] CUSTOMER_ENDPOINTS_PUT = {
-            // "/api/v1/users/my-info"
+            "/api/v1/users/my-info",
+            "/api/v1/users/my-password",
+            "/api/v1/bookings/*/cancel"
     };
 
     private final String[] CUSTOMER_ENDPOINTS_DELETE = {
-
+            "/api/v1/users/my-account"
     };
 
     @Bean

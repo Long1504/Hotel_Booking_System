@@ -198,6 +198,18 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
+    public UserResponse deleteMyAccount() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        user.setDeletedAt(LocalDateTime.now());
+
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
     @Transactional
     public UserResponse restoreUser(String userId) {
         User user = userRepository.findById(userId)
