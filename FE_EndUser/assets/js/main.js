@@ -199,3 +199,43 @@
   });
 
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const storedUsername =
+    localStorage.getItem("username") ||
+    sessionStorage.getItem("username");
+
+  const welcomeText = document.getElementById("welcomeText");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const userSection = document.getElementById("userSection");
+
+  if (!userSection) return;
+
+  // Nếu có username thì hiện lời chào
+  if (storedUsername && welcomeText) {
+    welcomeText.textContent = "Xin chào, " + storedUsername;
+  } else if (welcomeText) {
+    welcomeText.textContent = "";
+  }
+
+  // Nếu chưa đăng nhập thì ẩn cả khối user
+  if (!storedUsername) {
+    userSection.style.display = "none";
+  } else {
+    userSection.style.display = "flex";
+  }
+
+  // Xử lý đăng xuất
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("tokenHotelBooking");
+      sessionStorage.removeItem("tokenHotelBooking");
+      localStorage.removeItem("username");
+      sessionStorage.removeItem("username");
+      localStorage.removeItem("roleHotelBooking");
+      sessionStorage.removeItem("roleHotelBooking");
+
+      window.location.href = "login.html";
+    });
+  }
+});

@@ -1,13 +1,36 @@
 const API_BASE = "http://localhost:8080/hotel-booking/api/v1";
 // const API_BASE = "https://nadia-nonstudied-lilianna.ngrok-free.dev/hotel-booking/api/v1";
 
-// API không cần token
+async function parseApiResponse(response) {
+  const contentType = response.headers.get("content-type") || "";
+
+  try {
+    if (contentType.includes("application/json")) {
+      return await response.json();
+    }
+
+    const text = await response.text();
+    return text ? { message: text } : null;
+  } catch (error) {
+    console.error("Parse response error:", error);
+    return null;
+  }
+}
+
+function getStoredToken() {
+  return (
+    localStorage.getItem("tokenHotelBooking") ||
+    sessionStorage.getItem("tokenHotelBooking") ||
+    ""
+  );
+}
+
 async function callAPI(endpoint, method = "GET", data = null) {
   const options = {
-    method: method,
+    method,
     headers: {
       "Content-Type": "application/json",
-      "ngrok-skip-browser-warning": "true"
+      "ngrok-skip-browser-warning": "true",
     },
   };
 
@@ -16,24 +39,24 @@ async function callAPI(endpoint, method = "GET", data = null) {
   }
 
   const response = await fetch(API_BASE + endpoint, options);
+  const payload = await parseApiResponse(response);
 
   if (!response.ok) {
-    throw new Error("API error");
+    throw new Error(payload?.message || `API error (${response.status})`);
   }
 
-  return response.json();
+  return payload;
 }
 
-// API cần token
 async function callAPIWithAuth(endpoint, method = "GET", data = null) {
-  const token = localStorage.getItem("tokenHotelBooking");
+  const token = getStoredToken();
 
   const options = {
-    method: method,
+    method,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-      "ngrok-skip-browser-warning": "true"
+      "ngrok-skip-browser-warning": "true",
     },
   };
 
@@ -42,10 +65,11 @@ async function callAPIWithAuth(endpoint, method = "GET", data = null) {
   }
 
   const response = await fetch(API_BASE + endpoint, options);
+  const payload = await parseApiResponse(response);
 
   if (!response.ok) {
-    throw new Error("API error");
+    throw new Error(payload?.message || `API error (${response.status})`);
   }
 
-  return response.json();
+  return payload;
 }
