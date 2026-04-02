@@ -24,8 +24,8 @@ public class RoomResponse {
     private String description;
     private String roomStatus;
     private LocalDateTime deletedAt;
-    private String roomTypeName;
-    private String viewName;
-    private Set<String> amenities;
+    private RoomTypeResponse roomType;
+    private ViewResponse view;
+    private Set<AmenityResponse> amenities;
     private List<RoomImageResponse> roomImages;
 }

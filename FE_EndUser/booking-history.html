@@ -26,6 +26,7 @@
 <body class="starter-page-page">
 
   <header id="header" class="header sticky-top">
+
     <div class="topbar d-flex align-items-center dark-background">
       <div class="container d-flex justify-content-center justify-content-md-between">
         <div class="contact-info d-flex align-items-center">
@@ -39,11 +40,14 @@
           <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
         </div>
       </div>
-    </div>
+    </div><!-- End Top Bar -->
 
-    <div class="branding d-flex align-items-center">
+    <div class="branding d-flex align-items-cente">
+
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.webp" alt=""> -->
           <h1 class="sitename">Azure Hotel</h1>
         </a>
 
@@ -55,20 +59,26 @@
             <li><a href="amenities.html">Tiện nghi</a></li>
             <li><a href="location.html">Vị trí</a></li>
             <li><a href="contact.html">Liên hệ</a></li>
-            <li class="dropdown">
-              <a href="#">
-                <i class="bi bi-translate fs-5 me-1"></i><span>Tiếng Việt</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+
+            <li class="d-flex">
+              <a href="account.html" id="account-btn" title="Tài khoản">
+                <img class="img-fluid rounded-circle shadow-lg" style="width: 30px;" src="assets/img/avt-profile.jpg" alt="Account">
               </a>
-              <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">French</a></li>
-              </ul>
             </li>
+
+            <li class="d-flex ms-3">
+              <a href="register.html" id="register-btn" class="btn btn-sm btn-light rounded ps-2 pe-2 pt-1 pb-1 me-3 text-dark-emphasis">Đăng ký</a>
+              <a href="login.html" id="login-btn" class="btn btn-sm btn-light rounded ps-2 pe-2 pt-1 pb-1 text-dark-emphasis">Đăng nhập</a>
+            </li>
+
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
+
       </div>
+
     </div>
+
   </header>
 
   <main class="main">
@@ -88,59 +98,64 @@
       <div class="container" data-aos="fade-up">
         <div class="row">
           
-          <aside class="col-lg-3 mb-4">
-            <div class="account-sidebar card border-0 shadow-sm p-3">
-              <div class="text-center mb-4">
-                <div class="avatar-wrapper">
-                  <img src="assets/img/avt-profile.jpg" class="rounded-circle border" alt="Avatar">
+          <aside class="col-lg-3">
+            <div class="account-sidebar card border-0 shadow-lg p-4">
+              <div class="text-center mb-3">
+                <div class="avatar-wrapper position-relative d-inline-block">
+                  <img src="assets/img/avt-profile.jpg" class="rounded-circle border" style="max-width: 100px;" alt="Avatar">
+                  <span class="position-absolute bottom-0 end-0 d-inline-flex align-items-center justify-content-center bg-dark text-white rounded-circle" style="width: 24px; height: 24px;">
+                    <i class="bi bi-shield-check" style="font-size: 12px;"></i>
+                  </span>
                 </div>
-                <h5 class="mt-3 mb-0 fw-bold">Phạm Thu Hà</h5>
+                <h5 class="mt-3 mb-0 fw-bold" id="customer-name">Phạm Thu Hà</h5>
                 <p class="text-muted small">Khách hàng</p>
               </div>
               
               <div class="list-group list-group-flush sidebar-menu">
-                <a href="#" class="list-group-item list-group-item-action active border-0 py-3 rounded-3 mb-1">
-                  <span><i class="bi bi-clock-history me-3"></i>Lịch sử đặt phòng</span>
-                  <span class="badge bg-white text-dark rounded-pill">32</span>
+                <a href="account.html" class="list-group-item list-group-item-action border-0 py-2 rounded-3 mb-2">
+                  <i class="bi bi-person-gear me-2"></i>Cài đặt tài khoản
                 </a>
-                <a href="account.html" class="list-group-item list-group-item-action border-0 py-3 rounded-3 mb-1">
-                  <i class="bi bi-person-gear me-3"></i>Cài đặt tài khoản
+                <a href="#" class="list-group-item list-group-item-action active bg-dark d-flex justify-content-between align-items-center border-0 py-2 rounded-3 mb-1">
+                  <span><i class="bi bi-clock-history me-2"></i>Lịch sử đặt phòng</span>
+                  <span class="badge bg-white text-dark rounded-3" id="booking-count">12</span>
                 </a>
-                <div class="mt-4 pt-4 border-top">
-                    <a href="#" class="list-group-item list-group-item-action border-0 py-3 rounded-3 text-danger">
-                        <i class="bi bi-box-arrow-right me-3"></i>Đăng xuất
-                    </a>
-                </div>
+                <hr class="text-secondary">
+                <a href="#" id="logout-btn" class="list-group-item list-group-item-action border-0 py-2 rounded-3 text-danger">
+                  <i class="bi bi-box-arrow-right me-3"></i>Đăng xuất
+                </a>
               </div>
             </div>
           </aside>
 
-          <div class="col-lg-9">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-bold mb-0">Lịch sử đặt phòng</h3>
-                <button class="btn btn-outline-dark btn-sm"><i class="bi bi-filter me-2"></i>Lọc</button>
+          <div class="col-lg-9" id="booking-list-container">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="fw-bold mb-0 fs-4">Lịch sử đặt phòng</h3>
+                <!-- <button class="btn btn-outline-dark btn-sm"><i class="bi bi-filter me-2"></i>Lọc</button> -->
             </div>
 
-            <div class="booking-card card border-0 shadow-sm mb-4">
-                <div class="card-header bg-transparent d-flex justify-content-between py-3">
-                    <span class="text-muted small">Mã đặt phòng: <strong class="text-dark">#BK-20122025-04365B</strong></span>
-                    <span class="text-muted small">04:36:59 20/12/2025</span>
+            <div class="booking-card card border-0 shadow-lg mb-4">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-3">
+                    <span class="text-muted small">Mã đặt phòng: <span class="text-dark fw-medium booking-code">#BK-01012026-232015</span></span>
+                    <div>
+                      <span class="text-muted small created-at">20/02/2026 - 04:36</span>
+                      <span class="btn btn-sm btn-outline-danger ms-2 small d-none">Hủy đặt phòng</span>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="room-img-container me-4">
-                            <img src="assets\img\hotel\room-1.webp" alt="Room" class="rounded">
+                            <img src="assets\img\hotel\room-1.webp" alt="Room" class="rounded room-main-image">
                         </div>
                         <div class="room-info flex-grow-1">
-                            <h6 class="fw-bold mb-1">Phòng Deluxe Giường Đôi - Hướng Biển</h6>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <div class="d-flex align-items-center gap-2">
-                                    <span class="text-muted small">Trạng thái:</span>
-                                    <span class="badge bg-warning-subtle text-warning border border-warning-subtle">Đang xử lý</span>
+                            <h6 class="fw-bold room-name">Phòng Deluxe Giường Đôi Hướng Biển</h6>
+                            <div class="d-flex justify-content-between align-items-end">
+                                <div class="d-flex align-items-center">
+                                    <span class="text-muted small me-2">Trạng thái:</span>
+                                    <span class="badge bg-warning-subtle text-warning border border-warning-subtle booking-status">Đang xử lý</span>
                                 </div>
                                 <div class="text-end">
                                     <span class="text-muted small d-block">Tổng tiền</span>
-                                    <strong class="fs-5">38.680.000₫</strong>
+                                    <strong class="fs-5 fw-semibold total-price">38.680.000đ</strong>
                                 </div>
                             </div>
                         </div>
@@ -148,59 +163,87 @@
                 </div>
 
                 <div class="card-footer bg-light border-0 py-2 text-center">
-                    <a href="#details-1" class="text-dark text-decoration-none small fw-bold d-block py-1" 
+                    <a href="#booking-info" class="text-dark-emphasis text-decoration-none small fw-medium d-block py-1" 
                        data-bs-toggle="collapse" role="button" aria-expanded="false">
                        Chi tiết đặt phòng <i class="bi bi-chevron-down ms-1 toggle-icon"></i>
                     </a>
                 </div>
 
-                <div class="collapse" id="details-1">
-                    <div class="card-body border-top bg-white px-4">
-                        <div class="row g-0 mb-4 pb-4 border-bottom">
+                <div class="collapse" id="booking-info">
+                    <div class="card-body bg-white px-4 mt-2">
+                        <div class="row mb-4 pb-4 border-bottom">
                             <div class="col-md-6 border-end pe-md-4">
                                 <h6 class="detail-label mb-3">Thông tin khách hàng</h6>
-                                <p class="mb-1 small"><strong>Họ tên:</strong> Phạm Thu Hà</p>
-                                <p class="mb-1 small"><strong>Điện thoại:</strong> 038949669</p>
-                                <p class="mb-0 small"><strong>Email:</strong> pth17122004@gmail.com</p>
-                            </div>
-                            <div class="col-md-6 ps-md-4 mt-4 mt-md-0">
-                                <h6 class="detail-label mb-3">Chi tiết lưu trú</h6>
                                 <div class="d-flex justify-content-between mb-1 small">
-                                    <span>Nhận phòng:</span>
-                                    <span class="fw-bold">24/12/2025</span>
+                                    <span>Người đại diện:</span>
+                                    <span class="fw-medium guest-name">Phạm Thu Hà</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-1 small">
-                                    <span>Trả phòng:</span>
-                                    <span class="fw-bold">26/12/2025</span>
+                                    <span>SĐT:</span>
+                                    <span class="fw-medium guest-phone">0123456789</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>Email:</span>
+                                    <span class="fw-medium guest-email">pth@gmail.com</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-md-4 mt-4 mt-md-0">
+                                <h6 class="detail-label mb-3">Thông tin lưu trú</h6>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>Ngày nhận phòng:</span>
+                                    <span class="fw-medium check-in-date">24/12/2025</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>Ngày trả phòng:</span>
+                                    <span class="fw-medium check-out-date">26/12/2025</span>
                                 </div>
                                 <div class="d-flex justify-content-between small">
                                     <span>Số khách:</span>
-                                    <span>02 Người lớn, 01 Trẻ em</span>
+                                    <span class="fw-medium adults-children">2 người lớn - 1 trẻ em</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row g-0">
+                        <div class="row mb-4">
                             <div class="col-md-6 border-end pe-md-4">
                                 <h6 class="detail-label mb-3">Thông tin phòng</h6>
-                                <p class="mb-0 small">Số phòng: <strong>402</strong> (Tầng 4) - View: Hướng biển</p>
-                            </div>
-                            <div class="col-md-6 ps-md-4 mt-4 mt-md-0 text-start">
-                                <h6 class="detail-label mb-3">Thanh toán</h6>
                                 <div class="d-flex justify-content-between mb-1 small">
-                                    <span>Phương thức:</span>
-                                    <span class="fw-bold">Chuyển khoản</span>
+                                    <span>Loại phòng:</span>
+                                    <span class="fw-medium room-type-name">Tiêu chuẩn</span>
                                 </div>
-                                <div class="d-flex justify-content-between small">
-                                    <span>Trạng thái:</span>
-                                    <span class="text-danger fw-bold">Chưa thanh toán</span>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>View:</span>
+                                    <span class="fw-medium view-name">Hướng biển</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>Tầng:</span>
+                                    <span class="fw-medium floor">2</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>Số phòng:</span>
+                                    <span class="fw-medium room-number">202</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>Diện tích:</span>
+                                    <span class="fw-medium area">36m²</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-md-4 mt-4 mt-md-0">
+                                <h6 class="detail-label mb-3">Thông tin thanh toán</h6>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>Phương thức thanh toán:</span>
+                                    <span class="fw-medium payment-method">Tiền mặt</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1 small">
+                                    <span>Trạng thái thanh toán:</span>
+                                    <span class="fw-medium payment-status">Đã thanh toán <span class="fw-normal paid-at">(26/03/2026 - 15:30)</span></span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row mt-4">
+                        <div class="row">
                             <div class="col-12 bg-light p-3 rounded-2 border-start border-secondary border-3">
-                                <p class="mb-0 small"><strong>Ghi chú:</strong> Tôi muốn phòng tầng cao và yên tĩnh, có sẵn nôi cho trẻ em.</p>
+                                <p class="mb-0 small"><strong>Ghi chú: </strong><span class="note">Tôi muốn phòng tầng cao và yên tĩnh, có sẵn nôi cho trẻ em.</span></p>
                             </div>
                         </div>
                     </div>
@@ -213,6 +256,7 @@
   </main>
 
   <footer id="footer" class="footer position-relative dark-background">
+
     <div class="footer-top">
       <div class="container">
         <div class="row gy-4">
@@ -227,26 +271,81 @@
               <p><strong>Email:</strong> <span>info@example.com</span></p>
             </div>
           </div>
+
           <div class="col-lg-2 col-md-3 footer-links">
             <h4>Useful Links</h4>
             <ul>
               <li><a href="#">Home</a></li>
               <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
               <li><a href="#">Privacy policy</a></li>
             </ul>
           </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><a href="#">Web Design</a></li>
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Product Management</a></li>
+              <li><a href="#">Marketing</a></li>
+              <li><a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Hic solutasetp</h4>
+            <ul>
+              <li><a href="#">Molestiae accusamus iure</a></li>
+              <li><a href="#">Excepturi dignissimos</a></li>
+              <li><a href="#">Suscipit distinctio</a></li>
+              <li><a href="#">Dilecta</a></li>
+              <li><a href="#">Sit quas consectetur</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Nobis illum</h4>
+            <ul>
+              <li><a href="#">Ipsam</a></li>
+              <li><a href="#">Laudantium dolorum</a></li>
+              <li><a href="#">Dinera</a></li>
+              <li><a href="#">Trodelas</a></li>
+              <li><a href="#">Flexo</a></li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </div>
+
   </footer>
 
+  <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
+  <!-- Preloader -->
+  <div id="preloader"></div>
 
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Customer JS -->
+  <script src="assets/js/navbar.js"></script>
+  <script src="assets/js/api.js"></script>
   <script src="assets/js/booking-history.js"></script>
+  <script src="assets/js/logout.js"></script>
 </body>
 
 </html>

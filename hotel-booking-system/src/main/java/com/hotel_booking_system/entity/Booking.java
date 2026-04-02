@@ -34,11 +34,14 @@ public class Booking {
     private String guestPhone;
     @Column(nullable = false)
     private String guestEmail;
+    private String identityCard;
     @Column(nullable = false)
     private Integer adults;
     @Column(nullable = false)
     private Integer children;
     private String note;
+    @Column(nullable = false)
+    private BigDecimal roomPrice; // mới
     @Column(nullable = false)
     private BigDecimal totalPrice;
     @Column(nullable = false)
@@ -61,6 +64,12 @@ public class Booking {
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingStatusHistory> bookingStatusHistories;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingService> bookingServices; // mới
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Extra> extras; // mới
 
     @PrePersist
     protected void onCreate() {

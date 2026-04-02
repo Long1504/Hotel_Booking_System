@@ -180,7 +180,7 @@
                       </select>
                     </td>
                     <td class="align-content-center">
-                      <select class="form-select form-select-sm" id="payment-status-filter">
+                      <select class="form-select form-select-sm" id="payment-status">
                         <option value="UNPAID">Chưa thanh toán</option>
                         <option value="PAID" selected>Đã thanh toán</option>
                       </select>
@@ -188,130 +188,6 @@
                     <td class="align-content-center">
                       <button type="button" title="Chi tiết" data-bs-toggle="modal" data-bs-target="#booking-detail" class="btn btn-sm btn-primary text-white"><i class="bx bx-info-circle"></i></button>
                     </td>
-
-                    <!-- Modal Chi tiết đặt phòng -->
-                    <div class="modal fade" id="booking-detail" tabindex="-1">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">Thông tin đặt phòng</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body small">
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Mã đặt phòng:</div>
-                              <div class="col-md-9" id="booking-code">BK-165055-14032026-56513</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Ngày nhận phòng:</div>
-                              <div class="col-md-9" id="check-in-date">15/03/2026</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Ngày trả phòng:</div>
-                              <div class="col-md-9" id="check-out-date">17/03/2026</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Khách hàng:</div>
-                              <div class="col-md-9" id="guest-name">Phạm Long</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Số điện thoại:</div>
-                              <div class="col-md-9" id="guest-name">0123456789</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Email:</div>
-                              <div class="col-md-9" id="guest-name">pvl@gmail.com</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Số người lớn:</div>
-                              <div class="col-md-9" id="adults">3</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Số trẻ em:</div>
-                              <div class="col-md-9" id="children">1</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Ghi chú:</div>
-                              <div class="col-md-9" id="note">Chuẩn bị đồ cho em bé</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Tổng tiền:</div>
-                              <div class="col-md-9" id="totalPrice">2.000.000đ</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Thời gian đặt:</div>
-                              <div class="col-md-9" id="createdAt">13/03/2026 - 14:30</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Trạng thái đặt phòng:</div>
-                              <div class="col-md-9" id="booking-status">Đã xác nhận</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Phương thức thanh toán:</div>
-                              <div class="col-md-9" id="payment-method">Tiền mặt</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Trạng thái thanh toán:</div>
-                              <div class="col-md-9" id="payment-status">Đã thanh toán (15/03/2026 - 15:00)</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-12">
-                                <img src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" alt="Phòng cao cấp gia đình hướng biển" class="img-fluid rounded" id="main-image">
-                              </div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Tên phòng:</div>
-                              <div class="col-md-9" id="room-name">Phòng cao cấp gia đình hướng biển</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Tầng:</div>
-                              <div class="col-md-9" id="floor">1</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Số phòng:</div>
-                              <div class="col-md-9" id="room-number">101</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Diện tích:</div>
-                              <div class="col-md-9" id="area">32m²</div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <div class="col-md-3 fw-semibold">Loại phòng:</div>
-                              <div class="col-md-9" id="room-type">Phòng gia đình</div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-3 fw-semibold">View:</div>
-                              <div class="col-md-9" id="view">Hướng biển</div>
-                            </div>
-
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 
                   </tr>
                 </tbody>
@@ -336,6 +212,176 @@
         </div>
       </div>
     </section>
+
+    <!-- Modal Chi tiết đặt phòng -->
+    <div class="modal fade" id="booking-detail" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thông tin đặt phòng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body small">
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Mã đặt phòng:</div>
+              <div class="col-md-9 text-primary" id="booking-code">BK-165055-14032026-56513</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Thời gian đặt:</div>
+              <div class="col-md-9" id="createdAt">13/03/2026 - 14:30</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Trạng thái đặt phòng:</div>
+              <div class="col-md-3">
+                <select class="form-select form-select-sm" id="modal-booking-status"></select>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Ngày nhận - trả phòng:</div>
+              <div class="col-md-9" id="check-in-out-date">15/03/2026</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Khách hàng:</div>
+              <div class="col-md-9" id="guest-name">Phạm Long</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Số điện thoại:</div>
+              <div class="col-md-9" id="guest-phone">0123456789</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Email:</div>
+              <div class="col-md-9" id="guest-email">pvl@gmail.com</div>
+            </div>
+
+            <div class="row mb-3 align-items-center">
+              <div class="col-md-3 fw-semibold">Số CCCD:</div>
+              <div class="col-md-3">
+                <input type="number" class="form-control form-control-sm" id="identity-card-input">
+              </div>
+              <div class="col-md-2">
+                <button id="btn-update-cccd" class="btn btn-sm btn-primary">Cập nhật</button>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Số khách:</div>
+              <div class="col-md-9" id="adults-children">3</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Ghi chú:</div>
+              <div class="col-md-9" id="note">Chuẩn bị đồ cho em bé</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Tiền phòng:</div>
+              <div class="col-md-9" id="room-price">2.000.000đ</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Phí dịch vụ:</div>
+              <div class="col-md-9" id="service-price">...đ</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3"></div>
+              <div class="col-md-7" id="booking-services">
+                <div class="row" id="service-list">
+                  <!-- Render JS -->
+                </div>
+              </div>
+              <div class="col-md-2 text-end">
+                <button class="btn btn-primary btn-sm" onclick="saveServices()">Cập nhật</button>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Phụ phí:</div>
+              <div class="col-md-9" id="extra-price">0đ</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3"></div>
+              <div class="col-md-9" id="extra-list">
+                <!-- Render JS -->
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Tổng tiền:</div>
+              <div class="col-md-9 text-danger fw-semibold" id="total-price">2.000.000đ</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Phương thức thanh toán:</div>
+              <div class="col-md-3">
+                <select class="form-select form-select-sm" id="modal-payment-method">
+                  <option value="CASH">Tiền mặt</option>
+                  <option value="VNPAY">VNPay</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button id="btn-vnpay" class="btn btn-sm btn-success d-none">Thanh toán</button>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Trạng thái thanh toán:</div>
+              <div class="col-md-3">
+                <select class="form-select form-select-sm" id="modal-payment-status"></select>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-12">
+                <img src="https://noithatbaonam.vn/upload/product/noithatphongngucaocap01-2363.jpg" alt="Phòng cao cấp gia đình hướng biển" class="img-fluid rounded" id="main-image">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Tên phòng:</div>
+              <div class="col-md-9" id="room-name">Phòng cao cấp gia đình hướng biển</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Tầng:</div>
+              <div class="col-md-9" id="floor">1</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Số phòng:</div>
+              <div class="col-md-9" id="room-number">101</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Diện tích:</div>
+              <div class="col-md-9" id="area">32m²</div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3 fw-semibold">Loại phòng:</div>
+              <div class="col-md-9" id="room-type">Phòng gia đình</div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 fw-semibold">View:</div>
+              <div class="col-md-9" id="view">Hướng biển</div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </main><!-- End #main -->
 

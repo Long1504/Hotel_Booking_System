@@ -38,12 +38,69 @@ public class BookingService {
 
     private final EmailService emailService;
 
-    public Page<BookingResponse> findAllBookings(String bookingStatus,
-                                                 String paymentStatus,
-                                                 String bookingCode,
-                                                 Pageable pageable) {
+    public Page<BookingResponse> getAllBookings(String bookingStatus,
+                                                String paymentStatus,
+                                                String bookingCode,
+                                                Pageable pageable) {
         return bookingRepository.findAll(bookingStatus, paymentStatus, bookingCode, pageable)
                 .map(booking -> bookingMapper.toBookingResponse(booking));
+    }
+
+    public BookingResponse getBookingById(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
+    public List<BookingResponse> getMyBookings() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        return bookingRepository.findAllByUserOrderByCreatedAtDesc(user).stream()
+                .map(booking -> bookingMapper.toBookingResponse(booking))
+                .toList();
+    }
+
+    @Transactional
+    public BookingResponse cancelBooking(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        // Chỉ cho hủy khi đang PENDING
+        if (!booking.getBookingStatus().equals(BookingStatus.PENDING.name())) {
+            throw new AppException(ErrorCode.INVALID_BOOKING_STATUS);
+        }
+
+        // Chỉ cho hủy trong 24h kể từ lúc đặt
+        LocalDateTime createdAt = booking.getCreatedAt();
+        LocalDateTime now = LocalDateTime.now();
+
+        if (createdAt.plusHours(24).isBefore(now)) {
+            throw new AppException(ErrorCode.CANNOT_CANCEL_AFTER_24H);
+        }
+
+        booking.setBookingStatus(BookingStatus.CANCELLED.name());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        BookingStatusHistory bookingStatusHistory = BookingStatusHistory.builder()
+                .booking(booking)
+                .status(BookingStatus.CANCELLED.name())
+                .changedBy(user)
+                .build();
+
+        booking.getBookingStatusHistories().add(bookingStatusHistory);
+
+        booking =  bookingRepository.save(booking);
+
+        return bookingMapper.toBookingResponse(booking);
     }
 
     @Transactional
@@ -79,6 +136,30 @@ public class BookingService {
                 .build();
 
         booking.getBookingStatusHistories().add(bookingStatusHistory);
+
+        booking =  bookingRepository.save(booking);
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
+    @Transactional
+    public BookingResponse updateIdentityCard(String bookingId, String identityCard) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        booking.setIdentityCard(identityCard);
+
+        booking = bookingRepository.save(booking);
+
+        return bookingMapper.toBookingResponse(booking);
+    }
+
+    @Transactional
+    public BookingResponse updatePaymentMethod(String bookingId, String newPaymentMethod) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        booking.setPaymentMethod(newPaymentMethod);
 
         booking =  bookingRepository.save(booking);
 
@@ -138,7 +219,7 @@ public class BookingService {
 
         Map<LocalDate, BigDecimal> priceMap = buildPriceMap(checkInDate, checkOutDate);
 
-        BigDecimal totalPrice = calculateTotalPrice(
+        BigDecimal roomPrice = calculateRoomPriceByDateRange(
                 room.getBasePrice(),
                 checkInDate,
                 checkOutDate,
@@ -162,25 +243,18 @@ public class BookingService {
                 .guestName(request.getGuestName())
                 .guestPhone(request.getGuestPhone())
                 .guestEmail(request.getGuestEmail())
+                .identityCard(request.getIdentityCard())
                 .adults(request.getAdults())
                 .children(request.getChildren())
                 .note(request.getNote())
-                .totalPrice(totalPrice)
+                .roomPrice(roomPrice)
+                .totalPrice(roomPrice)
+                .bookingStatus(BookingStatus.PENDING.name())
+                .paymentMethod(PaymentMethod.CASH.name())
+                .paymentStatus(PaymentStatus.UNPAID.name())
                 .user(user)
                 .room(room)
                 .build();
-
-        if (request.getPaymentMethod().equals(PaymentMethod.CASH.name())) {
-            booking.setPaymentMethod(PaymentMethod.CASH.name());
-            booking.setPaymentStatus(PaymentStatus.UNPAID.name());
-            booking.setPaidAt(null);
-        } else if (request.getPaymentMethod().equals(PaymentMethod.VNPAY.name())) {
-            booking.setPaymentMethod(PaymentMethod.VNPAY.name());
-            booking.setPaymentStatus(PaymentStatus.UNPAID.name());
-            booking.setPaidAt(null);
-        } else {
-            throw new AppException(ErrorCode.INVALID_PAYMENT_METHOD);
-        }
 
         BookingStatusHistory history = BookingStatusHistory.builder()
                 .booking(booking)
@@ -193,19 +267,26 @@ public class BookingService {
 
         booking = bookingRepository.save(booking);
 
-        if (request.getPaymentMethod().equals(PaymentMethod.VNPAY.name())) {
-            String paymentUrl = VNPayService.createPaymentUrl(booking.getBookingCode(), booking.getTotalPrice());
-
-            BookingResponse response = bookingMapper.toBookingResponse(booking);
-
-            response.setPaymentUrl(paymentUrl);
-
-            return response;
-        }
-
         emailService.sendEmail(bookingMapper.toSendBookingEmailRequest(booking));
 
         return bookingMapper.toBookingResponse(booking);
+    }
+
+    public String createVNPayPayment(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+
+        if (PaymentStatus.PAID.name().equals(booking.getPaymentStatus())) {
+            throw new AppException(ErrorCode.BOOKING_ALREADY_PAID);
+        }
+
+        booking.setPaymentMethod(PaymentMethod.VNPAY.name());
+        bookingRepository.save(booking);
+
+        return VNPayService.createPaymentUrl(
+                booking.getBookingCode(),
+                booking.getTotalPrice()
+        );
     }
 
     private String generateBookingCode() {
@@ -242,22 +323,22 @@ public class BookingService {
         return priceMap;
     }
 
-    private BigDecimal calculateTotalPrice(BigDecimal basePrice,
-                                           LocalDate checkInDate,
-                                           LocalDate checkOutDate,
-                                           Map<LocalDate, BigDecimal> priceMap) {
-        BigDecimal totalPrice = BigDecimal.ZERO;
+    private BigDecimal calculateRoomPriceByDateRange(BigDecimal basePrice,
+                                                     LocalDate checkInDate,
+                                                     LocalDate checkOutDate,
+                                                     Map<LocalDate, BigDecimal> priceMap) {
+        BigDecimal roomPrice = BigDecimal.ZERO;
 
         LocalDate date = checkInDate;
 
         while (date.isBefore(checkOutDate)) {
             BigDecimal multiplier = priceMap.getOrDefault(date, BigDecimal.ONE);
 
-            totalPrice = totalPrice.add(basePrice.multiply(multiplier));
+            roomPrice = roomPrice.add(basePrice.multiply(multiplier));
 
             date = date.plusDays(1);
         }
 
-        return totalPrice;
+        return roomPrice;
     }
 }

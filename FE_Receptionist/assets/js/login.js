@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.code === 1000 && response.result && response.result.token) {
         // Kiểm tra role (chỉ cho phép RECEPTIONIST)
         if (response.result.role === "RECEPTIONIST") {
-          localStorage.setItem("tokenHotelBooking", response.result.token);
+          localStorage.setItem("tokenHotelBookingReceptionist", response.result.token);
           showMessage(response.message || "Đăng nhập thành công", "success");
 
           // redirect sang rooms.html sau 0.5s

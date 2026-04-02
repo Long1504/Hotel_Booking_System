@@ -16,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import java.util.List;
 
@@ -38,14 +40,24 @@ public class SecurityConfig {
             "/api/v1/rooms/available/*",
             "/api/v1/room-types/summary",
             "/api/v1/views/summary",
-            "/api/v1/payment/**"
+            "/api/v1/amenities/summary",
+            "/api/v1/payments/vnpay-return",
+            "/api/v1/services/summary"
+    };
+
+    private final String[] ADMIN_RECEPTIONIST_ENDPOINTS_GET = {
+            "/api/v1/bookings"
     };
 
     private final String[] ADMIN_ENDPOINTS_POST = {
             "/api/v1/users/receptionist",
             "/api/v1/room-types",
             "/api/v1/views",
-            "/api/v1/amenities"
+            "/api/v1/amenities",
+            "/api/v1/upload",
+            "/api/v1/rooms",
+            "/api/v1/price-rules",
+            "/api/v1/services"
     };
 
     private final String[] ADMIN_ENDPOINTS_GET = {
@@ -55,6 +67,8 @@ public class SecurityConfig {
             "/api/v1/room-types",
             "/api/v1/views",
             "/api/v1/amenities",
+            "/api/v1/price-rules",
+            "/api/v1/services"
     };
 
     private final String[] ADMIN_ENDPOINTS_PUT = {
@@ -65,33 +79,47 @@ public class SecurityConfig {
             "/api/v1/users/*/restore",
             "/api/v1/room-types",
             "/api/v1/views",
-            "/api/v1/amenities"
+            "/api/v1/amenities",
+            "/api/v1/rooms",
+            "/api/v1/price-rules",
+            "/api/v1/services"
     };
 
     private final String[] ADMIN_ENDPOINTS_DELETE = {
-            "/api/v1/users/*",
+//            "/api/v1/users/*",
+            "/api/v1/users",
             "/api/v1/room-types",
             "/api/v1/views",
-            "/api/v1/amenities"
+            "/api/v1/amenities",
+            "/api/v1/rooms",
+            "/api/v1/price-rules",
+            "/api/v1/services"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_POST = {
-
+            "/api/v1/payments/vnpay",
+            "/api/v1/bookings/*/services",
+            "/api/v1/bookings/*/extras"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_GET = {
             // "/api/v1/users/my-info"
-            "/api/v1/bookings"
+            // "/api/v1/bookings"
+            "/api/v1/bookings/*/extras"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_PUT = {
             // "/api/v1/users/my-info"
             "/api/v1/bookings/*/booking-status",
-            "/api/v1/bookings/*/payment-status"
+            "/api/v1/bookings/*/payment-status",
+            "/api/v1/bookings/*/payment-method",
+            "/api/v1/bookings/*/identity-card",
+            "/api/v1/bookings/*/services"
     };
 
     private final String[] RECEPTIONIST_ENDPOINTS_DELETE = {
-
+            "/api/v1/bookings/*/services",
+            "/api/v1/bookings/*/extras"
     };
 
     private final String[] CUSTOMER_ENDPOINTS_POST = {
@@ -99,15 +127,18 @@ public class SecurityConfig {
     };
 
     private final String[] CUSTOMER_ENDPOINTS_GET = {
-            // "/api/v1/users/my-info"
+             "/api/v1/users/my-info",
+            "/api/v1/users/my-bookings"
     };
 
     private final String[] CUSTOMER_ENDPOINTS_PUT = {
-            // "/api/v1/users/my-info"
+            "/api/v1/users/my-info",
+            "/api/v1/users/my-password",
+            "/api/v1/bookings/*/cancel"
     };
 
     private final String[] CUSTOMER_ENDPOINTS_DELETE = {
-
+            "/api/v1/users/my-account"
     };
 
     @Bean
@@ -119,6 +150,8 @@ public class SecurityConfig {
                         // PUBLIC
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST).permitAll()
                         .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET).permitAll()
+                        // ADMIN & RECEPTIONIST
+                        .requestMatchers(HttpMethod.GET, ADMIN_RECEPTIONIST_ENDPOINTS_GET).hasAnyRole(RoleName.ADMIN.name(), RoleName.RECEPTIONIST.name())
                         // ADMIN
                         .requestMatchers(HttpMethod.POST, ADMIN_ENDPOINTS_POST).hasRole(RoleName.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, ADMIN_ENDPOINTS_GET).hasRole(RoleName.ADMIN.name())
@@ -175,5 +208,10 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+
+    @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
+    public StandardServletMultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
     }
 }

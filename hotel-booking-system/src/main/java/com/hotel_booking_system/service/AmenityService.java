@@ -31,6 +31,13 @@ public class AmenityService {
     private final AmenityRepository amenityRepository;
     private final AmenityMapper amenityMapper;
 
+    public List<AmenityResponse> getAllSummaryAmenities() {
+        return amenityRepository.findAllByDeletedAtIsNull()
+                .stream()
+                .map(amenity -> amenityMapper.toAmenityResponse(amenity))
+                .toList();
+    }
+
     public Page<AmenityResponse> getAllAmenities(String amenityName, Pageable pageable) {
         return amenityRepository.findAll(amenityName, pageable)
                 .map(amenity -> amenityMapper.toAmenityResponse(amenity));

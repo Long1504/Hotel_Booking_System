@@ -3,7 +3,9 @@ package com.hotel_booking_system.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "services")
@@ -21,6 +23,9 @@ public class Service {
     private String serviceName;
     private String description;
     @Column(nullable = false)
-    private String imageUrl;
+    private BigDecimal basePrice;
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "service")
+    private List<BookingService> bookingServices; // mới
 }

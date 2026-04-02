@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Quản lý dịch vụ</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <span class="d-none d-lg-block">Azure Hotel</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/avt-profile.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">ADMIN</span>
+          </a><!-- End Profile Iamge Icon -->
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Tài khoản</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a id="logout-btn" class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Đăng xuất</span>
+              </a>
+            </li>
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Tổng quan</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="customers.html">
+          <i class="bi bi-people"></i>
+          <span>Khách hàng</span>
+        </a>
+      </li><!-- End Customer Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="receptionists.html">
+          <i class="bi bi-person"></i>
+          <span>Lễ tân</span>
+        </a>
+      </li><!-- End Receptionist Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="room-types.html">
+          <i class="bi bi-bookmarks"></i>
+          <span>Loại phòng</span>
+        </a>
+      </li><!-- End Room Type Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="views.html">
+          <i class="bi bi-eye"></i>
+          <span>View</span>
+        </a>
+      </li><!-- End View Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="amenities.html">
+          <i class="bi bi-box-seam"></i>
+          <span>Tiện nghi</span>
+        </a>
+      </li><!-- End Amenity Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="rooms.html">
+          <i class="bi bi-door-open"></i>
+          <span>Phòng</span>
+        </a>
+      </li><!-- End Room Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link " href="services.html">
+          <i class="bi bi-minecart-loaded"></i>
+          <span>Dịch vụ</span>
+        </a>
+      </li><!-- End Service Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="holidays.html">
+          <i class="bi bi-calendar4"></i>
+          <span>Ngày lễ</span>
+        </a>
+      </li><!-- End Holiday Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="bookings.html">
+          <i class="bi bi-clipboard-check"></i>
+          <span>Đặt phòng</span>
+        </a>
+      </li><!-- End Booking Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Danh sách dịch vụ</h1>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body pt-3 pb-0">
+
+              <div class="room-filters row pb-3">
+                <div class="col-2">
+                  <label class="form-label fw-semibold small">Tìm kiếm</label>
+                  <input class="form-control form-control-sm" id="service-name-search" placeholder="Nhập tên dịch vụ..." type="text">
+                </div>
+
+                <div class="col-10 d-flex justify-content-between align-items-center">
+                  <span></span>
+                  <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal" data-bs-target="#add-service-modal"><i class="bx bx-plus me-1"></i>Thêm</button>
+                </div>
+              </div>
+
+              <table class="table table-hover small">
+                <thead>
+                  <tr>
+                    <th scope="col">Tên dịch vụ</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col" class="text-center">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody id="service-table-body">
+                  <tr>
+                    <td class="align-content-center">Wifi</td>
+                    <td class="align-content-center text-truncate" style="max-width: 800px;" title="Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.">
+                      Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.
+                    </td>
+                    <td class="align-content-center">500.000đ</td>
+                    <td class="align-content-center text-center">
+                      <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#update-service-modal"><i class="bx bxs-pencil"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger text-white" data-bs-toggle="modal" data-bs-target="#delete-service-modal"><i class="bx bxs-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">&raquo;</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Thêm dịch vụ -->
+    <div class="modal fade" id="add-service-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-success">Thêm mới dịch vụ</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form id="add-service-form" action="" method="post">
+
+            <div class="modal-body">
+
+              <div class="row mb-3">
+                <div class="col-8">
+                  <label class="form-label fw-semibold small">Tên dịch vụ</label>
+                  <input class="form-control form-control-sm" id="add-service-name" type="text" required>
+                </div>
+                <div class="col-4">
+                  <label class="form-label fw-semibold small">Đơn giá</label>
+                  <input class="form-control form-control-sm" id="add-base-price" type="number" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Mô tả</label>
+                  <textarea class="form-control form-control-sm" id="add-description" rows="3" required></textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-sm btn-success">Thêm</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div><!-- End Modal Thêm dịch vụ -->
+
+    <!-- Modal Sửa thông tin dịch vụ -->
+    <div class="modal fade" id="update-service-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary">Sửa thông tin dịch vụ</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form id="update-service-form" action="" method="post">
+
+            <div class="modal-body">
+
+              <div class="row mb-3">
+                <div class="col-8">
+                  <label class="form-label fw-semibold small">Tên dịch vụ</label>
+                  <input class="form-control form-control-sm" id="update-service-name" value="Wifi" type="text" required>
+                </div>
+                <div class="col-4">
+                  <label class="form-label fw-semibold small">Đơn giá</label>
+                  <input class="form-control form-control-sm" id="update-base-price" value="500000" type="number" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label fw-semibold small">Mô tả</label>
+                  <textarea class="form-control form-control-sm" id="update-description" rows="3" required>Loại phòng tiêu chuẩn với đầy đủ tiện nghi cần thiết như giường ngủ, điều hòa, tivi và phòng tắm riêng. Phù hợp cho 1 - 2 khách lưu trú, mang lại không gian nghỉ ngơi thoải mái với mức giá hợp lý.</textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-sm btn-primary">Lưu thay đổi</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div><!-- End Modal Sửa thông tin dịch vụ -->
+
+    <!-- Modal Xóa dịch vụ -->
+    <div class="modal fade" id="delete-service-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger">Xác nhận xóa dịch vụ</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Bạn có chắc chắn muốn xóa dịch vụ [Tên dịch vụ] không?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button id="confirm-delete-service" type="button" class="btn btn-sm btn-danger">Xóa</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Modal Xóa dịch vụ -->
+
+    <div id="alert-container" class="position-fixed top-0 end-0" style="margin-top: 80px; margin-right: 20px; z-index: 1055;"></div>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Bản quyền thuộc về <strong><span>Azure Hotel</span></strong>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Custom JS -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/services.js"></script>
+  <script src="assets/js/logout.js"></script>
+
+</body>
+
+</html>

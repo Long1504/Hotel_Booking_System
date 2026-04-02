@@ -1,5 +1,5 @@
 async function logout() {
-  const token = localStorage.getItem("tokenHotelBooking");
+  const token = localStorage.getItem("tokenHotelBookingReceptionist");
 
   if (!token) {
     window.location.href = "login.html";
@@ -14,7 +14,7 @@ async function logout() {
     console.log("Logout error:", error);
   }
 
-  localStorage.removeItem("tokenHotelBooking");
+  localStorage.removeItem("tokenHotelBookingReceptionist");
   window.location.href = "login.html";
 }
 

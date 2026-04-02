@@ -14,18 +14,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface RoomMapper {
-    @Mapping(source = "roomType.roomTypeName", target = "roomTypeName")
-    @Mapping(source = "view.viewName", target = "viewName")
-    @Mapping(source = "amenities", target = "amenities", qualifiedByName = "mapAmenities")
     RoomResponse toRoomResponse(Room room);
-    @Named("mapAmenities")
-    default Set<String> mapAmenities(Set<Amenity> amenities) {
-        if (amenities == null)
-            return null;
-        return amenities.stream()
-                .map(amenity -> amenity.getAmenityName())
-                .collect(Collectors.toSet());
-    }
 
     @Mapping(source = "roomType.roomTypeName", target = "roomTypeName")
     @Mapping(source = "view.viewName", target = "viewName")
@@ -46,6 +35,14 @@ public interface RoomMapper {
     @Mapping(source = "view.viewName", target = "viewName")
     @Mapping(source = "amenities", target = "amenities", qualifiedByName = "mapAmenities")
     RoomAvailableResponse toRoomAvailableResponse(Room room);
+    @Named("mapAmenities")
+    default Set<String> mapAmenities(Set<Amenity> amenities) {
+        if (amenities == null)
+            return null;
+        return amenities.stream()
+                .map(amenity -> amenity.getAmenityName())
+                .collect(Collectors.toSet());
+    }
 
     @Mapping(source = "roomType.roomTypeName", target = "roomTypeName")
     @Mapping(source = "view.viewName", target = "viewName")
