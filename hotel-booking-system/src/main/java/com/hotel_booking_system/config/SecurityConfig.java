@@ -68,7 +68,8 @@ public class SecurityConfig {
             "/api/v1/views",
             "/api/v1/amenities",
             "/api/v1/price-rules",
-            "/api/v1/services"
+            "/api/v1/services",
+            "/api/v1/dashboard/**"
     };
 
     private final String[] ADMIN_ENDPOINTS_PUT = {

@@ -1,9 +1,11 @@
 package com.hotel_booking_system.entity;
 
+import com.hotel_booking_system.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "booking_services")
@@ -33,4 +35,12 @@ public class BookingService {
 
     @Column(nullable = false)
     private BigDecimal totalPrice;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }

@@ -169,6 +169,7 @@ CREATE TABLE booking_services (
     quantity INT NOT NULL DEFAULT 1,
     unit_price DECIMAL(12,2) NOT NULL,
     total_price DECIMAL(12,2) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
     FOREIGN KEY (service_id) REFERENCES services(service_id),
     CHECK (quantity > 0),

@@ -9,28 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, String> {
     boolean existsRoomByRoomNumber(String roomNumber);
 
-//    Tìm được nhưng sai phân trang
-//    @Query("""
-//        SELECT r
-//        FROM Room r
-//        LEFT JOIN FETCH r.roomImages
-//        WHERE r.deletedAt IS NULL
-//        AND (:roomTypeId IS NULL OR r.roomType.roomTypeId = :roomTypeId)
-//        AND (:viewId IS NULL OR r.view.viewId = :viewId)
-//        AND (:roomStatus IS NULL OR r.roomStatus = :roomStatus)
-//        AND (:roomName IS NULL OR r.roomName LIKE %:roomName%)
-//    """)
-//    Page<Room> findAll(String roomTypeId,
-//                       String viewId,
-//                       String roomStatus,
-//                       String roomName,
-//                       Pageable pageable);
+    List<Room> findAllByDeletedAtIsNull();
 
     @EntityGraph(attributePaths = "roomImages")
     @Query("""
@@ -43,10 +29,10 @@ public interface RoomRepository extends JpaRepository<Room, String> {
           AND (:roomName IS NULL OR r.roomName LIKE %:roomName%)
     """)
     Page<Room> findAll(String roomTypeId,
-                                 String viewId,
-                                 String roomStatus,
-                                 String roomName,
-                                 Pageable pageable);
+                       String viewId,
+                       String roomStatus,
+                       String roomName,
+                       Pageable pageable);
 
     @Query("""
         SELECT r
@@ -108,4 +94,7 @@ public interface RoomRepository extends JpaRepository<Room, String> {
         AND r.roomStatus = 'AVAILABLE'
     """)
     boolean isRoomAvailable(String roomId, LocalDate checkInDate, LocalDate checkOutDate);
+
+    @Query("SELECT COUNT(r) FROM Room r WHERE r.deletedAt IS NULL")
+    long countActiveRooms();
 }
