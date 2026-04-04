@@ -485,6 +485,12 @@ h6 {
 .footer .footer-top {
   background-color: color-mix(in srgb, var(--background-color), white 5%);
   padding-top: 50px;
+  padding-bottom: 18px;
+}
+
+.footer .footer-about {
+  margin: 0;
+  margin-top: 36px;
 }
 
 .footer .footer-about .logo {
@@ -530,7 +536,7 @@ h6 {
 }
 
 .footer .footer-links {
-  margin-bottom: 30px;
+  margin: 0;
 }
 
 .footer .footer-links ul {
@@ -1346,7 +1352,7 @@ section,
 }
 
 .rooms-showcase .hero-room-showcase .showcase-content {
-  padding: 40px;
+  padding: 30px;
 }
 
 .rooms-showcase .hero-room-showcase .showcase-content .room-title-section {
@@ -1449,11 +1455,11 @@ section,
 .rooms-showcase .hero-room-showcase .showcase-content .booking-section .primary-booking-btn {
   background-color: var(--accent-color);
   color: var(--contrast-color);
-  padding: 14px 32px;
+  padding: 10px 20px;
   border-radius: 6px;
   text-decoration: none;
   font-weight: 400;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   letter-spacing: 0.3px;
   transition: all 0.4s ease;
 }
@@ -1672,7 +1678,6 @@ section,
   color: var(--accent-color);
   font-size: 1.2rem;
   font-weight: 300;
-  margin-bottom: 16px;
   display: block;
 }
 
@@ -2612,6 +2617,7 @@ section,
 
 .events-cards .event-item .event-content {
   padding: 25px;
+  padding-bottom: 0;
 }
 
 .events-cards .event-item .event-content h4 {
