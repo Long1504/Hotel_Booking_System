@@ -17,6 +17,7 @@ spring:
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     username: root
     password:
+
   jpa:
     show-sql: true
 
@@ -31,6 +32,20 @@ spring:
           auth: true
           starttls:
             enable: true
+
+  ai:
+    openai:
+      api-key: AIzaSyCbTP7blQQjI_z9klFf7cg6leT-KHvG3sg
+      chat:
+        base-url: https://generativelanguage.googleapis.com
+        completions-path: /v1beta/openai/chat/completions
+        options:
+          model: gemini-2.5-flash
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
 
   servlet:
     multipart:

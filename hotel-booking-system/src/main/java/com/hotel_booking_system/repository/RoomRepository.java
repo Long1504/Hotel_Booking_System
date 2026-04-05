@@ -52,6 +52,7 @@ public interface RoomRepository extends JpaRepository<Room, String> {
             SELECT 1
             FROM Booking b
             WHERE b.room = r
+            AND b.bookingStatus <> 'CANCELLED'
             AND b.checkInDate < :checkOutDate
             AND b.checkOutDate > :checkInDate
         )
@@ -76,7 +77,8 @@ public interface RoomRepository extends JpaRepository<Room, String> {
         AND r.roomId NOT IN (
             SELECT b.room.roomId
             FROM Booking b
-            WHERE b.checkInDate < :checkOutDate
+            WHERE b.bookingStatus <> 'CANCELLED'
+            AND b.checkInDate < :checkOutDate
             AND b.checkOutDate > :checkInDate
         )
     """)

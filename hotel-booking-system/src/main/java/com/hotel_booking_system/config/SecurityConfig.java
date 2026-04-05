@@ -32,7 +32,8 @@ public class SecurityConfig {
             "/api/v1/auth/login",
             "/api/v1/auth/logout",
             "/api/v1/users/register",
-            "/api/v1/bookings"
+            "/api/v1/bookings",
+            "/api/v1/chatbot/**"
     };
 
     private final String[] PUBLIC_ENDPOINTS_GET = {
@@ -42,7 +43,8 @@ public class SecurityConfig {
             "/api/v1/views/summary",
             "/api/v1/amenities/summary",
             "/api/v1/payments/vnpay-return",
-            "/api/v1/services/summary"
+            "/api/v1/services/summary",
+            "/api/v1/chatbot/**"
     };
 
     private final String[] ADMIN_RECEPTIONIST_ENDPOINTS_GET = {
