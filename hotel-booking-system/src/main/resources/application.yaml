@@ -15,10 +15,14 @@ spring:
 
   datasource:
     #url: "jdbc:mysql://localhost:3306/hotel_booking_system?useSSL=false&serverTimezone=UTC"
-    url: jdbc:mysql://maglev.proxy.rlwy.net:18732/railway?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    #url: jdbc:mysql://maglev.proxy.rlwy.net:18732/railway?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: ${DB_URL}
     driver-class-name: "com.mysql.cj.jdbc.Driver"
-    username: root
-    password: VdfFHcxwFibZomsQKYAAbWLbysdQyFsT
+    #username: root
+    #password:
+    #password: VdfFHcxwFibZomsQKYAAbWLbysdQyFsT
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     hikari:
       connection-timeout: 20000
       maximum-pool-size: 10
@@ -30,8 +34,10 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: pvlong1504@gmail.com
-    password: fmof tmqw vhpf wqob
+    #username: pvlong1504@gmail.com
+    #password: fmof tmqw vhpf wqob
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -41,7 +47,8 @@ spring:
 
   ai:
     openai:
-      api-key: AIzaSyCbTP7blQQjI_z9klFf7cg6leT-KHvG3sg
+      #api-key: AIzaSyCbTP7blQQjI_z9klFf7cg6leT-KHvG3sg
+      api-key: ${OPENAI_API_KEY}
       chat:
         base-url: https://generativelanguage.googleapis.com
         completions-path: /v1beta/openai/chat/completions
@@ -67,11 +74,15 @@ vnpay:
   returnUrl: http://localhost:8080/hotel-booking/api/v1/payments/vnpay-return
 
 jwt:
-  signerKey: "a193e5f9c15cd8ce16e881b591e21f1a91bda4ea6a41313d4b24d07e5c466821"
+  #signerKey: "a193e5f9c15cd8ce16e881b591e21f1a91bda4ea6a41313d4b24d07e5c466821"
+  signerKey: ${JWT_SECRET}
   valid-duration: 36000 # Thời hạn token (giây)
   refreshable-duration: 360000 # Khoảng thời gian có thể refresh token (giây)
 
 cloudinary:
-  cloud-name: duibxo3kw
-  api-key: 885231218479346
-  api-secret: I32nwhbrHOevdS1tjB8y4MwSs6k
+  #cloud-name: duibxo3kw
+  #api-key: 885231218479346
+  #api-secret: I32nwhbrHOevdS1tjB8y4MwSs6k
+  cloud-name: ${CLOUDINARY_CLOUD_NAME}
+  api-key: ${CLOUDINARY_API_KEY}
+  api-secret: ${CLOUDINARY_API_SECRET}
