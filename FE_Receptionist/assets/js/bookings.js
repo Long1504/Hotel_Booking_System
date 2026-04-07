@@ -343,7 +343,8 @@ let allServices = [];
 async function loadServicesForModal(bookingServices = []) {
   try {
     const res = await fetch(
-      "http://localhost:8080/hotel-booking/api/v1/services/summary",
+      
+      API_BASE + "https://hotel-booking-system-aruze.onrender.com/hotel-booking/api/v1/services/summary",
     );
     const data = await res.json();
 
