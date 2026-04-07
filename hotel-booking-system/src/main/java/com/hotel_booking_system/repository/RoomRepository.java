@@ -89,6 +89,7 @@ public interface RoomRepository extends JpaRepository<Room, String> {
         FROM Room r
         LEFT JOIN Booking b 
             ON b.room = r
+            AND b.bookingStatus <> 'CANCELLED'
             AND b.checkInDate < :checkOutDate
             AND b.checkOutDate > :checkInDate
         WHERE r.roomId = :roomId
