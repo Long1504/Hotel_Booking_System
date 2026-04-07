@@ -1,6 +1,6 @@
 server:
-  #port: 8080
-  port: ${PORT:8080}
+  port: 8080
+  #port: ${PORT:8080}
   servlet:
     context-path: /hotel-booking
 
@@ -47,7 +47,7 @@ spring:
 
   ai:
     openai:
-      api-key: AIzaSyCbTP7blQQjI_z9klFf7cg6leT-KHvG3sg
+      api-key: AIzaSyARCYibkjTlO9J3nPPNUtLZRHMFOLm_W8E
       #api-key: ${OPENAI_API_KEY}
       chat:
         base-url: https://generativelanguage.googleapis.com
