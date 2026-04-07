@@ -1,5 +1,6 @@
 server:
-  port: 8080
+  #port: 8080
+  port: ${PORT:8080}
   servlet:
     context-path: /hotel-booking
 
@@ -13,13 +14,18 @@ spring:
       password: 12345678
 
   datasource:
-    url: "jdbc:mysql://localhost:3306/hotel_booking_system"
+    #url: "jdbc:mysql://localhost:3306/hotel_booking_system?useSSL=false&serverTimezone=UTC"
+    url: jdbc:mysql://maglev.proxy.rlwy.net:18732/railway?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     username: root
-    password:
+    password: VdfFHcxwFibZomsQKYAAbWLbysdQyFsT
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 10
 
   jpa:
     show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
 
   mail:
     host: smtp.gmail.com
@@ -46,6 +52,7 @@ spring:
         repository:
           jdbc:
             initialize-schema: always
+            platform: mysql
 
   servlet:
     multipart:
