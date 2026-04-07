@@ -30,21 +30,6 @@ public class VNPayController {
                 .build();
     }
 
-//    @GetMapping("/vnpay-return")
-//    public ApiResponse<BookingResponse> paymentReturn(HttpServletRequest request) {
-//        BookingResponse response = vnPayService.handleVNPayReturn(request);
-//        if (!response.getPaymentStatus().equals(PaymentStatus.PAID.name())) {
-//            return ApiResponse.<BookingResponse>builder()
-//                    .message("Thanh toán thất bại")
-//                    .result(response)
-//                    .build();
-//        }
-//        return ApiResponse.<BookingResponse>builder()
-//                .message("Thanh toán thành công")
-//                .result(response)
-//                .build();
-//    }
-
     @GetMapping("/vnpay-return")
     public void paymentReturn(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -53,11 +38,11 @@ public class VNPayController {
         String redirectUrl;
 
         if (!booking.getPaymentStatus().equals(PaymentStatus.PAID.name())) {
-            redirectUrl = "http://localhost:5500/bookings.html?bookingCode="
+            redirectUrl = "https://hotel-booking-system-receptionist.vercel.app/bookings.html?bookingCode="
                     + booking.getBookingCode()
                     + "&status=fail";
         } else {
-            redirectUrl = "http://localhost:5500/bookings.html?bookingCode="
+            redirectUrl = "https://hotel-booking-system-receptionist.vercel.app/bookings.html?bookingCode="
                     + booking.getBookingCode()
                     + "&status=success";
         }
