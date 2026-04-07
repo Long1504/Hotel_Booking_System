@@ -20,6 +20,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -66,16 +68,15 @@ public class VNPayService {
 
             params.put("vnp_IpAddr", "127.0.0.1");
 
-            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+            ZoneId zoneId = ZoneId.of("Asia/Ho_Chi_Minh");
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+            LocalDateTime now = LocalDateTime.now(zoneId);
+            LocalDateTime expire = now.plusMinutes(15);
 
-            params.put("vnp_CreateDate", formatter.format(cld.getTime()));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
-            Calendar expire = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
-            expire.add(Calendar.MINUTE, 15);
-
-            params.put("vnp_ExpireDate", formatter.format(expire.getTime()));
+            params.put("vnp_CreateDate", now.format(formatter));
+            params.put("vnp_ExpireDate", expire.format(formatter));
 
             List<String> fieldNames = new ArrayList<>(params.keySet());
             Collections.sort(fieldNames);
