@@ -139,6 +139,8 @@ public class BookingService {
 
         booking =  bookingRepository.save(booking);
 
+        emailService.sendEmailBookingInfo(bookingMapper.toSendBookingEmailRequest(booking));
+
         return bookingMapper.toBookingResponse(booking);
     }
 
@@ -267,7 +269,7 @@ public class BookingService {
 
         booking = bookingRepository.save(booking);
 
-        emailService.sendEmail(bookingMapper.toSendBookingEmailRequest(booking));
+        emailService.sendEmailBookingInfo(bookingMapper.toSendBookingEmailRequest(booking));
 
         return bookingMapper.toBookingResponse(booking);
     }

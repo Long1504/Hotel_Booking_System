@@ -2,7 +2,6 @@ package com.hotel_booking_system.service;
 
 import com.hotel_booking_system.dto.response.BookingResponse;
 import com.hotel_booking_system.entity.Booking;
-import com.hotel_booking_system.enums.BookingStatus;
 import com.hotel_booking_system.enums.PaymentStatus;
 import com.hotel_booking_system.exception.AppException;
 import com.hotel_booking_system.exception.ErrorCode;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -176,7 +174,7 @@ public class VNPayService {
 
                 bookingRepository.save(booking);
 
-                emailService.sendEmail(bookingMapper.toSendBookingEmailRequest(booking));
+                emailService.sendEmailBookingInfo(bookingMapper.toSendBookingEmailRequest(booking));
             }
             return bookingMapper.toBookingResponse(booking);
         }

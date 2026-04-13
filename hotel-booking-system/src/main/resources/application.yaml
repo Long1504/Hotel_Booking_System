@@ -47,13 +47,13 @@ spring:
 
   ai:
     openai:
-      api-key: AIzaSyARCYibkjTlO9J3nPPNUtLZRHMFOLm_W8E
+      api-key: AIzaSyDvSsk4LSwPUIIr30x4VP2KggzevtS3Apk
       #api-key: ${OPENAI_API_KEY}
       chat:
         base-url: https://generativelanguage.googleapis.com
         completions-path: /v1beta/openai/chat/completions
         options:
-          model: gemini-2.5-flash
+          model: gemini-2.0-flash
     chat:
       memory:
         repository:
