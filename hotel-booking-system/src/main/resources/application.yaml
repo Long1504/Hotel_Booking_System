@@ -35,23 +35,19 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: pvlong1504@gmail.com
-    password: "fmof tmqw vhpf wqob"
+    password: fmof tmqw vhpf wqob
     #username: ${MAIL_USERNAME}
     #password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
           auth: true
-          #starttls:
-            #enable: true
-          ssl:
+          starttls:
             enable: true
-          socketFactory:
-            port: 465
-            class: javax.net.ssl.SSLSocketFactory
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
+            required: true
+          connectiontimeout: 20000
+          timeout: 20000
+          writetimeout: 20000
 
   ai:
     openai:
