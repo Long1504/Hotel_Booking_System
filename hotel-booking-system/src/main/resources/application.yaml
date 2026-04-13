@@ -36,16 +36,20 @@ spring:
     #port: 587
     port: 465
     username: pvlong1504@gmail.com
-    password: fmof tmqw vhpf wqob
+    password: "fmof tmqw vhpf wqob"
     #username: ${MAIL_USERNAME}
     #password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
           auth: true
-          starttls:
+          #starttls:
+            #enable: true
+          ssl:
             enable: true
-            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
@@ -71,6 +75,11 @@ spring:
       enabled: true
       max-file-size: 10MB
       max-request-size: 50MB
+
+logging:
+  level:
+    org.springframework.mail: DEBUG
+    jakarta.mail: DEBUG
 
 vnpay:
   tmnCode: 9MASX4HI
