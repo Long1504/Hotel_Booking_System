@@ -47,6 +47,16 @@ public class VNPayController {
                     + "&status=success";
         }
 
+//        if (!booking.getPaymentStatus().equals(PaymentStatus.PAID.name())) {
+//            redirectUrl = "http://localhost:8080/bookings.html?bookingCode="
+//                    + booking.getBookingCode()
+//                    + "&status=fail";
+//        } else {
+//            redirectUrl = "http://localhost:8080/bookings.html?bookingCode="
+//                    + booking.getBookingCode()
+//                    + "&status=success";
+//        }
+
         response.sendRedirect(redirectUrl);
     }
 }
