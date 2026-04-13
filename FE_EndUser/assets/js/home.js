@@ -24,7 +24,7 @@ async function loadRoomsHome() {
   try {
 
     const res = await callAPI(
-      `/rooms/available?checkInDate=${checkIn}&checkOutDate=${checkOut}`
+      `/rooms?size=12`
     );
 
     const rooms = res.result.content;
@@ -80,7 +80,7 @@ function renderHeroRoom(room) {
       <p class="room-description">${room.description}</p>
       <div class="booking-section">
         <div class="price-display">
-          <span class="amount fw-light">${formatPrice(room.finalPrice)}</span>
+          <span class="amount fw-light">${formatPrice(room.finalPrice || room.basePrice)}</span>
           <span class="period"> / đêm</span>
         </div>
         <a href="room-details.html?roomId=${room.roomId}&checkInDate=${checkIn}&checkOutDate=${checkOut}" class="primary-booking-btn">Xem phòng</a>
@@ -107,7 +107,7 @@ function renderStandardRooms(rooms) {
           <span><i class="bi bi-layers"></i>Tầng ${room.floor}</span>
         </div>
         <div class="booking-row">
-          <div class="price">${formatPrice(room.finalPrice)}<small> / đêm</small></div>
+          <div class="price">${formatPrice(room.finalPrice || room.basePrice)}<small> / đêm</small></div>
           <a href="room-details.html?roomId=${room.roomId}&checkInDate=${checkIn}&checkOutDate=${checkOut}" class="book-link">Xem phòng</a>
         </div>
       </div>
@@ -132,7 +132,7 @@ function renderMinimalRooms(rooms) {
         </div>
         <div class="room-summary">
           <h5>${room.roomName}</h5>
-          <div class="price-tag">${formatPrice(room.finalPrice)}<span> / đêm</span></div>
+          <div class="price-tag">${formatPrice(room.finalPrice || room.basePrice)}<span> / đêm</span></div>
         </div>
       </div>
     </div>

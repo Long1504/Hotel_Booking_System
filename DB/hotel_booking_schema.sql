@@ -1,15 +1,15 @@
-CREATE DATABASE hotel_booking_system;
+CREATE DATABASE IF NOT EXISTS hotel_booking_system;
 
 USE hotel_booking_system;
 
 -- 1. Bảng ROLES
-CREATE TABLE roles (
+CREATE TABLE IF NOT EXISTS roles (
     role_id CHAR(36) PRIMARY KEY,
     role_name VARCHAR(50) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 2. Bảng USERS
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     user_id CHAR(36) PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE users (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 3. Bảng ROLES_USERS (Quan hệ n-n giữa ROLES và USERS)
-CREATE TABLE roles_users (
+CREATE TABLE IF NOT EXISTS roles_users (
     role_id CHAR(36) NOT NULL,
     user_id CHAR(36) NOT NULL,
     PRIMARY KEY (role_id, user_id),
@@ -33,7 +33,7 @@ CREATE TABLE roles_users (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 4. Bảng ROOM_TYPES
-CREATE TABLE room_types (
+CREATE TABLE IF NOT EXISTS room_types (
     room_type_id CHAR(36) PRIMARY KEY,
     room_type_name VARCHAR(100) NOT NULL UNIQUE,
     description VARCHAR(255),
@@ -41,7 +41,7 @@ CREATE TABLE room_types (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 5. Bảng VIEWS
-CREATE TABLE views (
+CREATE TABLE IF NOT EXISTS views (
     view_id CHAR(36) PRIMARY KEY,
     view_name VARCHAR(100) NOT NULL UNIQUE,
     description VARCHAR(255),
@@ -49,7 +49,7 @@ CREATE TABLE views (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 6. Bảng ROOMS
-CREATE TABLE rooms (
+CREATE TABLE IF NOT EXISTS rooms (
     room_id CHAR(36) PRIMARY KEY,
     room_name VARCHAR(255) NOT NULL,
     room_number VARCHAR(10) NOT NULL UNIQUE,
@@ -72,7 +72,7 @@ CREATE TABLE rooms (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 7. Bảng AMENITIES
-CREATE TABLE amenities (
+CREATE TABLE IF NOT EXISTS amenities (
     amenity_id CHAR(36) PRIMARY KEY,
     amenity_name VARCHAR(100) NOT NULL UNIQUE,
     description VARCHAR(255),
@@ -80,7 +80,7 @@ CREATE TABLE amenities (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 8. Bảng ROOMS_AMENITIES (Quan hệ n-n giữa ROOMS và AMENITIES)
-CREATE TABLE rooms_amenities (
+CREATE TABLE IF NOT EXISTS rooms_amenities (
     room_id CHAR(36) NOT NULL,
     amenity_id CHAR(36) NOT NULL,
     PRIMARY KEY (room_id, amenity_id),
@@ -89,7 +89,7 @@ CREATE TABLE rooms_amenities (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 9. Bảng ROOM_IMAGES
-CREATE TABLE room_images (
+CREATE TABLE IF NOT EXISTS room_images (
     room_image_id CHAR(36) PRIMARY KEY,
     image_url VARCHAR(255) NOT NULL,
     public_id VARCHAR(255),
@@ -99,7 +99,7 @@ CREATE TABLE room_images (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 10. Bảng PRICE_RULES
-CREATE TABLE price_rules (
+CREATE TABLE IF NOT EXISTS price_rules (
 	price_rule_id CHAR(36) PRIMARY KEY,
     price_rule_name VARCHAR(100) NOT NULL UNIQUE,
     start_date DATE NOT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE price_rules (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 11. Bảng BOOKINGS
-CREATE TABLE bookings (
+CREATE TABLE IF NOT EXISTS bookings (
     booking_id CHAR(36) PRIMARY KEY,
     booking_code VARCHAR(50) NOT NULL UNIQUE,
     check_in_date DATE NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE bookings (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 12. Bảng BOOKING_STATUS_HISTORIES
-CREATE TABLE booking_status_histories (
+CREATE TABLE IF NOT EXISTS booking_status_histories (
     booking_status_history_id CHAR(36) PRIMARY KEY,
     status VARCHAR(20) NOT NULL,
     changed_by CHAR(36), -- user_id của Lễ tân
@@ -153,7 +153,7 @@ CREATE TABLE booking_status_histories (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 13. Bảng SERVICES
-CREATE TABLE services (
+CREATE TABLE IF NOT EXISTS services (
     service_id CHAR(36) PRIMARY KEY,
     service_name VARCHAR(100) NOT NULL UNIQUE,
     description VARCHAR(255),
@@ -162,7 +162,7 @@ CREATE TABLE services (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 14. Bảng BOOKING_SERVICES
-CREATE TABLE booking_services (
+CREATE TABLE IF NOT EXISTS booking_services (
     booking_service_id CHAR(36) PRIMARY KEY,
     booking_id CHAR(36) NOT NULL,
     service_id CHAR(36) NOT NULL,
@@ -178,7 +178,7 @@ CREATE TABLE booking_services (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 15. Bảng EXTRAS
-CREATE TABLE extras (
+CREATE TABLE IF NOT EXISTS extras (
     extra_id CHAR(36) PRIMARY KEY,
     booking_id CHAR(36) NOT NULL,
     amount DECIMAL(12,2) NOT NULL,
@@ -187,7 +187,7 @@ CREATE TABLE extras (
     CHECK (amount >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE invalidated_tokens (
+CREATE TABLE IF NOT EXISTS invalidated_tokens (
 	id VARCHAR(36) PRIMARY KEY,
     expiry_time DATE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
