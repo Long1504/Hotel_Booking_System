@@ -24,26 +24,17 @@ Tài liệu này được cung cấp như một tài liệu tham khảo cho ngư
 
 Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm phục vụ cho dự án ***Xây dựng Hệ thống đặt phòng khách sạn***.
 
-## 1.4. Thuật ngữ
-
-| Thuật ngữ | Ý nghĩa |
-|-----------|---------|
-|           |         |
-|           |         |
-|           |         |
-|           |         |
-
-## 1.5. Tài liệu tham khảo
-
-1. 
-2. 
-3. 
-
 # 2. Mô tả tổng quan
 
 ## 2.1. Tổng quan sản phẩm
 
-...
+Hệ thống đặt phòng khách sạn được xây dựng nhằm phục vụ ba nhóm người dùng chính gồm khách hàng, nhân viên lễ tân và quản trị viên, mỗi nhóm có các chức năng riêng biệt phù hợp với vai trò của mình. Đối với khách hàng, hệ thống hỗ trợ đăng ký tài khoản, đăng nhập, quản lý thông tin cá nhân, đổi mật khẩu, xem danh sách phòng, lọc phòng theo nhu cầu, xem chi tiết phòng, thực hiện đặt phòng, hủy đặt phòng và theo dõi lịch sử đặt phòng. Những chức năng này giúp khách hàng dễ dàng tìm kiếm và đặt phòng trực tuyến một cách nhanh chóng và thuận tiện.
+
+Đối với nhân viên lễ tân, hệ thống cung cấp các chức năng đăng nhập, xem danh sách phòng trống, hỗ trợ đặt phòng cho khách, quản lý danh sách đặt phòng, cập nhật trạng thái đặt phòng như xác nhận, check-in, check-out hoặc hủy đặt phòng, đồng thời thực hiện tạo thông tin thanh toán. Các chức năng này giúp lễ tân quản lý hoạt động đặt phòng tại khách sạn một cách hiệu quả và chính xác.
+
+Đối với quản trị viên, hệ thống cung cấp quyền quản lý toàn bộ hệ thống bao gồm quản lý tài khoản khách hàng và lễ tân (xem, thêm, sửa, khóa/mở, cấp lại mật khẩu), quản lý các danh mục như loại phòng, view, tiện nghi, phòng và dịch vụ. Ngoài ra, quản trị viên còn có chức năng theo dõi và xem các báo cáo thống kê nhằm hỗ trợ việc đánh giá hiệu quả hoạt động và đưa ra quyết định quản lý phù hợp.
+
+Tổng thể, hệ thống được thiết kế theo mô hình phân quyền rõ ràng, đảm bảo tính bảo mật, dễ sử dụng và tối ưu hóa quy trình quản lý đặt phòng khách sạn.
 
 ## 2.2. Các tác nhân
 
@@ -54,37 +45,35 @@ Tài liệu đặc tả yêu cầu phần mềm này được xây dựng nhằm
 ## 2.3. Các chức năng của sản phẩm
 
 ### Khách hàng:
-- Đăng ký.
+- Đăng ký tài khoản.
 - Đăng nhập.
 - Quản lý thông tin cá nhân.
 - Đổi mật khẩu.
-- Tìm kiếm phòng.
-- Lọc phòng (loại, view, giá).
 - Xem danh sách phòng.
-- Xem chi tiết phòng (bao gồm 360).
+- Lọc phòng.
+- Xem chi tiết phòng.
 - Đặt phòng.
-- Hủy đặt phòng (trong 24h kể từ lúc đặt).
+- Hủy đặt phòng.
 - Xem lịch sử đặt phòng.
 
 ### Nhân viên lễ tân:
 - Đăng nhập.
-- Xem sách đặt phòng.
-- Xem danh sách phòng.
+- Xem danh sách phòng trống.
 - Đặt phòng.
+- Xem danh sách đặt phòng.
 - Cập nhật trạng thái đặt phòng (xác nhận, check-in, check-out, hủy).
-- Xuất hóa đơn (bill).
+- Tạo thanh toán.
 
 ### Quản trị viên:
 - Đăng nhập.
-- Quản lý khách hàng (xem, khóa/mở).
-- Quản lý nhân viên (xem, thêm, sửa, xóa, khóa/mở).
+- Quản lý tài khoản khách hàng (xem, khóa/mở).
+- Quản lý tài khoản lễ tân (xem, thêm, sửa, cấp lại mật khẩu, xóa, khóa/mở).
 - Quản lý loại phòng (xem, thêm, sửa, xóa).
+- Quản lý view (xem, thêm sửa, xóa).
+- Quản lý tiện nghi (xem, thêm sửa, xóa).
 - Quản lý phòng (xem, thêm, sửa, xóa).
-- Quản lý tiện nghi.
+- Quản lý dịch vụ (xem, thêm sửa, xóa).
 - Xem báo cáo thống kê.
-
-### Hệ thống:
-- Tăng giá phòng tự động.
 
 ## 2.4. Biểu đồ use case tổng quan
 
