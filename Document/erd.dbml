@@ -1,0 +1,179 @@
+Project hotel_booking_system {
+  database_type: "MySQL"
+}
+
+Table roles {
+  role_id char(36) [pk]
+  role_name varchar(50) [not null, unique]
+}
+
+Table users {
+  user_id char(36) [pk]
+  username varchar(50) [not null, unique]
+  password varchar(255) [not null]
+  first_name varchar(100) [not null]
+  last_name varchar(100) [not null]
+  gender varchar(20) [not null, default: 'OTHER']
+  email varchar(100) [not null, unique]
+  phone varchar(20) [not null]
+  user_status varchar(20) [not null, default: 'ACTIVE']
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  deleted_at timestamp
+}
+
+Table roles_users {
+  role_id char(36) [not null]
+  user_id char(36) [not null]
+
+  indexes {
+    (role_id, user_id) [pk]
+  }
+}
+
+Table room_types {
+  room_type_id char(36) [pk]
+  room_type_name varchar(100) [not null, unique]
+  description varchar(255)
+  deleted_at timestamp
+}
+
+Table views {
+  view_id char(36) [pk]
+  view_name varchar(100) [not null, unique]
+  description varchar(255)
+  deleted_at timestamp
+}
+
+Table rooms {
+  room_id char(36) [pk]
+  room_name varchar(255) [not null]
+  room_number varchar(10) [not null, unique]
+  floor int [not null]
+  base_price decimal(12,2) [not null]
+  max_adults int [not null]
+  max_children int [not null]
+  area decimal(6,2) [not null]
+  description text
+  room_status varchar(20) [not null, default: 'AVAILABLE']
+  deleted_at timestamp
+  room_type_id char(36) [not null]
+  view_id char(36) [not null]
+}
+
+Table amenities {
+  amenity_id char(36) [pk]
+  amenity_name varchar(100) [not null, unique]
+  description varchar(255)
+  deleted_at timestamp
+}
+
+Table rooms_amenities {
+  room_id char(36) [not null]
+  amenity_id char(36) [not null]
+
+  indexes {
+    (room_id, amenity_id) [pk]
+  }
+}
+
+Table room_images {
+  room_image_id char(36) [pk]
+  image_url varchar(255) [not null]
+  public_id varchar(255)
+  is_main boolean [not null, default: false]
+  room_id char(36) [not null]
+}
+
+Table price_rules {
+  price_rule_id char(36) [pk]
+  price_rule_name varchar(100) [not null, unique]
+  start_date date [not null]
+  end_date date [not null]
+  price_multiplier decimal(4,2) [not null, default: 1.00]
+  is_active boolean [not null, default: true]
+}
+
+Table bookings {
+  booking_id char(36) [pk]
+  booking_code varchar(50) [not null, unique]
+  check_in_date date [not null]
+  check_out_date date [not null]
+  guest_name varchar(200) [not null]
+  guest_phone varchar(20) [not null]
+  guest_email varchar(100) [not null]
+  identity_card varchar(20)
+  adults int [not null]
+  children int [not null]
+  note varchar(255)
+  room_price decimal(12,2) [not null]
+  total_price decimal(12,2) [not null]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  booking_status varchar(20) [not null, default: 'PENDING']
+  payment_method varchar(20) [not null]
+  payment_status varchar(20) [not null]
+  paid_at timestamp
+  user_id char(36)
+  room_id char(36) [not null]
+}
+
+Table booking_status_histories {
+  booking_status_history_id char(36) [pk]
+  status varchar(20) [not null]
+  changed_by char(36)
+  changed_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  booking_id char(36) [not null]
+}
+
+Table services {
+  service_id char(36) [pk]
+  service_name varchar(100) [not null, unique]
+  description varchar(255)
+  base_price decimal(12,2) [not null]
+  deleted_at timestamp
+}
+
+Table booking_services {
+  booking_service_id char(36) [pk]
+  booking_id char(36) [not null]
+  service_id char(36) [not null]
+  quantity int [not null, default: 1]
+  unit_price decimal(12,2) [not null]
+  total_price decimal(12,2) [not null]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Table extras {
+  extra_id char(36) [pk]
+  booking_id char(36) [not null]
+  amount decimal(12,2) [not null]
+  note varchar(255)
+}
+
+Table invalidated_tokens {
+  id varchar(36) [pk]
+  expiry_time date
+}
+
+/* ================= RELATIONSHIPS ================= */
+
+Ref: roles_users.role_id > roles.role_id
+Ref: roles_users.user_id > users.user_id
+
+Ref: rooms.room_type_id > room_types.room_type_id
+Ref: rooms.view_id > views.view_id
+
+Ref: rooms_amenities.room_id > rooms.room_id
+Ref: rooms_amenities.amenity_id > amenities.amenity_id
+
+Ref: room_images.room_id > rooms.room_id
+
+Ref: bookings.user_id > users.user_id
+Ref: bookings.room_id > rooms.room_id
+
+Ref: booking_status_histories.booking_id > bookings.booking_id
+Ref: booking_status_histories.changed_by > users.user_id
+
+Ref: booking_services.booking_id > bookings.booking_id
+Ref: booking_services.service_id > services.service_id
+
+Ref: extras.booking_id > bookings.booking_id
