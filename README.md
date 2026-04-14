@@ -146,22 +146,25 @@ Use Live Server (VS Code)
 ---
 
 ## ▶️ Usage
-Customer Flow
-Register / Login
-Search rooms
-View details
-Book room
-Track booking history
-Receptionist Flow
-Login
-View available rooms
-Create booking
-Update booking status
-Manage services & payments
-Admin Flow
-Login
-Manage system data
-Monitor reports & statistics
+
+Customer Flow:
+- Register / Login
+- Search rooms
+- View details
+- Book room
+- Track booking history
+
+Receptionist Flow:
+- Login
+- View available rooms
+- Create booking
+- Update booking status
+- Manage services & payments
+
+Admin Flow:
+- Login
+- Manage system data
+- Monitor reports & statistics
 
 ---
 
