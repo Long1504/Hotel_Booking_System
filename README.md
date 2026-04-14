@@ -179,6 +179,6 @@ Admin: https://hotel-booking-system-aruze-admin.vercel.app/
 ---
 
 ## 📦 Deployment
-Frontend: Vercel
-Backend: Render
-Database: Railway
+- Frontend: Vercel
+- Backend: Render
+- Database: Railway
