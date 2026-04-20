@@ -1,0 +1,86 @@
+/* Sidebar */
+.conversation-item {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-left: 4px solid transparent !important;
+}
+
+.conversation-item:hover {
+    background-color: #f8faff;
+}
+
+.conversation-item.active {
+    background-color: #eef4ff !important;
+    border-left-color: #0d6efd !important;
+    color: #212529 !important; /* Giữ màu chữ đen/đậm khi được chọn */
+}
+
+.conversation-item.active .text-muted, 
+.conversation-item.active small {
+    color: #6c757d !important;
+}
+
+.conversation-item.active .fw-bold {
+    color: #0d6efd !important;
+}
+
+/* Bong bóng tin nhắn */
+.msg-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    max-width: 80%;
+}
+
+.msg-me {
+    align-self: flex-end;
+}
+
+.msg-other {
+    align-self: flex-start;
+}
+
+.msg-bubble {
+    padding: 6px 12px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    word-break: break-word;
+    width: fit-content;
+}
+
+.msg-me .msg-bubble {
+    background-color: #0d6efd;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.msg-other .msg-bubble {
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    border-bottom-left-radius: 4px;
+}
+
+.sender-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 2px;
+}
+
+.msg-time {
+    font-size: 0.7rem;
+    color: #adb5bd;
+    margin-top: 4px;
+}
+
+.msg-me .msg-time, .msg-me .sender-name { text-align: right; }
+
+/* Custom Scrollbar */
+#chatBox::-webkit-scrollbar, #conversationList::-webkit-scrollbar {
+    width: 5px;
+}
+#chatBox::-webkit-scrollbar-thumb {
+    background-color: #dee2e6;
+    border-radius: 10px;
+}

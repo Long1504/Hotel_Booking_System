@@ -83,6 +83,10 @@ public enum ErrorCode {
 
     // Extra
     EXTRA_NOT_FOUND(14001, "Không tìm thấy phụ phí", HttpStatus.NOT_FOUND),
+
+    // Conversation
+    CONVERSATION_NOT_FOUND(15001, "Không tìm thấy hội thoại", HttpStatus.NOT_FOUND),
+    CONVERSATION_CLOSED(15002, "Hội thoại đã đóng", HttpStatus.CONFLICT),
     ;
 
     private int code;

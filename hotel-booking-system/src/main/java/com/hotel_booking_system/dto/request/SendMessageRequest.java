@@ -1,0 +1,14 @@
+package com.hotel_booking_system.dto.request;
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class SendMessageRequest {
+    private String conversationId;
+    private String senderUsername;
+    private String content;
+}

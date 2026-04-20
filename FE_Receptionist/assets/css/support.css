@@ -1,0 +1,101 @@
+/* Sidebar */
+.conversation-item {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-left: 4px solid transparent !important;
+}
+
+.conversation-item:hover {
+    background-color: #f8faff;
+}
+
+.conversation-item.active {
+    background-color: #eef4ff !important;
+    border-left-color: #0d6efd !important;
+    color: #212529 !important;
+}
+
+.conversation-item.active .text-muted, 
+.conversation-item.active small {
+    color: #6c757d !important;
+}
+
+.conversation-item.active .fw-bold {
+    color: #0d6efd !important;
+}
+
+/* Custom Scrollbar cho mượt */
+#conversationList::-webkit-scrollbar,
+#chatBox::-webkit-scrollbar {
+    width: 6px;
+}
+#conversationList::-webkit-scrollbar-thumb,
+#chatBox::-webkit-scrollbar-thumb {
+    background-color: #ced4da;
+    border-radius: 10px;
+}
+
+#chatBox {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 10px;
+}
+
+/* Bong bóng tin nhắn */
+.msg-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    max-width: 80%;
+    width: fit-content;
+}
+
+.msg-me {
+    align-self: flex-end;
+}
+
+.msg-other {
+    align-self: flex-start;
+}
+
+.msg-bubble {
+    padding: 8px 14px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    word-break: break-word;
+    width: fit-content;
+}
+
+/* Màu tin nhắn của Lễ tân (Bạn) */
+.msg-me .msg-bubble {
+    background-color: #0d6efd;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+/* Màu tin nhắn của Khách hàng */
+.msg-other .msg-bubble {
+    background-color: #ffffff;
+    color: #212529;
+    border: 1px solid #dee2e6;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.sender-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.msg-me .sender-name { margin-right: 12px; text-align: right; }
+.msg-other .sender-name { margin-left: 12px; text-align: left; }
+
+.msg-time {
+    font-size: 0.7rem;
+    color: #adb5bd;
+    margin-top: 5px;
+}

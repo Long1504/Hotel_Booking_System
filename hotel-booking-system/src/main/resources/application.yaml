@@ -1,6 +1,6 @@
 server:
-  #port: 8080
-  port: ${PORT:8080}
+  port: 8080
+  #port: ${PORT:8080}
   servlet:
     context-path: /hotel-booking
 
@@ -14,13 +14,13 @@ spring:
       password: 12345678
 
   datasource:
-    #url: "jdbc:mysql://localhost:3306/hotel_booking_system?useSSL=false&serverTimezone=UTC"
-    url: jdbc:mysql://maglev.proxy.rlwy.net:18732/railway?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: "jdbc:mysql://localhost:3306/hotel_booking_system?useSSL=false&serverTimezone=UTC"
+    #url: jdbc:mysql://maglev.proxy.rlwy.net:18732/railway?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     #url: ${DB_URL}
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     username: root
-    #password:
-    password: VdfFHcxwFibZomsQKYAAbWLbysdQyFsT
+    password:
+    #password: VdfFHcxwFibZomsQKYAAbWLbysdQyFsT
     #username: ${DB_USERNAME}
     #password: ${DB_PASSWORD}
     hikari:
@@ -80,8 +80,8 @@ vnpay:
   tmnCode: 9MASX4HI
   hashSecret: MITKX7R7KYM02X2K5G154TQ5GA29AEEC
   payUrl: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
-  #returnUrl: http://localhost:8080/hotel-booking/api/v1/payments/vnpay-return
-  returnUrl: https://hotel-booking-system-aruze.onrender.com/hotel-booking/api/v1/payments/vnpay-return
+  returnUrl: http://localhost:8080/hotel-booking/api/v1/payments/vnpay-return
+  #returnUrl: https://hotel-booking-system-aruze.onrender.com/hotel-booking/api/v1/payments/vnpay-return
 
 jwt:
   signerKey: "a193e5f9c15cd8ce16e881b591e21f1a91bda4ea6a41313d4b24d07e5c466821"

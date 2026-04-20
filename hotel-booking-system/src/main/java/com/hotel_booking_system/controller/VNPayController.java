@@ -37,25 +37,25 @@ public class VNPayController {
 
         String redirectUrl;
 
-        if (!booking.getPaymentStatus().equals(PaymentStatus.PAID.name())) {
-            redirectUrl = "https://hotel-booking-system-receptionist.vercel.app/bookings.html?bookingCode="
-                    + booking.getBookingCode()
-                    + "&status=fail";
-        } else {
-            redirectUrl = "https://hotel-booking-system-receptionist.vercel.app/bookings.html?bookingCode="
-                    + booking.getBookingCode()
-                    + "&status=success";
-        }
-
 //        if (!booking.getPaymentStatus().equals(PaymentStatus.PAID.name())) {
-//            redirectUrl = "http://localhost:5501/bookings.html?bookingCode="
+//            redirectUrl = "https://hotel-booking-system-receptionist.vercel.app/bookings.html?bookingCode="
 //                    + booking.getBookingCode()
 //                    + "&status=fail";
 //        } else {
-//            redirectUrl = "http://localhost:5501/bookings.html?bookingCode="
+//            redirectUrl = "https://hotel-booking-system-receptionist.vercel.app/bookings.html?bookingCode="
 //                    + booking.getBookingCode()
 //                    + "&status=success";
 //        }
+
+        if (!booking.getPaymentStatus().equals(PaymentStatus.PAID.name())) {
+            redirectUrl = "http://localhost:5501/bookings.html?bookingCode="
+                    + booking.getBookingCode()
+                    + "&status=fail";
+        } else {
+            redirectUrl = "http://localhost:5501/bookings.html?bookingCode="
+                    + booking.getBookingCode()
+                    + "&status=success";
+        }
 
         response.sendRedirect(redirectUrl);
     }
