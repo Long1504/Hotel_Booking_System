@@ -48,11 +48,11 @@ public class VNPayController {
 //        }
 
         if (!booking.getPaymentStatus().equals(PaymentStatus.PAID.name())) {
-            redirectUrl = "http://localhost:5501/bookings.html?bookingCode="
+            redirectUrl = "http://localhost:5502/bookings.html?bookingCode="
                     + booking.getBookingCode()
                     + "&status=fail";
         } else {
-            redirectUrl = "http://localhost:5501/bookings.html?bookingCode="
+            redirectUrl = "http://localhost:5502/bookings.html?bookingCode="
                     + booking.getBookingCode()
                     + "&status=success";
         }

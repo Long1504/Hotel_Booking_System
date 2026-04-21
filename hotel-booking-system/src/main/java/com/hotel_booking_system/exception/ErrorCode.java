@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatusCode;
 public enum ErrorCode {
     // System
     INTERNAL_SERVER_ERROR(9999, "Lỗi hệ thống", HttpStatus.INTERNAL_SERVER_ERROR),
+    INVALID_REQUEST(1100, "Yêu cầu không hợp lệ", HttpStatus.BAD_REQUEST),
 
     // Auth
     UNAUTHENTICATED(1000, "Chưa xác thực", HttpStatus.UNAUTHORIZED),

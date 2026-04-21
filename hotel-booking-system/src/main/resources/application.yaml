@@ -50,14 +50,15 @@ spring:
           writetimeout: 20000
 
   ai:
+    # Check xem có model nào - GET https://generativelanguage.googleapis.com/v1beta/models?key=API_KEY
     openai:
-      api-key: AIzaSyDvSsk4LSwPUIIr30x4VP2KggzevtS3Apk
+      api-key: AIzaSyA6O3LqJlZy1TzV6vIaWs6xfe8G0oXFVeI
       #api-key: ${OPENAI_API_KEY}
       chat:
         base-url: https://generativelanguage.googleapis.com
         completions-path: /v1beta/openai/chat/completions
         options:
-          model: gemini-2.0-flash
+          model: models/gemini-3-flash-preview
     chat:
       memory:
         repository:
@@ -77,6 +78,7 @@ logging:
     jakarta.mail: DEBUG
 
 vnpay:
+  # Test: https://sandbox.vnpayment.vn/apis/vnpay-demo/
   tmnCode: 9MASX4HI
   hashSecret: MITKX7R7KYM02X2K5G154TQ5GA29AEEC
   payUrl: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
