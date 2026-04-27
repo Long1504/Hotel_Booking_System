@@ -12,6 +12,4 @@ import java.time.LocalDateTime;
 public class ChatbotResponse {
     private String type;
     private String content;
-    private LocalDateTime timestamp;
-    private String conversationId;
 }

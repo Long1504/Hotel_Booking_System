@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // redirect sang rooms.html sau 0.5s
           setTimeout(() => {
             window.location.href = "rooms.html";
-          }, 500);
+          }, 300);
         } else {
           showMessage("Tài khoản không có quyền truy cập", "danger");
         }

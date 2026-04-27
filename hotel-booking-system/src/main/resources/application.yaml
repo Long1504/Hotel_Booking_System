@@ -52,7 +52,7 @@ spring:
   ai:
     # Check xem có model nào - GET https://generativelanguage.googleapis.com/v1beta/models?key=API_KEY
     openai:
-      api-key: AIzaSyA6O3LqJlZy1TzV6vIaWs6xfe8G0oXFVeI
+      api-key: AIzaSyCt1OKhOVrB8hz4JSU3UVXyIwX0_-fBGNA
       #api-key: ${OPENAI_API_KEY}
       chat:
         base-url: https://generativelanguage.googleapis.com

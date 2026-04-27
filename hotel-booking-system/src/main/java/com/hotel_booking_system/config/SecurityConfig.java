@@ -140,7 +140,7 @@ public class SecurityConfig {
 
     private final String[] CUSTOMER_ENDPOINTS_PUT = {
             "/api/v1/users/my-info",
-            "/api/v1/users/my-password",
+//            "/api/v1/users/my-password",
             "/api/v1/bookings/*/cancel"
     };
 

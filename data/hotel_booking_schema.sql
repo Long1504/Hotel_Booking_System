@@ -190,7 +190,7 @@ CREATE TABLE extras (
 -- 16. Bảng CONVERSATIONS
 CREATE TABLE conversations (
     conversation_id CHAR(36) PRIMARY KEY,
-    customer_username CHAR(36) NOT NULL, -- chat owner
+    customer_username VARCHAR(50) NOT NULL, -- chat owner
     status VARCHAR(20) NOT NULL DEFAULT 'OPEN', -- OPEN / CLOSED
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     closed_at TIMESTAMP NULL
@@ -199,8 +199,8 @@ CREATE TABLE conversations (
 -- 17. Bảng CONVERSATION_MEMBERS
 CREATE TABLE conversation_members (
     conversation_id CHAR(36) NOT NULL,
-    username CHAR(36) NOT NULL,
-    role VARCHAR(20) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    role VARCHAR(50) NOT NULL,
     last_read_at TIMESTAMP NULL,
     PRIMARY KEY (conversation_id, username),
     FOREIGN KEY (conversation_id) REFERENCES conversations(conversation_id) ON DELETE CASCADE
@@ -210,7 +210,7 @@ CREATE TABLE conversation_members (
 CREATE TABLE messages (
     message_id CHAR(36) PRIMARY KEY,
     conversation_id CHAR(36) NOT NULL,
-    sender_username CHAR(36) NOT NULL,
+    sender_username VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (conversation_id) REFERENCES conversations(conversation_id) ON DELETE CASCADE
