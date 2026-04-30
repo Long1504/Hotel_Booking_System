@@ -8,6 +8,7 @@ import com.hotel_booking_system.service.VNPayService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/v1/payments")
 @RequiredArgsConstructor
+@Slf4j
 @CrossOrigin(origins = "*") // Cho phép FE gọi từ mọi domain
 public class VNPayController {
     private final VNPayService vnPayService;
@@ -48,11 +50,11 @@ public class VNPayController {
 //        }
 
         if (!booking.getPaymentStatus().equals(PaymentStatus.PAID.name())) {
-            redirectUrl = "http://localhost:5502/bookings.html?bookingCode="
+            redirectUrl = "http://127.0.0.1:5502/bookings.html?bookingCode="
                     + booking.getBookingCode()
                     + "&status=fail";
         } else {
-            redirectUrl = "http://localhost:5502/bookings.html?bookingCode="
+            redirectUrl = "http://127.0.0.1:5502/bookings.html?bookingCode="
                     + booking.getBookingCode()
                     + "&status=success";
         }

@@ -34,14 +34,15 @@ public interface RoomRepository extends JpaRepository<Room, String> {
                        String roomName,
                        Pageable pageable);
 
+    @EntityGraph(attributePaths = "roomImages")
     @Query("""
         SELECT r
         FROM Room r
-        LEFT JOIN FETCH r.roomImages ri
+        LEFT JOIN r.roomImages ri
         WHERE r.deletedAt IS NULL
         AND r.roomStatus = 'AVAILABLE'
         AND (ri IS NULL OR ri.isMain = true)
-            
+    
         AND (:adults IS NULL OR r.maxAdults >= :adults)
         AND (:children IS NULL OR r.maxChildren >= :children)
     
@@ -74,10 +75,11 @@ public interface RoomRepository extends JpaRepository<Room, String> {
         WHERE r.roomId = :roomId
         AND r.deletedAt IS NULL
         AND r.roomStatus = 'AVAILABLE'
-        AND r.roomId NOT IN (
-            SELECT b.room.roomId
+        AND NOT EXISTS (
+            SELECT 1
             FROM Booking b
-            WHERE b.bookingStatus <> 'CANCELLED'
+            WHERE b.room = r
+            AND b.bookingStatus <> 'CANCELLED'
             AND b.checkInDate < :checkOutDate
             AND b.checkOutDate > :checkInDate
         )
@@ -85,16 +87,14 @@ public interface RoomRepository extends JpaRepository<Room, String> {
     Optional<Room> findAvailableRoomById(String roomId, LocalDate checkInDate, LocalDate checkOutDate);
 
     @Query("""
-        SELECT CASE WHEN COUNT(b) = 0 THEN true ELSE false END
-        FROM Room r
-        LEFT JOIN Booking b 
-            ON b.room = r
+        SELECT NOT EXISTS (
+            SELECT 1
+            FROM Booking b
+            WHERE b.room.roomId = :roomId
             AND b.bookingStatus <> 'CANCELLED'
             AND b.checkInDate < :checkOutDate
             AND b.checkOutDate > :checkInDate
-        WHERE r.roomId = :roomId
-        AND r.deletedAt IS NULL
-        AND r.roomStatus = 'AVAILABLE'
+        )
     """)
     boolean isRoomAvailable(String roomId, LocalDate checkInDate, LocalDate checkOutDate);
 
