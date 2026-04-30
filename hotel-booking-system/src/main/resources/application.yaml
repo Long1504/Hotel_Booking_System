@@ -13,13 +13,13 @@ spring:
       password: 12345678
 
   datasource:
-    url: "jdbc:mysql://localhost:3306/hotel_booking_system?useSSL=false&serverTimezone=UTC"
-    #url: jdbc:mysql://maglev.proxy.rlwy.net:18732/railway?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    #url: "jdbc:mysql://localhost:3306/hotel_booking_system?useSSL=false&serverTimezone=UTC"
+    url: jdbc:mysql://switchyard.proxy.rlwy.net:36562/railway?useSSL=true&requireSSL=true&verifyServerCertificate=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     #url: ${DB_URL}
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     username: root
-    password:
-    #password: VdfFHcxwFibZomsQKYAAbWLbysdQyFsT
+    #password:
+    password: dwgPNNftXAeEOiqUrYGepGNOfFCakxMU
     #username: ${DB_USERNAME}
     #password: ${DB_PASSWORD}
     hikari:

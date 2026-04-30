@@ -210,8 +210,8 @@ function renderConversations() {
         const closedAtTime = c.closedAt ? new Date(c.closedAt).toLocaleString('vi-VN', VI_TIME_OPTIONS) : null;
 
         const statusBadge = c.status === 'OPEN' 
-            ? '<span class="badge text-success border border-success" style="font-size: 0.6rem; background-color: #e1f7ec;">ĐANG MỞ</span>'
-            : '<span class="badge text-secondary border border-secondary" style="font-size: 0.6rem; background-color: #f8f9fa;">ĐÃ ĐÓNG</span>';
+            ? '<span class="badge bg-success" style="font-size: 0.6rem;">ĐANG MỞ</span>'
+            : '<span class="badge bg-secondary" style="font-size: 0.6rem;">ĐÃ ĐÓNG</span>';
 
         div.innerHTML = `
             <div class="d-flex justify-content-between align-items-center mb-1">
