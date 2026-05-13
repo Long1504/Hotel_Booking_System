@@ -84,3 +84,48 @@
     background-color: #dee2e6;
     border-radius: 10px;
 }
+
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 768px) {
+
+    /* Layout chat full màn hình */
+    .chat-section .row {
+        height: calc(100vh - 120px);
+    }
+
+    /* Sidebar (conversation list) */
+    #conversationList {
+        height: 100%;
+        max-height: 100%;
+    }
+
+    /* Ẩn/hiện panel theo trạng thái */
+    .mobile-hidden {
+        display: none !important;
+    }
+
+    .mobile-full {
+        flex: 1 1 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Chat box full height */
+    #chatBox {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Input cố định dưới cùng */
+    #chatInputArea {
+        position: sticky;
+        bottom: 0;
+        z-index: 100;
+    }
+
+    /* Bubble nhỏ hơn */
+    .msg-bubble {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+}

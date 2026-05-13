@@ -15,6 +15,39 @@ public interface ConversationRepository extends JpaRepository<Conversation, Stri
 
     Optional<Conversation> findByCustomerUsernameAndStatus(String customerId, String status);
 
+//    TiDB không hỗ trợ subquery trong SELECT
+//    @Query("""
+//    SELECT new com.hotel_booking_system.dto.response.ConversationResponse(
+//        c.conversationId,
+//        c.customerUsername,
+//        c.status,
+//        c.createdAt,
+//        c.closedAt,
+//
+//        m.content,
+//        m.createdAt,
+//
+//        CASE
+//            WHEN cm.lastReadAt IS NULL THEN true
+//            WHEN m.createdAt > cm.lastReadAt THEN true
+//            ELSE false
+//        END
+//    )
+//    FROM Conversation c
+//    JOIN ConversationMember cm
+//        ON cm.conversationId = c.conversationId
+//        AND cm.username = :username
+//
+//    LEFT JOIN Message m ON m.messageId = (
+//        SELECT m2.messageId
+//        FROM Message m2
+//        WHERE m2.conversationId = c.conversationId
+//        ORDER BY m2.createdAt DESC
+//        LIMIT 1
+//    )
+//    ORDER BY m.createdAt DESC
+//    """)
+//    List<ConversationResponse> getConversationSummaries(@Param("username") String username);
 
     @Query("""
     SELECT new com.hotel_booking_system.dto.response.ConversationResponse(
@@ -38,12 +71,11 @@ public interface ConversationRepository extends JpaRepository<Conversation, Stri
         ON cm.conversationId = c.conversationId
         AND cm.username = :username
 
-    LEFT JOIN Message m ON m.messageId = (
-        SELECT m2.messageId
+    LEFT JOIN Message m ON m.conversationId = c.conversationId
+    WHERE m.createdAt = (
+        SELECT MAX(m2.createdAt)
         FROM Message m2
         WHERE m2.conversationId = c.conversationId
-        ORDER BY m2.createdAt DESC
-        LIMIT 1
     )
     ORDER BY m.createdAt DESC
     """)

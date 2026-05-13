@@ -1,4 +1,4 @@
-USE hotel_booking_system;
+USE hotel_booking_system_test_data;
 
 SET FOREIGN_KEY_CHECKS = 0;
 

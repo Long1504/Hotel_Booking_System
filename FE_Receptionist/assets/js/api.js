@@ -1,5 +1,5 @@
-const API_BASE = "http://localhost:8080/hotel-booking/api/v1";
-// const API_BASE = "https://hotel-booking-system-aruze.onrender.com/hotel-booking/api/v1";
+// const API_BASE = "http://localhost:8080/hotel-booking/api/v1";
+const API_BASE = "https://hotel-booking-system-aruze.onrender.com/hotel-booking/api/v1";
 // const API_BASE = "https://nadia-nonstudied-lilianna.ngrok-free.dev/hotel-booking/api/v1";
 
 // API không cần token

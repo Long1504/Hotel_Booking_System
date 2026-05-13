@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Sau khi có username mới kết nối WS và tải dữ liệu
             connectWS();
             loadConversations();
+            updateMobileView(false);
         } else {
             console.error("Không thể lấy thông tin người dùng");
             window.location.href = "/login.html";
@@ -147,6 +148,9 @@ function renderConversations() {
 // ================= OPEN CHAT =================
 function openConversation(id) {
     currentConversationId = id;
+
+    updateMobileView(true);
+    
     const inputArea = document.getElementById("chatInputArea");
 
     if (conversationCache[id]) {
@@ -166,14 +170,52 @@ function openConversation(id) {
     }
 
     document.getElementById("chatHeader").innerHTML = `
-        <div>
-            <h5 class="mb-1 fw-semibold">Azure Hotel - Hỗ trợ</h5>
-            <small class="text-muted d-flex align-items-center gap-1">
-                <span class="spinner-grow spinner-grow-sm ${conv.status === 'OPEN' ? 'text-success' : 'text-secondary'}" style="width: 8px; height: 8px;" role="status"></span>
-                ${conv.status === 'OPEN' ? 'Đang mở' : 'Đã kết thúc'}
-            </small>
+        <div class="d-flex align-items-center gap-2">
+
+            <button id="backBtn" class="btn btn-light btn-sm d-md-none">
+                <i class="bi bi-arrow-left"></i>
+            </button>
+
+            <div>
+                <h5 class="mb-1 fw-semibold">Azure Hotel - Hỗ trợ</h5>
+                <small class="text-muted d-flex align-items-center gap-1">
+                    <span class="spinner-grow spinner-grow-sm ${conv.status === 'OPEN' ? 'text-success' : 'text-secondary'}" style="width: 8px; height: 8px;" role="status"></span>
+                    ${conv.status === 'OPEN' ? 'Đang mở' : 'Đã kết thúc'}
+                </small>
+            </div>
+
         </div>
+        
     `;
+
+        setTimeout(() => {
+        const backBtn = document.getElementById("backBtn");
+
+        if (backBtn) {
+            backBtn.onclick = () => {
+
+                updateMobileView(false);
+
+                currentConversationId = null;
+
+                if (conversationSub) {
+                    conversationSub.unsubscribe();
+                    conversationSub = null;
+                }
+
+                document.getElementById("chatBox").innerHTML = "";
+
+                document.getElementById("chatHeader").innerHTML = `
+                    <div>
+                        <h5 class="mb-1 fw-semibold">Azure Hotel - Hỗ trợ</h5>
+                        <small class="text-muted">
+                            Vui lòng chọn hoặc tạo mới một yêu cầu hỗ trợ
+                        </small>
+                    </div>
+                `;
+            };
+        }
+    }, 0);
 
     document.getElementById("chatBox").innerHTML = "";
 
@@ -283,5 +325,20 @@ function scrollBottom() {
     const box = document.getElementById("chatBox");
     if(box) {
         box.scrollTop = box.scrollHeight;
+    }
+}
+
+function updateMobileView(isChatOpen) {
+    const list = document.querySelector(".col-md-4");
+    const chat = document.querySelector(".col-md-8");
+
+    if (window.innerWidth <= 768) {
+        if (isChatOpen) {
+            list.classList.add("d-none");
+            chat.classList.add("mobile-full");
+        } else {
+            list.classList.remove("d-none");
+            chat.classList.remove("mobile-full");
+        }
     }
 }

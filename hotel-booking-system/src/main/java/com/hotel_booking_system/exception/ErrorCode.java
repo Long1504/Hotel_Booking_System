@@ -55,7 +55,7 @@ public enum ErrorCode {
     INVALID_BOOKING_STATUS(8004, "Trạng thái đặt phòng không hợp lệ", HttpStatus.BAD_REQUEST),
     INVALID_PAYMENT_STATUS(8005, "Trạng thái thanh toán không hợp lệ", HttpStatus.BAD_REQUEST),
     BOOKING_ALREADY_PAID(8006, "Đơn đặt phòng đã thanh toán", HttpStatus.CONFLICT),
-    CANNOT_CANCEL_AFTER_24H(8007, "Chỉ đuược phép hủy trong 24h kể từ thời điểm đặt", HttpStatus.CONFLICT),
+    CANNOT_CANCEL_AFTER_24H(8007, "Chỉ được phép hủy trong 24h kể từ thời điểm đặt", HttpStatus.CONFLICT),
 
     // VNPay
     INVALID_VNPAY_SIGNATURE(9001, "Chữ ký VNPay không hợp lệ", HttpStatus.BAD_REQUEST),
