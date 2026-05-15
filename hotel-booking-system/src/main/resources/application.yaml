@@ -87,3 +87,7 @@ cloudinary:
   cloud-name: ${CLOUDINARY_CLOUD_NAME}
   api-key: ${CLOUDINARY_API_KEY}
   api-secret: ${CLOUDINARY_API_SECRET}
+
+#https://console.cloud.google.com/auth/clients/214116094126-5fegm1lakejj3nmg0ifap3egg6diu4e6.apps.googleusercontent.com?project=gen-lang-client-0931308108
+google:
+  client-id: ${GOOGLE_CLIENT_ID}

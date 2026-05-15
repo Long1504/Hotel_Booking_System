@@ -77,7 +77,7 @@ function renderHeroRoom(room) {
       <div class="room-title-section">
         <h2 class="fw-normal">${room.roomName}</h2>
       </div>
-      <p class="room-description">${room.description}</p>
+      <p class="room-description" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">${room.description}</p>
       <div class="booking-section">
         <div class="price-display">
           <span class="amount fw-light">${formatPrice(room.finalPrice)}</span>
@@ -100,7 +100,7 @@ function renderStandardRooms(rooms) {
       </div>
       <div class="card-content">
         <h4>${room.roomName}</h4>
-        <p>${room.description}</p>
+        <p style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">${room.description}</p>
         <div class="features-list">
           <span><i class="bi bi-people"></i>Người lớn: ${room.maxAdults}</span>
           <span><i class="bi bi-people"></i>Trẻ em: ${room.maxChildren}</span>

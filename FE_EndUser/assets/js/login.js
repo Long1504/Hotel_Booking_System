@@ -45,3 +45,57 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+// Đăng nhập Google
+async function handleCredentialResponse(response) {
+
+    const messageDiv = document.getElementById("loginMessage");
+
+    // Reset message
+    messageDiv.textContent = "";
+    messageDiv.className = "mb-3 text-center";
+
+    try {
+
+        const res = await callAPI(
+            "/auth/google",
+            "POST",
+            {
+                token: response.credential
+            }
+        );
+
+        console.log("Google Login:", res);
+
+        if (res.code === 1000) {
+
+            messageDiv.textContent = res.message;
+            messageDiv.classList.add("text-success");
+
+            // Lưu JWT
+            localStorage.setItem(
+                "tokenHotelBookingCustomer",
+                res.result.token
+            );
+
+            // Redirect
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1500);
+
+        } else {
+
+            messageDiv.textContent = res.message;
+            messageDiv.classList.add("text-danger");
+        }
+
+    } catch (error) {
+
+        console.error("Google Login Error:", error);
+
+        messageDiv.textContent =
+            "Đăng nhập Google thất bại";
+
+        messageDiv.classList.add("text-danger");
+    }
+}

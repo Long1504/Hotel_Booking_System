@@ -53,18 +53,6 @@ public class ChatbotRepository {
         );
     }
 
-    // Rooms
-    public List<Room> findAvailableRooms() {
-
-        String sql = """
-            SELECT *
-            FROM rooms
-            WHERE room_status = 'AVAILABLE' AND deleted_at IS NULL
-        """;
-
-        return jdbcTemplate.query(sql, (rs, rowNum) -> mapRoom(rs));
-    }
-
     // Bookings
     public List<Booking> findBookingsByUserId(String userId) {
 

@@ -169,7 +169,6 @@ public class VNPayService {
         if ("00".equals(responseCode)) {
             if (!PaymentStatus.PAID.name().equals(booking.getPaymentStatus())) {
                 booking.setPaymentStatus(PaymentStatus.PAID.name());
-//                booking.setBookingStatus(BookingStatus.CONFIRMED.name());
                 booking.setPaidAt(LocalDateTime.now());
 
                 bookingRepository.save(booking);

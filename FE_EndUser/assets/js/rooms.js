@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="room-header">
               <h3 class="room-name">${room.roomName}</h3>
             </div>
-            <p class="room-description">${room.description}</p>
+            <p class="room-description" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">${room.description}</p>
             <div class="room-amenities">
               <span class="adults"><i class="bi bi-people"></i>Số người lớn: ${room.maxAdults}</span>
               <span class="children"><i class="bi bi-people"></i>Số trẻ em: ${room.maxChildren}</span>

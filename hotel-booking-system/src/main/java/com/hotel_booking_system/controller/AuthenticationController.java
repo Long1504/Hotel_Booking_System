@@ -1,6 +1,7 @@
 package com.hotel_booking_system.controller;
 
 import com.hotel_booking_system.dto.request.AuthenticationRequest;
+import com.hotel_booking_system.dto.request.GoogleLoginRequest;
 import com.hotel_booking_system.dto.request.LogoutRequest;
 import com.hotel_booking_system.dto.response.ApiResponse;
 import com.hotel_booking_system.dto.response.AuthenticationResponse;
@@ -31,6 +32,13 @@ public class AuthenticationController {
         authenticationService.logout(request);
         return ApiResponse.<Void>builder()
                 .message("Đăng xuất thành công")
+                .build();
+    }
+
+    @PostMapping("/google")
+    public ApiResponse<AuthenticationResponse> authenticateGoogle(@RequestBody GoogleLoginRequest request) {
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(authenticationService.authenticateGoogle(request))
                 .build();
     }
 }

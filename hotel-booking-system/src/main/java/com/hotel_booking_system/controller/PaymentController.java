@@ -9,18 +9,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/payments")
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin(origins = "*") // Cho phép FE gọi từ mọi domain
-public class VNPayController {
+public class PaymentController {
     private final VNPayService vnPayService;
     private final BookingService bookingService;
 
@@ -33,7 +31,7 @@ public class VNPayController {
     }
 
     @GetMapping("/vnpay-return")
-    public void paymentReturn(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void vnPayReturn(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         BookingResponse booking = vnPayService.handleVNPayReturn(request);
 

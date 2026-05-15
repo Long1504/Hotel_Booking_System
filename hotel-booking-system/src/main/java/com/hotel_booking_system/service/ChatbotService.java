@@ -5,7 +5,8 @@ import com.hotel_booking_system.dto.response.ChatbotResponse;
 import com.hotel_booking_system.entity.Amenity;
 import com.hotel_booking_system.entity.Booking;
 import com.hotel_booking_system.entity.Room;
-import com.hotel_booking_system.repository.ChatbotRepository;
+import com.hotel_booking_system.entity.User;
+import com.hotel_booking_system.repository.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -33,12 +34,22 @@ public class ChatbotService {
     private final ChatClient classifyClient;
 
     private final ChatbotRepository chatbotRepository;
+    private final UserRepository userRepository;
+    private final RoomRepository roomRepository;
+    private final BookingRepository bookingRepository;
+    private final ServiceRepository serviceRepository;
+    private final AmenityRepository amenityRepository;
 
     public ChatbotService(ChatClient.Builder builder,
                           JdbcChatMemoryRepository jdbcChatMemoryRepository,
-                          ChatbotRepository chatbotRepository) {
+                          ChatbotRepository chatbotRepository, UserRepository userRepository, RoomRepository roomRepository, BookingRepository bookingRepository, ServiceRepository serviceRepository, AmenityRepository amenityRepository) {
 
         this.chatbotRepository = chatbotRepository;
+        this.userRepository = userRepository;
+        this.roomRepository = roomRepository;
+        this.bookingRepository = bookingRepository;
+        this.serviceRepository = serviceRepository;
+        this.amenityRepository = amenityRepository;
 
         ChatMemory chatMemory = MessageWindowChatMemory.builder()
                 .chatMemoryRepository(jdbcChatMemoryRepository)
@@ -62,34 +73,46 @@ public class ChatbotService {
 
         String question = request.getMessage();
 
-        log.info("\n================ CHAT REQUEST ================");
-        log.info("USER            : {}", username);
-        log.info("CONVERSATION_ID : {}", conversationId);
-        log.info("QUESTION        : {}", question);
+        log.info(
+                "\n================ CHAT REQUEST ================" +
+                "\nUSER            : " + username +
+                "\nCONVERSATION_ID : " + conversationId +
+                "\nQUESTION        : " + question
+        );
 
         try {
             // Detect intent
             String intent = detectIntentWithAI(question);
 
-            log.info("INTENT          : {}", intent);
+            log.info("\nINTENT          : {}", intent);
 
             // Retrieve context from DB
             String context = retrieveContext(intent, question, username);
 
-            log.info("CONTEXT (RAG)   : {}", context);
+            log.info("\nCONTEXT (RAG)   : {}", context);
 
             // Build prompt AI
             SystemMessage systemMessage = new SystemMessage("""
-                Bạn là chatbot của Azure Hotel.
+                Bạn là trợ lý tư vấn khách sạn chuyên nghiệp của Azure Hotel
+                
+                MỤC TIÊU:
+                - Hỗ trợ khách hàng tìm phòng phù hợp
+                - Tư vấn theo nhu cầu thực tế
+                - Trả lời thân thiện và chuyên nghiệp như nhân viên lễ tân
     
                 QUY TẮC:
-                - Trả lời chính xác dựa trên CONTEXT.
-                - Không được bịa thông tin.
-                - Nếu không có dữ liệu thì nói không có thông tin.
-                - Gợi ý thêm cho người hỏi nếu cần.
-                - Gợi ý câu hỏi cho người hỏi khi không đủ thông tin.
-                - Trả lời ngắn gọn, dễ hiểu.
-                - Tránh dùng ký tự *
+                - Chỉ trả lời dựa trên CONTEXT
+                - Không bịa thông tin
+                - Nếu thiếu dữ liệu hãy hỏi thêm khách
+                - Luôn cố gắng gợi ý phù hợp hơn
+                - Gợi ý câu hỏi cho người hỏi khi không đủ thông tin
+                - Trả lời ngắn gọn, dễ hiểu
+                - Không dùng markdown hoặc ký tự *
+                
+                VÍ DỤ:
+                - Nếu khách hỏi phòng cho gia đình => Gợi ý phòng rộng
+                - Nếu khách hỏi giá rẻ => Ưu tiên phòng giá thấp
+                - Nếu khách chưa rõ => Hỏi thêm số người, ngân sách, ...
     
                 CONTEXT:
                 %s
@@ -105,7 +128,7 @@ public class ChatbotService {
                     .call()
                     .content();
 
-            log.info("RESPONSE        : {}", answer);
+            log.info("\nRESPONSE        : {}", answer);
 
             return answer;
         } catch (Exception e) {
@@ -184,31 +207,14 @@ public class ChatbotService {
             case "BOOKING_QUERY" -> getBookingContext(username);
             case "SERVICE_QUERY" -> getServiceContext();
             case "AMENITY_QUERY" -> getAmenityContext();
-            default -> "Không có dữ liệu liên quan.";
+            default -> "Không có dữ liệu liên quan";
         };
     }
 
     // ================= ROOM =================
     private String getRoomContext(String question) {
 
-        List<Room> rooms = chatbotRepository.findAvailableRooms();
-
-        double price = extractPrice(question);
-        int adults = extractAdults(question);
-
-        // filter số người
-        if (adults > 0) {
-            rooms = rooms.stream()
-                    .filter(r -> r.getMaxAdults() >= adults)
-                    .toList();
-        }
-
-        // filter giá
-        if (price > 0) {
-            rooms = rooms.stream()
-                    .filter(r -> r.getBasePrice().doubleValue() <= price)
-                    .toList();
-        }
+        List<Room> rooms = roomRepository.findAllByDeletedAtIsNull();
 
         if (rooms.isEmpty()) {
             return "Không có phòng phù hợp.";
@@ -219,110 +225,97 @@ public class ChatbotService {
         %s
         """.formatted(
                 rooms.stream()
-                        .map(r -> "%s | %s VND | %s người lớn | %s trẻ em | tầng %s"
+                        .map(r -> "[ Tên phòng: %s | Tầng: %s | Đơn giá (VNĐ/đêm): %s | Số người lớn tối đa: %s | Số trẻ em tối đa: %s | Diện tích: %s | Loại phòng: %s | View: %s ]"
                                 .formatted(
                                         r.getRoomName(),
+                                        r.getFloor(),
                                         r.getBasePrice(),
                                         r.getMaxAdults(),
                                         r.getMaxChildren(),
-                                        r.getFloor()
+                                        r.getArea(),
+                                        r.getRoomType().getRoomTypeName(),
+                                        r.getView().getViewName()
                                         ))
                         .collect(Collectors.joining("\n"))
         );
     }
 
-    private double extractPrice(String question) {
-        try {
-            Pattern pattern = Pattern.compile("(\\d+[.,]?\\d*)\\s*(triệu|tr)");
-            Matcher matcher = pattern.matcher(question.toLowerCase());
-
-            if (matcher.find()) {
-                String number = matcher.group(1).replace(",", ".");
-                return Double.parseDouble(number) * 1_000_000;
-            }
-
-        } catch (Exception ignored) {}
-
-        return -1;
-    }
-
-    private int extractAdults(String question) {
-        try {
-            Pattern pattern = Pattern.compile("(\\d+)\\s*(người|khách)");
-            Matcher matcher = pattern.matcher(question.toLowerCase());
-
-            if (matcher.find()) {
-                return Integer.parseInt(matcher.group(1));
-            }
-
-            String q = question.toLowerCase();
-
-            if (q.contains("hai người")) return 2;
-            if (q.contains("ba người")) return 3;
-            if (q.contains("bốn người")) return 4;
-
-        } catch (Exception ignored) {}
-
-        return -1;
-    }
-
     // ================= BOOKING =================
     private String getBookingContext(String username) {
         if (username == null || "anonymousUser".equals(username)) {
-            return "Bạn chưa đăng nhập.";
+            return "Chưa đăng nhập";
         }
 
-        String userId = chatbotRepository.findUserIdByUsername(username);
+        User user = userRepository.findByUsername(username).orElse(null);
 
-        if (userId == null) {
-            return "Không tìm thấy người dùng.";
+        if (user == null) {
+            return "Không tìm thấy người dùng";
         }
 
-        List<Booking> bookings = chatbotRepository.findBookingsByUserId(userId);
+        List<Booking> bookings = bookingRepository.findAllByUserOrderByCreatedAtDesc(user);
 
         if (bookings.isEmpty()) {
-            return """
-                Bạn chưa có booking nào.
-                Gợi ý: Hỏi "Cho tôi xem phòng trống" để đặt phòng.
-            """;
+            return "Chưa có booking";
         }
 
-        return bookings.stream()
-                .map(b -> "%s | %s | %s - %s"
-                        .formatted(
-                                b.getBookingCode(),
-                                b.getBookingStatus(),
-                                b.getCheckInDate(),
-                                b.getCheckOutDate()
-                        ))
-                .collect(Collectors.joining("\n"));
+        return """
+        DANH SÁCH BOOKING:
+        %s
+        """.formatted(
+                bookings.stream()
+                        .map(b -> "[ Mã đặt phòng: %s | Thời gian đặt: %s | Ngày nhận - trả phòng: %s - %s | Người đại diện: %s | Số người lớn: %s | Số trẻ em: %s | Tổng tiền: %s | Trạng thái đặt phòng: %s | Trạng thái thanh toán: %s ]"
+                                .formatted(
+                                        b.getBookingCode(),
+                                        b.getCreatedAt(),
+                                        b.getCheckInDate(),
+                                        b.getCheckOutDate(),
+                                        b.getGuestName(),
+                                        b.getAdults(),
+                                        b.getChildren(),
+                                        b.getTotalPrice(),
+                                        b.getBookingStatus(),
+                                        b.getPaymentStatus()
+                                ))
+                        .collect(Collectors.joining("\n"))
+        );
     }
 
     // ================= SERVICE =================
     private String getServiceContext() {
-        List<com.hotel_booking_system.entity.Service> services = chatbotRepository.findAllServices();
+        List<com.hotel_booking_system.entity.Service> services = serviceRepository.findAllByDeletedAtIsNull();
 
         if (services.isEmpty()) {
-            return "Hiện chưa có dịch vụ nào.";
+            return "Hiện chưa có dịch vụ nào";
         }
 
-        return services.stream()
-                .map(s -> "%s | %s VND"
-                        .formatted(s.getServiceName(), s.getBasePrice()))
-                .collect(Collectors.joining("\n"));
+        return """
+        DANH SÁCH DỊCH VỤ:
+        %s
+        """.formatted(
+                services.stream()
+                        .map(s -> "[ Tên dịch vụ: %s | Đơn giá (VNĐ): %s ]"
+                                .formatted(
+                                        s.getServiceName(),
+                                        s.getBasePrice()
+                                ))
+                        .collect(Collectors.joining("\n"))
+        );
     }
 
     // ================= AMENITY =================
     private String getAmenityContext() {
-        List<Amenity> amenities = chatbotRepository.findAllAmenities();
+        List<Amenity> amenities = amenityRepository.findAllByDeletedAtIsNull();
 
         if (amenities.isEmpty()) {
-            return "Không có tiện nghi.";
+            return "Hiện chưa có tiện nghi nào";
         }
 
-        return amenities.stream()
-                .limit(10)
-                .map(Amenity::getAmenityName)
-                .collect(Collectors.joining(", "));
+        return """
+        DANH SÁCH TIỆN NGHI: %s
+        """.formatted(
+                amenities.stream()
+                        .map(Amenity::getAmenityName)
+                        .collect(Collectors.joining(", "))
+        );
     }
 }

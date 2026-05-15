@@ -218,10 +218,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (response.code === 1000) {
-          alert("Đặt phòng thành công. Thông tin chi tiết sẽ được gửi tới email của bạn!");
-          // Có thể redirect đến trang xác nhận
-          // window.location.href = `confirmation.html?bookingId=${response.result.bookingId}`;
-          window.location.href = "index.html"
+          const formatDate = (dateString) => {
+            const [year, month, day] = dateString.split("-");
+            return `${day}/${month}/${year}`;
+          };
+
+          document.getElementById("modal-guest-name").textContent = response.result.guestName;
+          document.getElementById("modal-booking-id").textContent = response.result.bookingCode;
+          document.getElementById("modal-room-name").textContent = response.result.room.roomName;
+          document.getElementById("modal-check-in").textContent = formatDate(response.result.checkInDate);
+          document.getElementById("modal-check-out").textContent = formatDate(response.result.checkOutDate);
+          document.getElementById("modal-guests").textContent = `${response.result.adults} người lớn, ${response.result.children} trẻ em`;
+
+          const successModal = new bootstrap.Modal(document.getElementById('bookingSuccessModal'));
+          successModal.show();
         } else {
           alert("Lỗi: " + response.message);
         }

@@ -36,4 +36,6 @@ public interface UserRepository extends JpaRepository<User, String> {
         AND (:username IS NULL OR u.username LIKE %:username%)
     """)
     Page<User> findAll(String roleName, String userStatus, String username, Pageable pageable);
+
+    Optional<User> findByEmail(String email);
 }
