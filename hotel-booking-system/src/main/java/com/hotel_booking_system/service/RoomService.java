@@ -181,8 +181,15 @@ public class RoomService {
     // Hàm hỗ trợ xóa ảnh trên Cloudinary và Database
     private void deleteImageFromCloudinary(RoomImage image) {
         try {
-            cloudinary.uploader().destroy(image.getPublicId(), ObjectUtils.emptyMap());
+            if (image.getPublicId() != null && !image.getPublicId().isBlank()) {
+                cloudinary.uploader().destroy(
+                        image.getPublicId(),
+                        ObjectUtils.emptyMap()
+                );
+            }
             roomImageRepository.delete(image);
+//            cloudinary.uploader().destroy(image.getPublicId(), ObjectUtils.emptyMap());
+//            roomImageRepository.delete(image);
         } catch (IOException e) {
             throw new AppException(ErrorCode.DELETE_IMAGE_FAILED);
         }

@@ -81,7 +81,7 @@ async function handleCredentialResponse(response) {
             // Redirect
             setTimeout(() => {
                 window.location.href = "index.html";
-            }, 1500);
+            }, 300);
 
         } else {
 

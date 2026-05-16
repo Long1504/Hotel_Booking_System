@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!emailRegex.test(email.value.trim())) { email.classList.add("is-invalid"); isValid = false; }
             const phoneRegex = /^[0-9]{10}$/;
             if (!phoneRegex.test(phone.value.trim())) { phone.classList.add("is-invalid"); isValid = false; }
-            if (password.value.length < 6) { password.classList.add("is-invalid"); isValid = false; }
+            if (password.value.length < 8) { password.classList.add("is-invalid"); isValid = false; }
             if (confirmPassword.value !== password.value || confirmPassword.value === "") { confirmPassword.classList.add("is-invalid"); isValid = false; }
 
             if (!isValid) return;
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Chuyển sang login sau 1.5 giây
                     setTimeout(() => {
                         window.location.href = "login.html";
-                    }, 1500);
+                    }, 300);
                 } else {
                     messageDiv.textContent = res.message; // lỗi từ server
                     messageDiv.classList.add("text-danger");
@@ -108,7 +108,7 @@ async function handleCredentialResponse(response) {
 
             setTimeout(() => {
                 window.location.href = "index.html";
-            }, 1500);
+            }, 300);
 
         } else {
             messageDiv.textContent = res.message;

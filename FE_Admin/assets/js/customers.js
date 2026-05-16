@@ -74,7 +74,7 @@ function renderTable(customers) {
   }
 
   customers.forEach((user) => {
-    const gender = user.gender === "MALE" ? "Nam" : "Nữ";
+    const gender = user.gender === "MALE" ? "Nam" : (user.gender === "FEMALE" ? "Nữ" : "Khác");
 
     const status =
       user.userStatus === "ACTIVE"

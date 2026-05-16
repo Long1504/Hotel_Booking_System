@@ -44,9 +44,11 @@ async function callAPIWithAuth(endpoint, method = "GET", data = null) {
 
   const response = await fetch(API_BASE + endpoint, options);
 
-  // if (!response.ok) {
-  //   throw new Error("API error");
-  // }
+  if (response.status === 401) {
+    localStorage.removeItem("tokenHotelBookingCustomer");
+    window.location.href = "index.html";
+    return;
+  }
 
   return response.json();
 }

@@ -537,7 +537,7 @@ async function openUpdateModal(roomId) {
           div.innerHTML = `
           <img src="${img.imageUrl}" style="height: 80px; width: 120px; object-fit: cover; border-radius: 4px;">
           <button type="button" class="btn-remove-img" onclick="markOldImageForDeletion('${img.roomImageId}')">&times;</button>
-          <span class="badge bg-secondary position-absolute bottom-0 start-0 w-100 opacity-75" style="font-size: 10px;">Ảnh cũ</span>
+          <span class="badge bg-secondary position-absolute bottom-0 start-0 w-100 opacity-75" style="font-size: 10px;">Hiện tại</span>
         `;
           div.style.position = "relative";
           subImgsContainer.appendChild(div);
