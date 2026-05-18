@@ -155,11 +155,12 @@ public class ChatbotService {
             String prompt = """
                 Bạn là bộ phân loại intent cho chatbot khách sạn.
                 
-                CHỈ TRẢ VỀ 1 TRONG 5 GIÁ TRỊ SAU (VIẾT HOA):
+                CHỈ TRẢ VỀ 1 TRONG 6 GIÁ TRỊ SAU (VIẾT HOA):
                 - ROOM_SEARCH
                 - BOOKING_QUERY
                 - SERVICE_QUERY
                 - AMENITY_QUERY
+                - HOTEL_INFO
                 - GENERAL
                 
                 QUY TẮC:
@@ -196,6 +197,7 @@ public class ChatbotService {
         if (cleaned.contains("BOOK")) return "BOOKING_QUERY";
         if (cleaned.contains("SERVICE")) return "SERVICE_QUERY";
         if (cleaned.contains("AMENITY")) return "AMENITY_QUERY";
+        if (cleaned.contains("HOTEL")) return "HOTEL_INFO";
 
         return "GENERAL";
     }
@@ -207,6 +209,7 @@ public class ChatbotService {
             case "BOOKING_QUERY" -> getBookingContext(username);
             case "SERVICE_QUERY" -> getServiceContext();
             case "AMENITY_QUERY" -> getAmenityContext();
+            case "HOTEL_INFO" -> getHotelInfoContext();
             default -> "Không có dữ liệu liên quan";
         };
     }
@@ -317,5 +320,22 @@ public class ChatbotService {
                         .map(Amenity::getAmenityName)
                         .collect(Collectors.joining(", "))
         );
+    }
+
+    // ================= HOTEL INFO =================
+    private String getHotelInfoContext() {
+        return """
+        THÔNG TIN KHÁCH SẠN AZURE HOTEL:
+        - Giờ check-in: 15:00
+        - Giờ check-out: 11:00
+        - Có bãi đỗ xe miễn phí
+        - Có hồ bơi ngoài trời
+        - Có nhà hàng và quầy bar
+        - Cho phép thú cưng
+        - Lễ tân hỗ trợ 24/7
+        - Địa chỉ: Phố Nhổn, Phường Tây Tựu, Quận Bắc Từ Liêm, Hà Nội
+        - Cách sân bay khoảng 5km
+        - WiFi miễn phí toàn khách sạn
+        """;
     }
 }
